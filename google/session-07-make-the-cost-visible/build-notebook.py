@@ -73,7 +73,6 @@ notebook("prep", [
     sh('bq --project_id="$PROJECT" --location=US show --connection "$CONNECTION" | head -3'),
     sh('gcloud storage ls "gs://$BUCKET/trips/2022-01/"'),
     md("## T minus 35 · Re-verify the published figures"),
-    sh("python3 ../../../assignments/verify-part-b.py a7"),
 ])
 
 notebook("demo", [

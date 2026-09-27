@@ -5,9 +5,9 @@ Trip Analytics, the fictional South End firm used across the course, codifies th
 bucket it created by hand in Session 1, turns it into a module for development, test, and
 production, and then hardens that module against each requirement in A3.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`, Terraform
-v1.5.7, `hashicorp/google` v5.45.2. It replaces the fifteen-minute, seven-step demonstration the
-session taught on 3 September. Steps 1 to 7 keep that demonstration's Terraform unchanged.
+Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`, Terraform v1.5.7,
+`hashicorp/google` v5.45.2. It replaces the fifteen-minute, seven-step demonstration the session
+taught on 3 September. Steps 1 to 7 keep that demonstration's Terraform unchanged.
 
 ## What the rehearsal changed
 

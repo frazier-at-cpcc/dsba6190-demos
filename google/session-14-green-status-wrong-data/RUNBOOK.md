@@ -174,12 +174,13 @@ documentation that tells the person paged what to do. Then break last night once
 structured fields, and `red_count` reads the metric's point back from Cloud Monitoring.
 
 **What to notice.** The alert watches the symptom a user feels, a wrong dashboard, and not a cause
-such as a failed job, which never happened. The channel is `instructor@example.edu`, a reserved domain
-that delivers nowhere. A real channel points at a rotation, never at one person's inbox.
+such as a failed job, which never happened. The channel is `instructor@example.edu`, a reserved
+domain that delivers nowhere. A real channel points at a rotation, never at one person's inbox.
 
 **A new log-based metric can take several minutes to become visible to Monitoring.** The policy cell
 retries every 30 seconds until it does. Keep talking through the policy file while it retries. The
-rehearsal needed one retry, about 30 seconds, and an earlier rehearsal failed outright without the retry.
+rehearsal needed one retry, about 30 seconds, and an earlier rehearsal failed outright without the
+retry.
 
 ### Step 5 · The SLO and the error budget · slide 30 · 4 minutes
 
@@ -210,20 +211,19 @@ CREATE TEMP TABLE lost AS
 INSERT INTO store_sales SELECT * FROM lost;
 ```
 
-An analyst clearing a test register's baskets runs the statement without its second line and
-deletes all 12,270 of last night's rows. Run `checks`: freshness goes red because the newest
-partition is now the night before, and volume reads zero. Restore, run `checks` again, then read
-the event back from `INFORMATION_SCHEMA.JOBS`. On the rehearsal the delete finished at 20:04:01 UTC
-and the restore at 20:04:10, nine seconds later, with 12,270 rows deleted and 12,270 inserted. Last,
-create a snapshot of the table in a
-separate dataset.
+An analyst clearing a test register's baskets runs the statement without its second line and deletes
+all 12,270 of last night's rows. Run `checks`: freshness goes red because the newest partition is
+now the night before, and volume reads zero. Restore, run `checks` again, then read the event back
+from `INFORMATION_SCHEMA.JOBS`. On the rehearsal the delete finished at 20:04:01 UTC and the restore
+at 20:04:10, nine seconds later, with 12,270 rows deleted and 12,270 inserted. Last, create a
+snapshot of the table in a separate dataset.
 
 **What to notice.** The recovery point is the timestamp taken before the delete, so the RPO for this
 event is zero rows. The RTO is seconds only because the mistake was noticed at once; in production
 it runs from the mistake to the moment someone notices. The restore needs a temporary table because
 BigQuery refuses to read and write one table at two different snapshot times in one statement. Time
-travel reaches back seven days. The snapshot lives in another dataset so that it survives the loss of
-the first one.
+travel reaches back seven days. The snapshot lives in another dataset so that it survives the loss
+of the first one.
 
 ### Step 7 · FinOps · slide 32 · 5 minutes
 
@@ -239,11 +239,11 @@ BigQuery cannot prune and reads all sixty nights. The second compares the column
 reads seven. Then group `INFORMATION_SCHEMA.JOBS` by the `pipeline` label, which every job in the
 demonstration carries. Last, apply the lifecycle rule and move the oldest raw file to Nearline.
 
-**What to notice.** The data-quality checks billed 270 MB across nine runs, nearly eight
-times the dashboard's 35 MB, because each run
-pays the 10 MB minimum three times. Labels are what make that visible. The storage move changes the
-object's class and generation and leaves its `gs://` URL alone, so the load job and every other
-consumer keep working. This is the lab's tiering pattern at the scale of one file.
+**What to notice.** The data-quality checks billed 270 MB across nine runs, nearly eight times the
+dashboard's 35 MB, because each run pays the 10 MB minimum three times. Labels are what make that
+visible. The storage move changes the object's class and generation and leaves its `gs://` URL
+alone, so the load job and every other consumer keep working. This is the lab's tiering pattern at
+the scale of one file.
 
 ### Step 8 · Teardown, verified · slide 33 · 2 minutes
 
@@ -256,8 +256,8 @@ bq rm -r -f -d "${DATASET:?}"; bq rm -r -f -d "${BACKUP:?}"
 ```
 
 The last cell counts every resource type whose name carries the run's suffix, and every count is
-zero. **What to notice.** Order matters: Cloud Logging refuses to delete a metric that a policy still
-uses. The `:?` guards refuse to run with an empty name.
+zero. **What to notice.** Order matters: Cloud Logging refuses to delete a metric that a policy
+still uses. The `:?` guards refuse to run with an empty name.
 
 ---
 

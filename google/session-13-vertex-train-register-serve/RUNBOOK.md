@@ -31,9 +31,9 @@ predicts a vehicle's miles per gallon from the attributes the fleet registers. F
 $3.20 a gallon over a 20-mile trip. Both figures are stated assumptions.
 
 The data is the UCI Auto MPG dataset (Quinlan, 1993), published under CC BY 4.0, in
-`sample/auto-mpg.data`. The trainer drops the rows with a missing horsepower and keeps 392
-vehicles with seven attributes each: cylinders, displacement, horsepower, weight, acceleration,
-model year and origin.
+`sample/auto-mpg.data`. The trainer drops the rows with a missing horsepower and keeps 392 vehicles
+with seven attributes each: cylinders, displacement, horsepower, weight, acceleration, model year
+and origin.
 
 Two candidate models answer two questions. Ridge regression and gradient-boosted trees compete on
 test error. An endpoint and a batch job compete on cost shape.
@@ -77,8 +77,8 @@ It took **27 minutes 42 seconds** on the rehearsal, and the deployment was most 
 | T minus 32 | `env.sh` written. Source it and run the Verify cells | Staged in 27 min 42 s |
 | T minus 5 | Open `demo.ipynb` and run the LOAD cell | |
 
-The script prints `deploying (about 10 minutes)`. The rehearsal took about 21. Do not start it
-later than T minus 45.
+The script prints `deploying (about 10 minutes)`. The rehearsal took about 21. Do not start it later
+than T minus 45.
 
 | Symptom | Cause | Fix |
 |---|---|---|
@@ -121,11 +121,11 @@ tar -tzf qc_fuel_trainer-0.1.tar.gz
 tar -xzOf qc_fuel_trainer-0.1.tar.gz qc_fuel_trainer-0.1/trainer/train.py | sed -n '/plain list/,/^mae/p'
 ```
 
-The package holds `setup.py`, `trainer/__init__.py`, `trainer/train.py` and `PKG-INFO`. The
-excerpt shows a `ColumnTransformer` that scales the six numeric columns and one-hot encodes origin,
-selected by position, inside a `Pipeline`. **What to notice.** The preprocessing is saved with the
-model, so no caller repeats it. A local Docker build failed on the rehearsal machine, which is why
-the trainer is a package on a prebuilt container.
+The package holds `setup.py`, `trainer/__init__.py`, `trainer/train.py` and `PKG-INFO`. The excerpt
+shows a `ColumnTransformer` that scales the six numeric columns and one-hot encodes origin, selected
+by position, inside a `Pipeline`. **What to notice.** The preprocessing is saved with the model, so
+no caller repeats it. A local Docker build failed on the rehearsal machine, which is why the trainer
+is a package on a prebuilt container.
 
 ### Step 2 · Two training jobs, already finished · 4 minutes
 
@@ -134,9 +134,9 @@ qc-fuel-ridge-33351     JOB_STATE_SUCCEEDED  18:22:40  18:28:20  e2-standard-4
 qc-fuel-boosted-33351   JOB_STATE_SUCCEEDED  18:22:41  18:27:01  e2-standard-4
 ```
 
-Ridge took 5 min 40 s and boosted trees 4 min 20 s, each on one `e2-standard-4`. **What to
-notice.** The model work is 392 rows, so most of each job is provisioning. That overhead is the gap
-Lab 13 asks students to measure between a local `docker run` and a managed job. Ten minutes of
+Ridge took 5 min 40 s and boosted trees 4 min 20 s, each on one `e2-standard-4`. **What to notice.**
+The model work is 392 rows, so most of each job is provisioning. That overhead is the gap Lab 13
+asks students to measure between a local `docker run` and a managed job. Ten minutes of
 `e2-standard-4` at the managed rate is about three cents.
 
 ### Step 3 · Test error and artifacts · 5 minutes
@@ -217,10 +217,10 @@ vehicle 2:  25.7 mpg  fuel for 20 miles $ 2.49
 vehicle 3:  27.9 mpg  fuel for 20 miles $ 2.29
 ```
 
-The first cell runs under `time`. Read the elapsed seconds aloud. The rehearsal did not record
-them. **What to notice.** The endpoint answers from version 1, ridge, because that is the model
-deployed on it. Registering version 2 changed nothing the endpoint does. The eight-cylinder vehicle
-costs about twice as much fuel per trip as either four-cylinder vehicle.
+The first cell runs under `time`. Read the elapsed seconds aloud. The rehearsal did not record them.
+**What to notice.** The endpoint answers from version 1, ridge, because that is the model deployed
+on it. Registering version 2 changed nothing the endpoint does. The eight-cylinder vehicle costs
+about twice as much fuel per trip as either four-cylinder vehicle.
 
 ### Step 9 · Two cost shapes, then collect the batch job · 12 minutes
 
@@ -271,8 +271,8 @@ gcloud ai models delete "${MODEL_ID:?}" --region "${REGION:?}" --project "${PROJ
 gcloud storage rm -r "gs://${BUCKET:?}" --project "${PROJECT:?}"
 ```
 
-Both list commands print `Listed 0 items.` **What to notice.** Sort the deletions by what they
-stop. Undeploying stopped the hourly charge at step 10. Deleting the bucket stops storage of cents.
+Both list commands print `Listed 0 items.` **What to notice.** Sort the deletions by what they stop.
+Undeploying stopped the hourly charge at step 10. Deleting the bucket stops storage of cents.
 Deleting the endpoint and the model only tidies up. Lab 13's reflection asks for exactly this
 classification. Every name is written `${NAME:?}` so an empty variable refuses to run.
 

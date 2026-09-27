@@ -2,9 +2,9 @@
 
 Build, deploy, update, break, and move. One hour, eleven steps, 1:30 to 2:30.
 
-Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: GKE Standard,
-three `e2-medium` nodes in `us-central1-b`, Cloud Build, Artifact Registry, Cloud Run. Every
-command below was run, and `capture/` holds the full output of each one.
+Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: GKE Standard, three
+`e2-medium` nodes in `us-central1-b`, Cloud Build, Artifact Registry, Cloud Run. Every command below
+was run, and `capture/` holds the full output of each one.
 
 **Do not run `capture.sh` in class.** It stages its own cluster and deletes everything through an
 exit trap. `live-setup.sh` provisions and never destroys.
@@ -63,8 +63,8 @@ nothing. It took **7 minutes 12 seconds** on the rehearsal.
 | The Service's external IP answers nothing for a minute or two | The load balancer is programmed after the IP is assigned | Wait. The rehearsal took 42 seconds for the IP and 73 more to answer |
 
 **Drive the hour from `demo.ipynb`** on the Bash kernel: VS Code, **Select Kernel**, **Jupyter
-Kernel**, **Bash**. The dispatcher loop runs in the background and the `tail -6 loop.log` cells
-show it, so no second terminal is needed.
+Kernel**, **Bash**. The dispatcher loop runs in the background and the `tail -6 loop.log` cells show
+it, so no second terminal is needed.
 
 ---
 
@@ -84,8 +84,8 @@ show it, so no second terminal is needed.
 | 10 | The same image on Cloud Run | 5 | 41 |
 | 11 | Teardown, in order | 3 | 42 |
 
-Slide 28 is the divider, slide 29 introduces the scenario, and slides 30 and 31 carry the run
-sheet. The deck runs to 56 slides.
+Slide 28 is the divider, slide 29 introduces the scenario, and slides 30 and 31 carry the run sheet.
+The deck runs to 56 slides.
 
 ### Step 1 · The layer cache · 4 minutes
 
@@ -142,9 +142,9 @@ restarts and no event. **What to notice.** The quiet failure can only be found i
 
 ### Step 9 · The budget refuses the drain · 6 minutes
 
-`minAvailable: 3` with three replicas: the drain times out, because no eviction is ever allowed. That
-is the anti-pattern that blocks node upgrades. `minAvailable: 2`: one disruption allowed, the drain
-evicts one pod at a time and waits for its replacement. Uncordon the node afterwards.
+`minAvailable: 3` with three replicas: the drain times out, because no eviction is ever allowed.
+That is the anti-pattern that blocks node upgrades. `minAvailable: 2`: one disruption allowed, the
+drain evicts one pod at a time and waits for its replacement. Uncordon the node afterwards.
 
 ### Step 10 · The same image on Cloud Run · 5 minutes
 
@@ -152,9 +152,9 @@ evicts one pod at a time and waits for its replacement. Uncordon the node afterw
 time gcloud run deploy qc-fare-api --region "$REGION" --image "$IMAGE_BASE:v2" --allow-unauthenticated --quiet
 ```
 
-**9 seconds.** First request 0.88 s, later ones about 0.3 s. Concurrency 80 per instance by
-default. **Say plainly** that `--allow-unauthenticated` is for the room's laptops, and that A8's
-internal API must not use it.
+**9 seconds.** First request 0.88 s, later ones about 0.3 s. Concurrency 80 per instance by default.
+**Say plainly** that `--allow-unauthenticated` is for the room's laptops, and that A8's internal API
+must not use it.
 
 ### Step 11 · Teardown, in order · 3 minutes
 

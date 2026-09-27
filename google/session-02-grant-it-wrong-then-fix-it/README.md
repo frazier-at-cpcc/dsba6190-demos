@@ -2,13 +2,11 @@
 
 The hour-long IAM and networking demonstration for Session 2, IAM, Networking and Security, taught
 Thursday 27 August 2026. Crown Street Markets, a fictional 40-store Charlotte grocery chain, gives
-its first analyst access to its first analytics project. The analyst receives Editor on the
-project, uses it, and loses it. A private VM then learns to reach Google's APIs without reaching the
+its first analyst access to its first analytics project. The analyst receives Editor on the project,
+uses it, and loses it. A private VM then learns to reach Google's APIs without reaching the
 internet.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. It replaces the
-thirteen Console screenshots in `../session-02-iam-console-walkthrough/`, which were the delivered
-version. One of those screenshots, the Basic-roles-first role picker, stays in the deck as slide 31.
+Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`.
 
 ## What the rehearsal changed
 

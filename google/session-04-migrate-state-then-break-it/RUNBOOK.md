@@ -19,11 +19,7 @@ exit trap. `live-setup.sh` is its opposite.
 
 The figure covers four Cloud Storage buckets, one Pub/Sub topic and a few kilobytes of objects,
 living for about an hour. The dominant line is the state bucket, because versioning keeps every
-generation and the demonstration writes state twenty times. It is an estimate from list pricing and
-is not yet verified against the Google Cloud pricing calculator; `docs/DEMO-RUNBOOKS-PLAN.md`
-section 6 records that verification as a prerequisite for the student version of this document. The
-figure matches the Session 4 row in `docs/DEMO-DEVELOPMENT-PLAN.md` section 7, which is the
-authoritative estimate. Keep the two in agreement.
+generation and the demonstration writes state twenty times.
 
 ---
 
@@ -32,8 +28,8 @@ authoritative estimate. Keep the two in agreement.
 The hour is taught as one company's first month with shared state, so that students watch each
 control protect a business rather than a demonstration estate. **Queen City Trip Analytics** is
 fictional: a twelve-person analytics firm in South End, Charlotte, that sells trip-demand dashboards
-to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform, on
-one engineer's laptop.
+to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform,
+on one engineer's laptop.
 
 Tonight is month one. A second engineer joins, and state that lives on one laptop becomes the
 company's largest risk. The company moves its state to a shared, versioned, locked backend before
@@ -70,17 +66,15 @@ command changes for the scenario. The table names what each resource is to the c
 until step 11 writes one file, and the password protects no database. The scenario names what each
 resource would be at the company.
 
-Introduce the company on the scenario slide, slide 28, in about two minutes. Then open each step with
-one sentence of what the company is doing. Each step below begins with that sentence, and the slide
-notes carry it too.
+Introduce the company on the scenario slide, slide 28, in about two minutes. Then open each step
+with one sentence of what the company is doing. Each step below begins with that sentence, and the
+slide notes carry it too.
 
 ---
 
 ## How the hour fits the session clock
 
-The session plan carried this demonstration at fifteen minutes inside 1:10 to 1:50. It is now an
-hour, and [`../../lecture-04-terraform-state-automation.md`](../../lecture-04-terraform-state-automation.md)
-carries the matching timing table.
+The session plan carried this demonstration at fifteen minutes inside 1:10 to 1:50.
 
 | Clock | Segment | Minutes |
 |---|---|---|
@@ -97,9 +91,9 @@ what those minutes would have described: the sensitivity of state, the local-to-
 locking, import, secrets, rollback and destructive-change prevention are all executed rather than
 asserted. Name each idea from the slide, then let the terminal supply the evidence.
 
-The lab keeps fifty-two minutes, which was never enough and is not meant to be. Google lists Lab 4 at
-fifteen minutes; the honest figure is an hour. Task 1 happens in the room where help is available and
-Task 2 is finished before Wednesday. Say that at 2:00.
+The lab keeps fifty-two minutes, which was never enough and is not meant to be. Google lists Lab 4
+at fifteen minutes; the honest figure is an hour. Task 1 happens in the room where help is available
+and Task 2 is finished before Wednesday. Say that at 2:00.
 
 ---
 
@@ -155,13 +149,10 @@ Common causes, in the order they occur:
 - Deck on slide 9. The scenario slide is 28, the run sheet is slides 29 and 30, and the captured
   output runs from slide 31 to slide 41, one slide per step.
 
-**Slide numbers.** Every number in this document is the number printed in the bottom right corner of
-the built deck, `slides/pdf/Session_04_Terraform_State_and_Automation.pdf`, which is 57 slides.
-
-**Network contingency.** If the room has no working connection, advance to the capture slides. Slides
-31 to 41 carry a trimmed capture for each step and the full files are in `capture/`, one file per
-command, numbered in the order below. Every line is real output from the 10 September rehearsal. Say
-plainly that the run is recorded rather than live. The repository standard is that a capture is
+**Network contingency.** If the room has no working connection, advance to the capture slides.
+Slides 31 to 41 carry a trimmed capture for each step and the full files are in `capture/`, one file
+per command, numbered in the order below. Every line is real output from the 10 September rehearsal.
+Say plainly that the run is recorded rather than live. The repository standard is that a capture is
 labelled as one.
 
 ---
@@ -267,12 +258,12 @@ cp backend.tf.staged backend.tf
 cat backend.tf
 ```
 
-Read the block aloud. `bucket` names the state bucket. `prefix` is `envs/dev`, which is what lets one
-bucket hold several environments as separate objects.
+Read the block aloud. `bucket` names the state bucket. `prefix` is `envs/dev`, which is what lets
+one bucket hold several environments as separate objects.
 
-**What to notice.** The staged file is a template that `live-setup.sh` filled in, because **a backend
-block may not contain a variable.** That restriction is slide 14's watch-for. In a real repository
-the answer is partial configuration plus `-backend-config` on the command line.
+**What to notice.** The staged file is a template that `live-setup.sh` filled in, because **a
+backend block may not contain a variable.** That restriction is slide 14's watch-for. In a real
+repository the answer is partial configuration plus `-backend-config` on the command line.
 
 ```sh
 terraform init -migrate-state
@@ -425,9 +416,10 @@ terraform plan
 Expect `No changes.`
 
 **What to notice.** State this precisely, because it is the sentence students misremember.
-`force-unlock` is correct when the process that took the lock is dead. It is wrong when a colleague's
-apply is still running, and there is nothing in the command that can tell the difference. The
-`Who:` and `Created:` fields exist so a human can. Check them, then message the person, then unlock.
+`force-unlock` is correct when the process that took the lock is dead. It is wrong when a
+colleague's apply is still running, and there is nothing in the command that can tell the
+difference. The `Who:` and `Created:` fields exist so a human can. Check them, then message the
+person, then unlock.
 
 ### Step 7 · Versioning is the undo · slide 10 · 5 minutes
 
@@ -445,10 +437,10 @@ terraform plan
 
 Expect `Plan: 4 to add, 0 to change, 0 to destroy.`
 
-**What to notice.** Stop and let this sit. Nothing was deleted from the project. Every bucket and the
-topic are still there. Terraform lost its record and now proposes to build the estate a second time
-next to the one that already exists. This is the state-loss scenario from slide 7, on screen, caused
-by deleting one object.
+**What to notice.** Stop and let this sit. Nothing was deleted from the project. Every bucket and
+the topic are still there. Terraform lost its record and now proposes to build the estate a second
+time next to the one that already exists. This is the state-loss scenario from slide 7, on screen,
+caused by deleting one object.
 
 ```sh
 gcloud storage ls --all-versions --long \
@@ -569,8 +561,8 @@ Terraform and told nobody.
 terraform plan
 ```
 
-Expect `~ "owner" = "someone-at-2am" -> "data-platform"` and
-`Plan: 0 to add, 1 to change, 0 to destroy.`
+Expect `~ "owner" = "someone-at-2am" -> "data-platform"` and `Plan: 0 to add, 1 to change, 0 to
+destroy.`
 
 **What to notice.** Terraform found it on the next plan. Detection, not prevention. Slide 21 names
 the scheduled `plan` that turns this into an alert.
@@ -581,8 +573,8 @@ Then put the harder case to the room and let them answer it: what if the person 
 terraform apply -refresh-only
 ```
 
-Expect `Note: Objects have changed outside of Terraform`, the same label diff in the other direction,
-and:
+Expect `Note: Objects have changed outside of Terraform`, the same label diff in the other
+direction, and:
 
 ```
 This is a refresh-only plan, so Terraform will not take any actions to undo
@@ -622,16 +614,15 @@ reality match the configuration.
 
 ### Step 10 · Surgery on the record · slide 50 · 5 minutes
 
-Queen City hands the legacy archive back to manual management, then renames the trip bucket's address
-without moving the bucket.
+Queen City hands the legacy archive back to manual management, then renames the trip bucket's
+address without moving the bucket.
 
 ```sh
 terraform state list
 terraform state rm google_storage_bucket.legacy
 ```
 
-Expect `Removed google_storage_bucket.legacy` and
-`Successfully removed 1 resource instance(s).`
+Expect `Removed google_storage_bucket.legacy` and `Successfully removed 1 resource instance(s).`
 
 ```sh
 terraform plan
@@ -664,8 +655,9 @@ Expect `Plan: 1 to add, 0 to change, 1 to destroy.`
 
 **What to notice.** Nothing about the bucket changed. Only its **address** in the configuration
 changed, from `google_storage_bucket.raw` to `google_storage_bucket.landing`. Terraform reads an
-unfamiliar address as a new resource and a familiar one that vanished as a deletion. Session 3 showed
-that renaming the bucket's `name` forces replacement; this is the other rename, and it is avoidable.
+unfamiliar address as a new resource and a familiar one that vanished as a deletion. Session 3
+showed that renaming the bucket's `name` forces replacement; this is the other rename, and it is
+avoidable.
 
 ```sh
 terraform state mv google_storage_bucket.raw google_storage_bucket.landing
@@ -767,10 +759,10 @@ terraform destroy
 
 Expect `Destroy complete! Resources: 5 destroyed.` Everything goes, including `report.csv`.
 
-**End here.** Ask what would restore that file. Reverting the commit restores `force_destroy = false`
-and restores nothing else. Versioning on the state bucket restored the record in step 7 and would not
-have restored this. **Infrastructure rollback is not a substitute for backups**, and that sentence is
-the trap A4's brief warns about. Let the silence run, then move to the lab.
+**End here.** Ask what would restore that file. Reverting the commit restores `force_destroy =
+false` and restores nothing else. Versioning on the state bucket restored the record in step 7 and
+would not have restored this. **Infrastructure rollback is not a substitute for backups**, and that
+sentence is the trap A4's brief warns about. Let the silence run, then move to the lab.
 
 ---
 
@@ -827,8 +819,8 @@ buckets cost effectively nothing, but leaving them costs the next run its bucket
 | A bucket name collides | Re-run `live-setup.sh` for a new suffix. This costs about ninety seconds because it re-applies the baseline |
 
 The captured output is not a lesser version of this demonstration. It is the same run, recorded on
-10 September 2026, and every line is real. Switching to it costs the room nothing except the sight of
-a command being typed.
+10 September 2026, and every line is real. Switching to it costs the room nothing except the sight
+of a command being typed.
 
 ---
 
@@ -860,10 +852,10 @@ kind of constraint students meet on their own and read as a mistake.
 
 The deck carries the demonstration. Slide 28 introduces Queen City Trip Analytics, slides 29 and 30
 list the eleven steps with their minute budgets, and slides 31 to 41 carry one trimmed capture each,
-in step order. Every line on them is real output from
-the 10 September 2026 rehearsal, and each slide's speaker notes name the capture date and the source
-files. They do not replace performing the demonstration. They are the projected output so the room
-can read what the terminal shows, and the fallback if the network fails.
+in step order. Every line on them is real output from the 10 September 2026 rehearsal, and each
+slide's speaker notes name the capture date and the source files. They do not replace performing the
+demonstration. They are the projected output so the room can read what the terminal shows, and the
+fallback if the network fails.
 
 | Step | Deck slide | Captures on it |
 |---|---|---|

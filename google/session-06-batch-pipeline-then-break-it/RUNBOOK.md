@@ -23,17 +23,11 @@ instance through an exit trap, and the instance takes about sixteen minutes to r
 The figure covers one Basic-edition Cloud Data Fusion instance for two to three hours, four
 ephemeral Dataproc clusters of three `e2-custom-2-8192` nodes each, one Cloud Storage bucket holding
 about 2 MB, and one BigQuery dataset. The capture run measured **1.22 instance-hours** for seven
-pipeline runs; an in-class evening from T minus 60 to teardown is about 2.5.
-**The instance is the whole number.** Basic edition bills $1.80 per
-instance-hour and the first 120 instance-hours each month are free per billing account, so the same
-usage is $0 on an account whose allowance is unconsumed and about $4 on one whose allowance is gone.
-The clusters add roughly $0.04 per run and the storage and queries are under a cent. The figure is
-an
-estimate from list pricing and is not yet verified against the Google Cloud pricing calculator;
-[`../../../docs/DEMO-RUNBOOKS-PLAN.md`](../../../docs/DEMO-RUNBOOKS-PLAN.md) section 6 records that
-verification as a prerequisite for the student version of this document. It matches the Session 6
-row in [`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7,
-which is the authoritative estimate. Keep the two in agreement.
+pipeline runs; an in-class evening from T minus 60 to teardown is about 2.5. **The instance is the
+whole number.** Basic edition bills $1.80 per instance-hour and the first 120 instance-hours each
+month are free per billing account, so the same usage is $0 on an account whose allowance is
+unconsumed and about $4 on one whose allowance is gone. The clusters add roughly $0.04 per run and
+the storage and queries are under a cent.
 
 **The overnight number is the one to say out loud.** A Basic-edition instance left running costs
 $25.20 for one night and $1,296 for a month. That is more than every other demonstration in this
@@ -43,12 +37,12 @@ course combined, and step 12 exists because of it.
 
 ## The scenario · Crown Street Markets
 
-The hour is taught as one company's work. **Crown Street Markets** is fictional: a grocery chain with
-40 stores across Mecklenburg County, headquartered in Charlotte. Every night each store's register
-system drops a point-of-sale extract into Cloud Storage, and a three-person analytics team turns it
-into the validated sales table store managers read at 7 a.m. Tonight's file is one business day:
-20,000 transactions from stores `CLT-001` to `CLT-040`. A6's chain has 1,200 stores; Crown Street is
-the pilot, and the pilot is where the defects surface.
+The hour is taught as one company's work. **Crown Street Markets** is fictional: a grocery chain
+with 40 stores across Mecklenburg County, headquartered in Charlotte. Every night each store's
+register system drops a point-of-sale extract into Cloud Storage, and a three-person analytics team
+turns it into the validated sales table store managers read at 7 a.m. Tonight's file is one business
+day: 20,000 transactions from stores `CLT-001` to `CLT-040`. A6's chain has 1,200 stores; Crown
+Street is the pilot, and the pilot is where the defects surface.
 
 | Step | What it is in the scenario |
 |---|---|
@@ -65,9 +59,7 @@ Introduce the company on the scenario slide that precedes the run sheet, in abou
 
 ## How the hour fits the session clock
 
-The session plan carried this demonstration at fifteen minutes inside 1:10 to 1:50. It is now an
-hour, and [`../../lecture-06-ingestion-integration.md`](../../lecture-06-ingestion-integration.md)
-carries the matching timing table.
+The session plan carried this demonstration at fifteen minutes inside 1:10 to 1:50.
 
 | Clock | Segment | Minutes |
 |---|---|---|
@@ -79,16 +71,15 @@ carries the matching timing table.
 | 2:30–2:55 | Guided lab · Lab 6, supervised start | 25 |
 | 2:55–3:00 | Wrap | 5 |
 
-This is the clock proposed in `DEMO-DEVELOPMENT-PLAN.md` section 3, adopted without change. Concept
-Block 1 loses five minutes. Concept Block 2 was forty minutes with a fifteen-minute demonstration
-inside it and is now twenty-five minutes of concept with the demonstration lifted out.
+Concept Block 1 loses five minutes. Concept Block 2 was forty minutes with a fifteen-minute
+demonstration inside it and is now twenty-five minutes of concept with the demonstration lifted out.
 
 **The guided lab is a supervised start rather than a completion window, and this week that is not a
-compromise.** Lab 6 pairs two activities whose provisioning alone consumes twenty-five to
-forty-five minutes, and the lecture already tells students the labs are not expected to finish in
-class. Twenty-five minutes buys the first action of each, which is the action that has to start
-early: create the Data Fusion instance, then create the Airflow environment, then read while both
-build. Say that at 2:30 in those words.
+compromise.** Lab 6 pairs two activities whose provisioning alone consumes twenty-five to forty-five
+minutes, and the lecture already tells students the labs are not expected to finish in class.
+Twenty-five minutes buys the first action of each, which is the action that has to start early:
+create the Data Fusion instance, then create the Airflow environment, then read while both build.
+Say that at 2:30 in those words.
 
 ---
 
@@ -97,19 +88,16 @@ build. Say that at 2:30 in those words.
 **A pipeline run takes seven and a half to nine and a half minutes, and most of that is not yours to
 fill with silence.** The three runs that succeeded measured **454, 533 and 571 seconds**, and
 `capture/43-all-runs.txt` lists all seven. On the run in `capture/09-run1-wait.txt` the split was
-189
-seconds queued, 110 seconds building the Dataproc cluster, and 156 seconds of Spark. On the next it
-was 251, 141 and 189. **The variation sits almost entirely in the queue and the cluster build rather
-than in the work**, so plan against the slow end and treat anything under eight minutes as luck.
-Runs that fail come back sooner, between 361 and 563 seconds, because a sink that refuses validates
-before it writes.
+189 seconds queued, 110 seconds building the Dataproc cluster, and 156 seconds of Spark. On the next
+it was 251, 141 and 189. **The variation sits almost entirely in the queue and the cluster build
+rather than in the work**, so plan against the slow end and treat anything under eight minutes as
+luck. Runs that fail come back sooner, between 361 and 563 seconds, because a sink that refuses
+validates before it writes.
 
 Every other demonstration in this course runs a command and reads the answer. This one starts a run
 and then teaches for eight to nine minutes while it works. **The steps below are therefore written
-as pairs: a
-start, then the material that covers it, then the reading of the result.** Do not stand and watch
-the
-progress bar. The run is the timer, not the content.
+as pairs: a start, then the material that covers it, then the reading of the result.** Do not stand
+and watch the progress bar. The run is the timer, not the content.
 
 Four runs fit in the hour. Six do not. That is the arithmetic that shaped the step list.
 
@@ -139,8 +127,8 @@ cd "lectures/demos/session-06-batch-pipeline-then-break-it"
 ```
 
 **Sixty minutes, not thirty.** The instance is the only resource in this course that cannot be
-created inside the hour it is needed. Two builds were measured on 10 September: **16 minutes
-46 seconds** and **15 minutes 20 seconds** from `create` to `RUNNING`. On the first, two create
+created inside the hour it is needed. Two builds were measured on 10 September: **16 minutes 46
+seconds** and **15 minutes 20 seconds** from `create` to `RUNNING`. On the first, two create
 attempts aborted after three seconds each and had to be re-issued before the third worked. Sixty
 minutes is that build plus two failed starts plus the margin to notice.
 
@@ -179,8 +167,7 @@ wrangler-transform       4.11.1       SYSTEM
 ```
 
 An empty answer means the instance reports `RUNNING` but its API is not serving yet. Wait two
-minutes
-and try again. Anything else means fix it now rather than at 1:30.
+minutes and try again. Anything else means fix it now rather than at 1:30.
 
 **Then run one pipeline and throw it away.** This is the only demonstration in the course that asks
 for a smoke test, and the reason is that both of its IAM failure modes fail late. A missing grant
@@ -194,11 +181,10 @@ SMOKE=$(python3 cdap.py start --endpoint "$ENDPOINT" --app smoke)
 python3 cdap.py wait --endpoint "$ENDPOINT" --app smoke --run "$SMOKE"
 ```
 
-**Let it finish.** It takes seven and a half to nine and a half minutes, which is why it starts at
-T minus 42 and not at T minus 5. Stopping it early is the tempting move and the wrong one: a run
-killed between `PENDING`
-and `RUNNING` can leave its Dataproc cluster behind, and a cluster nobody is watching is exactly the
-charge this session spends an hour warning about.
+**Let it finish.** It takes seven and a half to nine and a half minutes, which is why it starts at T
+minus 42 and not at T minus 5. Stopping it early is the tempting move and the wrong one: a run
+killed between `PENDING` and `RUNNING` can leave its Dataproc cluster behind, and a cluster nobody
+is watching is exactly the charge this session spends an hour warning about.
 
 What matters is the transition. A run that reaches `STARTING` has already cleared every permission
 the hour depends on, so once you see `STARTING` the grants are proven and the rest is confirmation.
@@ -248,9 +234,9 @@ minutes of material behind it.
 
 **Network contingency.** If the room has no working connection, present from the deck. Slides 41 to
 52 carry one capture slide per step, trimmed to the type floor and drawn from the same outputs, and
-the full text of every command is in `capture/`. Every file in it is real output from the
-10 September rehearsal, one file per command, numbered in the order below. Say plainly that the run
-is recorded rather than live. The repository standard is that a capture is labelled as one.
+the full text of every command is in `capture/`. Every file in it is real output from the 10
+September rehearsal, one file per command, numbered in the order below. Say plainly that the run is
+recorded rather than live. The repository standard is that a capture is labelled as one.
 
 **This demonstration has a second contingency the others do not need.** If a run fails twice for a
 reason the failure table does not name, do not debug it in front of the room. Move to `capture/`,
@@ -266,9 +252,8 @@ in the browser tab already signed in. Substitute the suffix `live-setup.sh` prin
 `<SUFFIX>` appears; the captured outputs below carry `75439`, the rehearsal's suffix.
 
 **Four pipeline runs fit in this hour.** They are started at steps 4, 7, 10 and 12, and the step
-that
-follows each start is the material that covers it. Each step below names the run that is in flight
-while it is taught. Do not reorder them: each run leaves the table the next step reads.
+that follows each start is the material that covers it. Each step below names the run that is in
+flight while it is taught. Do not reorder them: each run leaves the table the next step reads.
 
 | # | Step | Minutes | Run in flight |
 |---|---|---|---|
@@ -309,8 +294,7 @@ Then say what it cost in time. **The instance took about sixteen minutes to buil
 15:20 and 16:46, and on one of those builds the first two create attempts failed after three seconds
 each.** That is why it was provisioned an hour ago rather than now, and it is the first honest
 answer to the cost question A6 asks: Data Fusion's price is not the per-run price, it is the
-standing
-price of having the thing available.
+standing price of having the thing available.
 
 This is the only slide where cost is the subject rather than a footnote. **Cost is a first-class
 topic in this session** because A6 grades it.
@@ -357,9 +341,8 @@ open-source Python and runs on Amazon MWAA, on Astronomer, and on a laptop. That
 legitimate A6 argument and this is the moment to hand it to the room.
 
 Ask which two directives are doing the dangerous work. The answer is the two `set-type` lines and
-the
-`parse-as-datetime` line, because those are the three that can fail on a row, and step 8 is about
-what a failure means.
+the `parse-as-datetime` line, because those are the three that can fail on a row, and step 8 is
+about what a failure means.
 
 ### Step 3 · Three nodes, two edges, and the zones on the board · slide 19 · 5 minutes
 
@@ -411,8 +394,7 @@ python3 cdap.py start --endpoint "$ENDPOINT" --app pos-01-baseline
 
 Expect the deploy to report three stages and two edges, and the start to print a run id. **Start the
 run before you explain anything.** It takes eight to nine minutes and the next two steps are what
-covers
-it.
+covers it.
 
 Now switch to the Dataproc tab in the Console and refresh it until a cluster appears, which takes
 about ninety seconds:
@@ -454,21 +436,18 @@ Walk the four phases the run passes through, which the terminal will print as it
 | `COMPLETED` | 455 seconds | The cluster is deleted |
 
 **What to notice.** Most of the run is not the work. Two and a half minutes of Spark over 20,000
-rows,
-and five minutes of waiting for somewhere to run it. Ask the room what that implies about a pipeline
-scheduled every five minutes, and let the answer arrive: this architecture is built for batch and it
-is the wrong shape for anything that needs to be fresh. That is Week 11's subject and this is the
-evidence for it.
+rows, and five minutes of waiting for somewhere to run it. Ask the room what that implies about a
+pipeline scheduled every five minutes, and let the answer arrive: this architecture is built for
+batch and it is the wrong shape for anything that needs to be fresh. That is Week 11's subject and
+this is the evidence for it.
 
 Then price it. Three `e2-custom-2-8192` nodes are about $0.20 an hour together, the Dataproc
 surcharge over six vCPU adds about $0.06 an hour, and a ten-minute run therefore costs about
-**$0.04**.
-Set that beside $1.80 per instance-hour and the shape of Data Fusion's economics is visible in one
-comparison: **the runs are nearly free and the availability is not.** A team running two hundred
-pipelines a day amortises the instance. A team running one pipeline a week is paying $1,296 a month
-for a Studio they open on Tuesdays. **That trade is a defensible A6 answer in either direction**,
-and
-the room now has the numbers to argue it.
+**$0.04**. Set that beside $1.80 per instance-hour and the shape of Data Fusion's economics is
+visible in one comparison: **the runs are nearly free and the availability is not.** A team running
+two hundred pipelines a day amortises the instance. A team running one pipeline a week is paying
+$1,296 a month for a Studio they open on Tuesdays. **That trade is a defensible A6 answer in either
+direction**, and the room now has the numbers to argue it.
 
 ### Step 6 · The control number · slide 18 · 3 minutes
 
@@ -492,14 +471,13 @@ Expect:
 ```
 
 **What to notice.** Write **20,000** and **2,422,034.45** on the board and leave them there. They
-are
-the control numbers for steps 9, 11 and 12, and the entire second half of this hour is the room
+are the control numbers for steps 9, 11 and 12, and the entire second half of this hour is the room
 watching them fail to hold.
 
 Say what a clean run looks like so the unclean one is recognisable: every row that left the file
-arrived in the table, no timestamp is null, and the total is a number a finance team could
-reconcile against a different system. That last property is the one that matters, and it is the one
-that breaks first.
+arrived in the table, no timestamp is null, and the total is a number a finance team could reconcile
+against a different system. That last property is the one that matters, and it is the one that
+breaks first.
 
 ### Step 7 · The malformed day arrives · slide 13 · 3 minutes
 
@@ -548,18 +526,16 @@ calls for.
 Then name the fourth path, which is not on the list because nobody chooses it deliberately.
 
 **Silent coercion.** A numeric column arrives as a string, something casts it to null, the row
-loads,
-and the dashboard is confidently and quietly wrong. It is the worst of the four because it is the
-only one that produces no signal at all. There is no alert, no failed run, and no red node on the
-canvas. There is a number in a meeting that nobody can reconcile, three weeks later.
+loads, and the dashboard is confidently and quietly wrong. It is the worst of the four because it is
+the only one that produces no signal at all. There is no alert, no failed run, and no red node on
+the canvas. There is a number in a meeting that nobody can reconcile, three weeks later.
 
 Ask the room which of the four Wrangler is currently configured to do. The answer is on the pipeline
 and none of them have seen it: the transform's `on-error` property is `skip-error`, which is the
 default, and the default is closest to silent coercion.
 
 **What to notice.** Set up the next step without spoiling it. Tell the room the run is loading a
-file
-with three known-bad rows, that they have been told what the pipeline does with bad rows, and
+file with three known-bad rows, that they have been told what the pipeline does with bad rows, and
 that in four minutes they should predict the row count before you read it. Take a show of hands on
 20,000, 20,001, 20,003 and "it fails". Write the vote on the board.
 
@@ -615,29 +591,23 @@ bq --project_id="$PROJECT" --quiet query --use_legacy_sql=false --nouse_cache --
 order and do not let the second one eat the first.
 
 **The count is 40,001.** The pipeline ran twice against a table it appends to, so run A's 20,000
-rows
-are still there and run B added 20,001 more. Every transaction from the clean day is now in the
-warehouse twice. The
-pipeline is **not idempotent**, and the word arrives for the third time in this course after
-Terraform in Week 3 and the raw zone in Week 5. Say that a retry policy on this pipeline would be a
-machine for producing duplicates, and that tonight's lab sets `'retries': 1` on every task in its
-DAG. Steps 10 and 12 fix this.
+rows are still there and run B added 20,001 more. Every transaction from the clean day is now in the
+warehouse twice. The pipeline is **not idempotent**, and the word arrives for the third time in this
+course after Terraform in Week 3 and the raw zone in Week 5. Say that a retry policy on this
+pipeline would be a machine for producing duplicates, and that tonight's lab sets `'retries': 1` on
+every task in its DAG. Steps 10 and 12 fix this.
 
 **Three records went into Wrangler and did not come out, and nobody was told.** The stage counts say
 20,004 in and 20,001 out. One of the three is benign and known: the header line, consumed by
 `parse-as-csv` exactly as it was in step 6. The other two are `not-a-date`, which failed the
-datetime
-parse, and `N/A`, which failed the cast to double. `skip-error` discarded both without a warning, a
-log line, or a failed run. **The pipeline reported success.** That is the silent coercion from step
-8,
-performed rather than described, and the fact that a benign loss and a catastrophic one look
-identical in these counters is the reason it is dangerous. Ask what the
-finance team's reconciliation looks like when two transactions are missing from a day and nothing
-anywhere says so.
+datetime parse, and `N/A`, which failed the cast to double. `skip-error` discarded both without a
+warning, a log line, or a failed run. **The pipeline reported success.** That is the silent coercion
+from step 8, performed rather than described, and the fact that a benign loss and a catastrophic one
+look identical in these counters is the reason it is dangerous. Ask what the finance team's
+reconciliation looks like when two transactions are missing from a day and nothing anywhere says so.
 
 **And the third row loaded.** `T-0900003` has a quantity of **-4**, which is perfectly well typed
-and
-plainly wrong. No schema catches it, no cast fails on it, and no error path exists for it. **A
+and plainly wrong. No schema catches it, no cast fails on it, and no error path exists for it. **A
 type system is not a quality gate.** Row counts and null checks would not have caught this either;
 only a rule that knows a quantity cannot be negative catches it, and writing that rule is a decision
 somebody has to make on purpose. That distinction is worth a slow minute, because A6's scenario is
@@ -703,9 +673,8 @@ The run has eight minutes to go. Open the **Lineage** tab on the deployed pipeli
 **What to notice.** The lecture's line is that lineage is the difference between an afternoon and a
 fortnight. Make it concrete with tonight's own artifact. `amount` in the validated table came from
 column six of a CSV in `raw/`, by way of a `set-type` directive that discarded every row it could
-not
-cast. **The discarding is visible in the lineage and invisible in the data**, and a person asked in
-three weeks why the daily total is low has exactly one place to look that answers the question.
+not cast. **The discarding is visible in the lineage and invisible in the data**, and a person asked
+in three weeks why the daily total is low has exactly one place to look that answers the question.
 
 Then say what lineage is not. It records what the pipeline did, not whether it was right. It would
 have shown the same clean graph for the run that dropped two rows and the run that loaded a negative
@@ -744,10 +713,9 @@ gcloud storage cat "gs://dsba6190-pos-<SUFFIX>/quarantine/pos/**" | head -4
 ```
 
 **What to notice.** 20,001 plus two quarantined is 20,003, which is exactly the number of rows in
-the
-file. **The count reconciles for the first time tonight.** That is the property a data quality gate
-actually delivers: not that nothing goes wrong, but that when something does, the arithmetic still
-closes and somebody can be told what was lost.
+the file. **The count reconciles for the first time tonight.** That is the property a data quality
+gate actually delivers: not that nothing goes wrong, but that when something does, the arithmetic
+still closes and somebody can be told what was lost.
 
 Read one quarantined record aloud, slowly, because it carries four things and every one of them
 matters. **The original row, byte for byte.** **The byte offset in the source file**, so the record
@@ -828,12 +796,9 @@ other. Ask which failure they would rather have at 3 a.m., and let them argue: t
 night's sleep and the silent one costs a quarter's reporting.
 
 **The quarantine branch that fixed step 9 introduced this.** The pipeline in step 4 had no error
-sink
-and could be re-run all night, wrongly. Adding the control that made the count reconcile is what
-made
-the pipeline un-runnable twice. **Every control has a cost and this one's arrived four minutes
-later.**
-That is the honest version of the design conversation A6 asks for.
+sink and could be re-run all night, wrongly. Adding the control that made the count reconcile is
+what made the pipeline un-runnable twice. **Every control has a cost and this one's arrived four
+minutes later.** That is the honest version of the design conversation A6 asks for.
 
 **And the fix is the deterministic partition target from Concept Block 1.** Both halves:
 
@@ -851,10 +816,9 @@ should leave holding the defect rather than the repair.
 
 Then connect it to tonight's lab in one move. The Airflow DAG students are about to run sets
 `'retries': 1` on every task. Ask what that retry would have done here, and do not soften the
-answer:
-it would have re-run a task that cannot succeed twice, failed identically, and reported a failed DAG
-at 3 a.m. for a pipeline whose data was never wrong. **A retry is only safe if the task is
-idempotent**, and this is the fourth time that sentence has appeared in this course.
+answer: it would have re-run a task that cannot succeed twice, failed identically, and reported a
+failed DAG at 3 a.m. for a pipeline whose data was never wrong. **A retry is only safe if the task
+is idempotent**, and this is the fourth time that sentence has appeared in this course.
 
 **Then delete the instance in front of the room.**
 
@@ -868,13 +832,11 @@ gcloud beta data-fusion instances list --project "$PROJECT" --location us-centra
 Expect `Listed 0 items.`
 
 **End here.** Say the overnight number one more time, because it is the last thing worth carrying
-out
-of the room: an instance nobody deleted costs $25.20 by breakfast and $1,296 by the end of the
-month,
-and it costs that whether or not a single pipeline ever runs on it. **The most expensive mistake in
-this entire course is not a wrong architecture. It is a resource nobody turned off.** Then move to
-the lab at 2:30 and tell students to start the Data Fusion instance as their first action, because
-they have now watched how long it takes.
+out of the room: an instance nobody deleted costs $25.20 by breakfast and $1,296 by the end of the
+month, and it costs that whether or not a single pipeline ever runs on it. **The most expensive
+mistake in this entire course is not a wrong architecture. It is a resource nobody turned off.**
+Then move to the lab at 2:30 and tell students to start the Data Fusion instance as their first
+action, because they have now watched how long it takes.
 
 ---
 
@@ -892,24 +854,20 @@ runbook says so rather than pretending the hour is complete.
 **The first row is worth reading in the captures rather than summarising.** `31-idempotent-diff.txt`
 shows the one property the first repair changed. `33-run5-wait.txt` shows that repair failing after
 563 seconds with the same `FileAlreadyExistsException` on the same sink, and `35-run6-wait.txt`
-shows
-it failing again at 400 seconds. **The same defect twice, after a repair.** **A fix that addresses
-the
-defect you noticed and not the one you did not is the ordinary shape of a 3 a.m. repair**, and this
-is the cheapest place in the course to watch it happen. The committed
+shows it failing again at 400 seconds. **The same defect twice, after a repair.** **A fix that
+addresses the defect you noticed and not the one you did not is the ordinary shape of a 3 a.m.
+repair**, and this is the cheapest place in the course to watch it happen. The committed
 `pipelines/03-idempotent.json` carries the corrected version, with both sinks made safe.
 
 **Ending on the defect is deliberate, not a shortage of time.** Step 12 shows a pipeline that cannot
 be run twice and names the two-part fix without running it. A room that watches the repair succeed
 remembers the repair. A room that leaves with `FileAlreadyExistsException` on the board remembers
-the
-defect, and the defect is what A6 asks them to design against.
+the defect, and the defect is what A6 asks them to design against.
 
 **The second row is the one to project if there is time in the lab slot.** It is the counterpart to
 step 9: the same class of defect, a column whose type no longer matches, handled by refusing the
-load
-rather than by discarding rows. One directive was removed from the recipe, so `amount` reached the
-sink as a string, and the sink refused it:
+load rather than by discarding rows. One directive was removed from the recipe, so `amount` reached
+the sink as a string, and the sink refused it:
 
 ```
 Stage 'SalesValidated' encountered : ValidationException:
@@ -919,14 +877,12 @@ of type 'double' in BigQuery table 'dsba6190_sales_75439.sales_validated'.
 
 **Read that error beside step 9's silence.** Both are the same defect: a column whose type no longer
 matches what the warehouse expects. In step 9 the pipeline succeeded and threw the rows away. Here
-it
-failed and named the field, the type it got, the type it wanted, and the table. The run took 361
+it failed and named the field, the type it got, the type it wanted, and the table. The run took 361
 seconds and failed faster than any successful run, because the sink validates before it writes.
 
 And `capture/42-count-after-failure.txt` shows the table still holding 20,001 rows, which is the
 point. **A pipeline that halts leaves the warehouse in the state it was in.** A pipeline that
-coerces
-silently does not.
+coerces silently does not.
 
 ---
 
@@ -1035,8 +991,7 @@ demonstration combined.
 
 The captured output is not a lesser version of this demonstration. It is the same run, recorded on
 10 September 2026, and every line is real. Switching to it costs the room nothing except the sight
-of
-a pipeline being built.
+of a pipeline being built.
 
 ---
 
@@ -1056,8 +1011,7 @@ except the instance, the bucket, the dataset and the clean extract.
 | `pipelines/04-drift.json` | capture | One directive removed, so a string reaches a numeric column |
 
 **The pipeline definitions are generated, not committed as-is.** `pipelines/make-pipelines.py`
-writes
-them against the plugin versions the instance reports, because `google-cloud` was 0.24.1 and
+writes them against the plugin versions the instance reports, because `google-cloud` was 0.24.1 and
 `wrangler-transform` was 4.11.1 on 10 September and a pipeline pinned to a version the instance does
 not carry fails at deploy rather than at run. Regenerating is one command and it is what
 `live-setup.sh` does.
@@ -1077,11 +1031,12 @@ same reason. Both have a JSON form beside them, and the JSON is the fallback rat
 
 ## Where the captured output is on the deck
 
-Slide 38 introduces Crown Street Markets. Slides 39 and 40 carry the twelve-step run sheet with its minute budgets, split across two slides by
-the converter. Slides 41 to 52 carry one capture slide per step, each a listing of real output
-trimmed to render at 28px or larger, with the capture date and the source directory named in its
-speaker notes. Slide 37 is the `Live Demonstration · 60 Minutes` divider, which exists so the twelve
-capture slides inherit the demonstration's kicker rather than Hour 2's.
+Slide 38 introduces Crown Street Markets. Slides 39 and 40 carry the twelve-step run sheet with its
+minute budgets, split across two slides by the converter. Slides 41 to 52 carry one capture slide
+per step, each a listing of real output trimmed to render at 28px or larger, with the capture date
+and the source directory named in its speaker notes. Slide 37 is the `Live Demonstration · 60
+Minutes` divider, which exists so the twelve capture slides inherit the demonstration's kicker
+rather than Hour 2's.
 
 | Step | Deck slide | Captures authored onto it |
 |---|---|---|
@@ -1110,8 +1065,7 @@ The masked values stay masked. `capture.sh` replaces the authenticated account w
 hostname Data Fusion generates with a placeholder, and the deck carries them in that form.
 
 **The numbers above are counted from the built PDF, not from the AsciiDoc headings.** The deck runs
-to **73 slides** since the A6 scaffolding and the Crown Street scenario were added. The converter inserts nothing
-into it, because Session 6 carries an authored `== Agenda` slide, but several headings split in two:
-the run sheet at 39 and 40, the Failure Handling at 1,200 Stores table, and the three A6 criteria
-and options tables. Verify
-against `slides/pdf/Session_06_Data_Ingestion_and_Orchestration.pdf` before quoting a number here.
+to **73 slides** since the A6 scaffolding and the Crown Street scenario were added. The converter
+inserts nothing into it, because Session 6 carries an authored `== Agenda` slide, but several
+headings split in two: the run sheet at 39 and 40, the Failure Handling at 1,200 Stores table, and
+the three A6 criteria and options tables.

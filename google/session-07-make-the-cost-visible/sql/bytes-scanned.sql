@@ -1,6 +1,5 @@
 -- =====================================================================
 -- Session 7 · live demo — make the cost visible
--- Demo asset #2 from ../DEMO-ASSETS.md
 --
 -- Run each query with the editor open so the class can read the
 -- "This query will process N when run" estimate BEFORE you run it.
@@ -11,7 +10,6 @@
 -- (36,256,539 rows, 6.97 GB). Re-verify before class — the public
 -- dataset gains a table most years.
 --
---   python3 ../../assignments/verify-part-b.py a7
 --
 -- The numbers ARE the demo. Say each one out loud before moving on.
 -- =====================================================================
@@ -121,5 +119,4 @@ WHERE EXTRACT(YEAR FROM pickup_datetime) = 2022;
 -- They look like they should defeat pruning and they do not, which makes
 -- them a confusing detour rather than a lesson. Query 7 is the honest
 -- version because it is the mistake a real person actually makes.
--- Recorded in ../../assignments/PART-B-BASELINE.md so nobody retries them.
 -- =====================================================================

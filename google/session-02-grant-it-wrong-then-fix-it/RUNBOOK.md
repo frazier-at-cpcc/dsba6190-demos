@@ -2,9 +2,9 @@
 
 Grant it wrong, then fix it. One hour, twelve steps, 1:30 to 2:30.
 
-Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: two BigQuery
-datasets, one analyst service account, one custom-mode VPC, and one `e2-micro` VM in `us-east1-b`.
-Every command below was run, and `capture/` holds the full output of each one.
+Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: two BigQuery datasets,
+one analyst service account, one custom-mode VPC, and one `e2-micro` VM in `us-east1-b`. Every
+command below was run, and `capture/` holds the full output of each one.
 
 **Do not run `capture.sh` in class.** It stages its own datasets and analyst and deletes everything
 through an exit trap. `live-setup.sh` provisions and never destroys.
@@ -60,10 +60,10 @@ source ~/dsba6190-live-demo-02/env.sh
 bq ls | grep crown_                            # two datasets
 ```
 
-The script enables four APIs, writes the seeded sample, loads both tables, copies
-`loyalty_members` to `members_backup`, creates the analyst's service account, and grants the
-instructor `roles/iam.serviceAccountTokenCreator` on it. It then waits until impersonation works.
-It grants the analyst nothing. It took **126 seconds** on the rehearsal.
+The script enables four APIs, writes the seeded sample, loads both tables, copies `loyalty_members`
+to `members_backup`, creates the analyst's service account, and grants the instructor
+`roles/iam.serviceAccountTokenCreator` on it. It then waits until impersonation works. It grants the
+analyst nothing. It took **126 seconds** on the rehearsal.
 
 | Symptom | Cause | Fix |
 |---|---|---|
@@ -78,9 +78,7 @@ Kernel**, **Bash**. Every command is a cell, and the two wait loops print how lo
 **The Console is optional.** At step 3 the instructor may make the Editor grant on **IAM and
 Admin**, **IAM**, **Grant access** instead of the command line, and open the role picker to show
 Basic roles listed above every predefined role. Slide 31 holds the 27 August screenshot of that
-picker as a backup. The other twelve Console screenshots from the first delivery remain in
-`slides/captures/s02/` and in `../session-02-iam-console-walkthrough/`, and are no longer in the
-deck.
+picker as a backup.
 
 ---
 
@@ -101,22 +99,22 @@ deck.
 | 11 | After: the fix, verified | 7 | 39, 40 |
 | 12 | Teardown, bindings before the account | 3 | 41 |
 
-Slide 24 is the divider, slide 25 introduces the scenario, and slides 26 and 27 carry the run
-sheet. Slide 31 is the Console role picker. Slides 42 to 44 are the A2 workshop and slide 45 is
-Lab 2. The deck runs to 50 slides.
+Slide 24 is the divider, slide 25 introduces the scenario, and slides 26 and 27 carry the run sheet.
+Slide 31 is the Console role picker. Slides 42 to 44 are the A2 workshop and slide 45 is Lab 2. The
+deck runs to 50 slides.
 
 ### Step 1 · Two datasets, and the analyst sees neither · 4 minutes
 
 As the instructor, `bq ls` shows `crown_curated_26041` and `crown_raw_26041`. A three-row query on
-the raw table returns names, emails and card numbers. As the analyst, the same listing returns
-**0 datasets**. **What to notice.** IAM denies everything no binding allows. Every grant from here
-on is a decision.
+the raw table returns names, emails and card numbers. As the analyst, the same listing returns **0
+datasets**. **What to notice.** IAM denies everything no binding allows. Every grant from here on is
+a decision.
 
 ### Step 2 · How big each role is · 3 minutes
 
 `roles/editor` carries **12,135** permissions. `roles/bigquery.dataViewer` carries **23** and
-`roles/bigquery.jobUser` carries **10**. **What to notice.** The two small roles are the analyst
-row of the access matrix. Editor is the role the Console offers first.
+`roles/bigquery.jobUser` carries **10**. **What to notice.** The two small roles are the analyst row
+of the access matrix. Editor is the role the Console offers first.
 
 ### Step 3 · Grant it wrong · 5 minutes
 
@@ -126,17 +124,16 @@ gcloud projects add-iam-policy-binding "$PROJECT" --member "serviceAccount:$ANAL
 ```
 
 The grant took effect in **3 seconds**. The binding lists four members, and the first is
-`deleted:serviceAccount:cs-analyst-25186@...`, an earlier rehearsal's analyst whose binding
-outlived it. **What to notice.** Remember the three seconds; step 11 needs it. Show the Console
-picker here if the room wants it.
+`deleted:serviceAccount:cs-analyst-25186@...`, an earlier rehearsal's analyst whose binding outlived
+it. **What to notice.** Remember the three seconds; step 11 needs it. Show the Console picker here
+if the room wants it.
 
 ### Step 4 · What Editor lets the analyst do · 6 minutes
 
-As the analyst, three commands succeed. The analyst reads card numbers. It deletes
-`members_backup` with no prompt, and the instructor's listing confirms the table is gone. It lists
-every VM in the project, **four** in the rehearsal, belonging to other sessions' demonstrations.
-**What to notice.** Nobody broke in. This is the breach from the opening slide: a valid grant that
-is far too broad.
+As the analyst, three commands succeed. The analyst reads card numbers. It deletes `members_backup`
+with no prompt, and the instructor's listing confirms the table is gone. It lists every VM in the
+project, **four** in the rehearsal, belonging to other sessions' demonstrations. **What to notice.**
+Nobody broke in. This is the breach from the opening slide: a valid grant that is far too broad.
 
 ### Step 5 · Fix it · 5 minutes
 
@@ -157,8 +154,8 @@ still read card numbers for several minutes, and that steps 6 to 10 fill that ti
 The project policy, filtered to the analyst, shows `roles/bigquery.jobUser` only. The curated
 dataset's access list shows the analyst as `READER`, beside `projectWriters`, `projectOwners` and
 `projectReaders`. **What to notice.** `projectWriters` is how step 4's delete worked: every project
-Editor is a writer on every dataset. An audit reads every level. This JSON is the artifact
-Terraform manages in Session 3.
+Editor is a writer on every dataset. An audit reads every level. This JSON is the artifact Terraform
+manages in Session 3.
 
 ### Step 7 · The account nobody granted, and the key nobody holds · 4 minutes
 
@@ -179,9 +176,9 @@ time timeout 60 gcloud compute ssh "$VM" --zone "$ZONE" --tunnel-through-iap ...
 ```
 
 Custom mode, one subnet at `10.20.0.0/24` with Private Google Access off, a VM at `10.20.0.2` with
-no external IP, and no firewall rules. SSH through Identity-Aware Proxy hung and **gave up after
-21 seconds**. **What to notice.** The implied deny-ingress rule drops the packet silently. The
-failure is a timeout, not an error, exactly as the Hour 2 slide predicted.
+no external IP, and no firewall rules. SSH through Identity-Aware Proxy hung and **gave up after 21
+seconds**. **What to notice.** The implied deny-ingress rule drops the packet silently. The failure
+is a timeout, not an error, exactly as the Hour 2 slide predicted.
 
 ### Step 9 · One firewall rule, and still no way out · 5 minutes
 
@@ -192,8 +189,8 @@ gcloud compute firewall-rules create "$FW" --network "$NET" --direction INGRESS 
 
 `35.235.240.0/20` is IAP's range, so SSH arrives only through Google's authenticated tunnel. SSH now
 works and runs `probe.sh`. `storage.googleapis.com`, `bigquery.googleapis.com` and `example.com` all
-report **no route (timed out)**. **What to notice.** Egress is allowed, but a VM with no external
-IP and no Cloud NAT reaches nothing outside its network, Google's own APIs included.
+report **no route (timed out)**. **What to notice.** Egress is allowed, but a VM with no external IP
+and no Cloud NAT reaches nothing outside its network, Google's own APIs included.
 
 ### Step 10 · Private Google Access · 5 minutes
 
@@ -201,8 +198,8 @@ IP and no Cloud NAT reaches nothing outside its network, Google's own APIs inclu
 gcloud compute networks subnets update "$SUBNET" --region "$REGION" --enable-private-ip-google-access
 ```
 
-The same probe: Cloud Storage **400**, BigQuery **404**, `example.com` still **no route**. **What
-to notice.** A 400 and a 404 are replies from the API front end to a bare URL, and a reply is the
+The same probe: Cloud Storage **400**, BigQuery **404**, `example.com` still **no route**. **What to
+notice.** A 400 and a 404 are replies from the API front end to a bare URL, and a reply is the
 point. The setting is on the subnet. Nothing on the VM changed.
 
 ### Step 11 · After: the fix, verified · 7 minutes
@@ -231,10 +228,10 @@ it waited. Then, as the analyst:
 - `bq rm` on `store_sales` is refused: `Permission bigquery.tables.delete denied`.
 - `gcloud compute instances list` is refused: `Required 'compute.instances.list' permission`.
 
-**What to notice.** Access being added is visible at once to the person waiting for it. Access
-being removed is visible to nobody, so a revocation needs a test, not an assumption. **If the wait
-passes seven minutes,** say so, show slides 39 and 40, and move to step 12. The delay is the lesson,
-not a failure.
+**What to notice.** Access being added is visible at once to the person waiting for it. Access being
+removed is visible to nobody, so a revocation needs a test, not an assumption. **If the wait passes
+seven minutes,** say so, show slides 39 and 40, and move to step 12. The delay is the lesson, not a
+failure.
 
 ### Step 12 · Teardown, bindings before the account · 3 minutes
 
@@ -252,10 +249,10 @@ bq --project_id="$PROJECT" rm -r -f -d "${RAW:?}"
 
 The VM first, because a subnet that holds an instance cannot be deleted. The binding before the
 account, or the policy keeps a `deleted:` member like the one at step 3. Every name is written
-`${NAME:?}` so an empty variable refuses to run. The verification found no network and no
-`crown_` datasets, but the service account listing still returned the analyst seconds after the
-delete returned. **Run the listing again before leaving the room.** The rehearsal did not record a
-second listing.
+`${NAME:?}` so an empty variable refuses to run. The verification found no network and no `crown_`
+datasets, but the service account listing still returned the analyst seconds after the delete
+returned. **Run the listing again before leaving the room.** The rehearsal did not record a second
+listing.
 
 ---
 

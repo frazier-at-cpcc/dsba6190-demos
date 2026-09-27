@@ -1,6 +1,7 @@
 # Session 5 Live Demo · Step Scripts (VS Code Runner)
 
-This directory contains standalone, executable bash scripts for every step of the **Session 5 Live Demo: Build and Harden a Lake**.
+This directory contains standalone, executable bash scripts for every step of the **Session 5 Live
+Demo: Build and Harden a Lake**.
 
 The active session suffix is **`86612`** targeting project **`YOUR_PROJECT_ID`**.
 

@@ -1,12 +1,8 @@
 # Session 5 live demo · build and harden a lake
 
-The hour-long Cloud Storage governance demonstration from
-[`../../lecture-05-storage-data-lakes.md`](../../lecture-05-storage-data-lakes.md), built as runnable
-source and captured as real output.
-
-**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo),
-Terraform v1.5.7, `hashicorp/google` v5.45.2, Google Cloud SDK 584.0.0. Every line in `capture/` is
-real command output. Nothing is illustrated or reconstructed.
+**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo), Terraform
+v1.5.7, `hashicorp/google` v5.45.2, Google Cloud SDK 584.0.0. Every line in `capture/` is real
+command output. Nothing is illustrated or reconstructed.
 
 The run builds a governed bucket beside an ungoverned one, creates the four zones and a quarantine
 prefix, makes the ungoverned bucket public and fetches the object anonymously, watches public access
@@ -19,16 +15,9 @@ project cannot show it, and finishes on a `terraform destroy` that the retention
 
 Total cost is under ten cents. Four buckets and one dataset live for about fifteen minutes and hold
 about 17 MB, the four measured queries read 27 MB against a 1 TiB monthly free allowance, and the
-only charge that outlives the evening is a Cloud KMS key version at $0.06 per month. The figure
-matches the Session 5 row in
-[`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7.
+only charge that outlives the evening is a Cloud KMS key version at $0.06 per month.
 
 ## Why this demonstration is an hour
-
-`../teaching-notes.md` carries no Session 5 entry, because Lab 5 is a Google Skills course template
-rather than a single lab and no capture of it exists in `labs/captures/`. The gaps below are read
-from the Lab 5 brief in [`../../../labs/briefs.md`](../../../labs/briefs.md) and from the A5 brief in
-[`../../../assignments/briefs.md`](../../../assignments/briefs.md), and each one has a step here.
 
 | Gap between Lab 5 and what A5 grades | Step that closes it |
 |---|---|
@@ -60,8 +49,8 @@ from the Lab 5 brief in [`../../../labs/briefs.md`](../../../labs/briefs.md) and
 **Each stage adds a file rather than replacing one.** Terraform reads every `.tf` file in a
 directory, so `cp lake.tf.staged lake.tf` is the entire edit and the plan that follows shows exactly
 one change. Session 4 swapped whole `main.tf` variants because its steps changed resources that
-already existed. Session 5 mostly adds resources, and a one-file diff reads better from the back row.
-The one step that changes an existing resource, step 7, is the one whole-file swap.
+already existed. Session 5 mostly adds resources, and a one-file diff reads better from the back
+row. The one step that changes an existing resource, step 7, is the one whole-file swap.
 
 **Two resources are deliberately outside Terraform.** The Cloud KMS key ring and key are created by
 `live-setup.sh`, because a key ring cannot be deleted and Terraform should not manage a resource it
@@ -160,18 +149,14 @@ a key exists.
 
 ## Step 11 is a capture step, and the instructor's environment is why
 
-`docs/DEMO-DEVELOPMENT-PLAN.md` section 9, decision 2, records `Decided 10 Sep: yes` against the
-question of whether `YOUR_PROJECT_ID` sits inside a Google Cloud organization with
-`orgpolicy.policyAdmin` held on it. **Verification on 10 September contradicts that.**
-`gcloud projects get-ancestors` returns one row, the project itself.
 `gcloud organizations list` returns `Listed 0 items.` `gcloud org-policies set-policy --project`
 returns `Permission 'orgpolicy.policies.create' denied`. All three are captured in files 53 to 57.
 
 Step 11 therefore stays what the plan's own step table always called it: a capture step, presented
 with the real evidence that this project sits outside any organization, rather than a screenshot of
-an enforced policy that the course cannot produce. That is the repository standard applied to itself.
-The decision row in section 9 should be corrected before the Session 2 build reaches its own step 11,
-which the same plan says depends on the same answer.
+an enforced policy that the course cannot produce. That is the repository standard applied to
+itself. The decision row in section 9 should be corrected before the Session 2 build reaches its own
+step 11, which the same plan says depends on the same answer.
 
 ## The account and the project number are masked
 

@@ -1,12 +1,8 @@
 # Session 4 live demo · migrate state, then break it
 
-The hour-long Terraform state demonstration from
-[`../../lecture-04-terraform-state-automation.md`](../../lecture-04-terraform-state-automation.md),
-built as runnable source and captured as real output.
-
-**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo),
-Terraform v1.5.7, `hashicorp/google` v5.45.2, `hashicorp/random` v3.9.0, `hashicorp/time` v0.14.1.
-Every line in `capture/` is real command output. Nothing is illustrated or reconstructed.
+**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo), Terraform
+v1.5.7, `hashicorp/google` v5.45.2, `hashicorp/random` v3.9.0, `hashicorp/time` v0.14.1. Every line
+in `capture/` is real command output. Nothing is illustrated or reconstructed.
 
 The run applies a small estate with local state, migrates it to a versioned Cloud Storage backend,
 collides two applies on the lock, kills one and recovers the stale lock, deletes the state object
@@ -14,16 +10,15 @@ and restores a prior generation, adopts two hand-made buckets by import, drifts 
 resource, performs `state rm` and `state mv`, and finishes on the `prevent_destroy` and
 `force_destroy` pair. It destroys everything on exit. Total cost is under five cents; four buckets
 and one topic live for about twenty minutes and hold a few kilobytes, and the dominant line is the
-versioned state bucket. The figure matches the Session 4 row in
-[`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7.
+versioned state bucket.
 
 ## The scenario · Queen City Trip Analytics
 
 The hour is one Charlotte company's first month with shared state. **Queen City Trip Analytics** is
 fictional: a twelve-person analytics firm in South End, Charlotte, that sells trip-demand dashboards
-to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform, on
-one engineer's laptop. Tonight a second engineer joins, state on one laptop becomes the risk, and the
-company moves its state to a shared, versioned, locked backend before anything else breaks.
+to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform,
+on one engineer's laptop. Tonight a second engineer joins, state on one laptop becomes the risk, and
+the company moves its state to a shared, versioned, locked backend before anything else breaks.
 
 The scenario renames no resource and changes no command. It names what each resource is to the
 company.
@@ -40,13 +35,13 @@ company.
 | `report.csv` in step 11 | A fleet customer's quarterly totals, of which nobody has a copy |
 
 The estate holds no real trips, and the password protects no database. The runbook's scenario
-section maps each step to what the company is doing, and slide 28 of the deck introduces the company.
+section maps each step to what the company is doing, and slide 28 of the deck introduces the
+company.
 
 ## Why this demonstration is an hour
 
 The guided lab that follows it, **Manage Terraform State (GSP752)**, leaves four gaps that the
-session has to close itself. They are recorded in
-[`../teaching-notes.md`](../teaching-notes.md) and each one has a step here.
+session has to close itself.
 
 | Gap in Lab 4 | Step that closes it |
 |---|---|
@@ -77,10 +72,10 @@ nothing. This demonstration begins from an estate that already exists on local s
 script has to build that estate. It applies with the local backend on purpose, because step 1 reads
 the local file and step 3 migrates it.
 
-**Two files are templates rather than configuration.** A `backend` block may not contain a
-variable, and in Terraform 1.5 neither may the `id` of an `import` block. `live-setup.sh` and
-`capture.sh` substitute the real bucket names. The restriction is the lecture's own watch-for, so
-the templates are the honest representation rather than a workaround.
+**Two files are templates rather than configuration.** A `backend` block may not contain a variable,
+and in Terraform 1.5 neither may the `id` of an `import` block. `live-setup.sh` and `capture.sh`
+substitute the real bucket names. The restriction is the lecture's own watch-for, so the templates
+are the honest representation rather than a workaround.
 
 ## Re-capture
 
@@ -89,11 +84,11 @@ the templates are the honest representation rather than a workaround.
 ```
 
 The name suffix is derived per run, so a re-capture does not collide with a previous one in the
-global bucket namespace. Re-run before class if the provider has moved a major version, because
-plan output gains and loses attributes between releases and the runbook quotes it literally.
+global bucket namespace. Re-run before class if the provider has moved a major version, because plan
+output gains and loses attributes between releases and the runbook quotes it literally.
 
-The run takes about twenty minutes. Two steps wait on a ninety-second `time_sleep`, and step 6
-kills a running apply with `SIGKILL` on purpose to produce a genuinely stale lock.
+The run takes about twenty minutes. Two steps wait on a ninety-second `time_sleep`, and step 6 kills
+a running apply with `SIGKILL` on purpose to produce a genuinely stale lock.
 
 ## What each capture is for
 
@@ -179,7 +174,8 @@ exit trap.
 was created by hand, and it does not clean up the bucket that step 10 told Terraform to forget. A
 run that stops before step 8 also leaves the annex bucket, because nothing has adopted it yet. All
 three `gcloud` commands are in the runbook's teardown section and in the output of `live-setup.sh`.
-That asymmetry is a teaching point rather than an oversight, and it is worth saying out loud at 2:00.
+That asymmetry is a teaching point rather than an oversight, and it is worth saying out loud at
+2:00.
 
 `capture.sh` has no such asymmetry. Its exit trap removes every bucket by name whatever happened,
 which is why the recorder is safe to abort and the live run is not.

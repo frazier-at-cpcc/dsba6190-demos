@@ -3,13 +3,13 @@
 Make the cost visible, then govern it. One hour, twelve steps, 1:30 to 2:30 in the revised session
 plan.
 
-Rehearsed end to end on 24 September 2026 against project `YOUR_PROJECT_ID`, BigQuery CLI
-2.1.38, Google Cloud SDK 586.0.0. Every command below was run. Every expected output below is real,
-and `capture/` holds the full text of each one.
+Rehearsed end to end on 24 September 2026 against project `YOUR_PROJECT_ID`, BigQuery CLI 2.1.38,
+Google Cloud SDK 586.0.0. Every command below was run. Every expected output below is real, and
+`capture/` holds the full text of each one.
 
-**Do not run `capture.sh` in class.** It is the headless recorder. It stages its own estate, runs all
-twelve steps, and deletes the dataset, the connection, the taxonomy and the bucket through an exit
-trap. `live-setup.sh` is its opposite: it provisions and never destroys.
+**Do not run `capture.sh` in class.** It is the headless recorder. It stages its own estate, runs
+all twelve steps, and deletes the dataset, the connection, the taxonomy and the bucket through an
+exit trap. `live-setup.sh` is its opposite: it provisions and never destroys.
 
 > **Cost.** This demonstration is performed live in class on the instructor's billing account. It
 > costs you nothing and you are not expected to run it. If you want to reproduce it on your own
@@ -42,14 +42,13 @@ hour.
 | 2:30–2:55 | Guided lab · Lab 7, supervised start | 25 |
 | 2:55–3:00 | Wrap | 5 |
 
-This is the clock proposed in `DEMO-DEVELOPMENT-PLAN.md` section 3, adopted without change.
 Concept Block 2 keeps fine-grained security, Iceberg and modeling. It hands the whole cost argument
 to this hour, where every number is measured rather than asserted.
 
 **The guided lab is a supervised start.** Lab 7 is the Badge 3 guided course and runs about an hour.
 Twenty-five minutes starts it, and the part worth starting in the room is the connection and its
-grant, because that is where students stall. They have just watched the same connection work at
-step 10.
+grant, because that is where students stall. They have just watched the same connection work at step
+10.
 
 ---
 
@@ -83,9 +82,9 @@ open each step with one sentence of what the company is doing. The slide notes c
 ## Two ways to drive the hour
 
 **The notebook.** `demo.ipynb` holds every command below as a cell, in step order, on the Bash
-kernel. Open it in VS Code, choose **Select Kernel**, then **Jupyter Kernel**, then **Bash**, and run
-one cell at a time. `prep.ipynb` holds the before-class sequence. Neither notebook carries what to
-say; this document does.
+kernel. Open it in VS Code, choose **Select Kernel**, then **Jupyter Kernel**, then **Bash**, and
+run one cell at a time. `prep.ipynb` holds the before-class sequence. Neither notebook carries what
+to say; this document does.
 
 **The terminal.** Source `env.sh` and type the commands below. Both routes run the same commands.
 
@@ -101,7 +100,6 @@ paste. The notebook runs the same queries as dry runs, which print the same numb
 |---|---|---|
 | T minus 45 | `./live-setup.sh YOUR_PROJECT_ID`, or run `prep.ipynb` | 2 to 7 minutes |
 | T minus 38 | `source ~/dsba6190-live-demo-07/env.sh`, run the three checks below | 1 minute |
-| T minus 35 | `python3 ../../../assignments/verify-part-b.py a7` | 1 minute |
 | T minus 25 | Set up the room | 5 minutes |
 
 ### T minus 45 minutes
@@ -111,12 +109,12 @@ cd "lectures/demos/session-07-make-the-cost-visible"
 ./live-setup.sh YOUR_PROJECT_ID
 ```
 
-**This script provisions.** It enables five APIs, creates the second principal if it does not
-exist, creates the dataset and the bucket, exports one month of 2022 taxi trips to the bucket as
-Parquet, creates the BigQuery connection and grants its service account read access to the bucket,
-imports the taxonomy with its one policy tag, grants the instructor Fine-Grained Reader on that tag,
-and grants the second principal the dataset and nothing else. **It creates no table.** Steps 7, 9,
-10 and 11 create every table, the tag attachment and both row policies in front of the room.
+**This script provisions.** It enables five APIs, creates the second principal if it does not exist,
+creates the dataset and the bucket, exports one month of 2022 taxi trips to the bucket as Parquet,
+creates the BigQuery connection and grants its service account read access to the bucket, imports
+the taxonomy with its one policy tag, grants the instructor Fine-Grained Reader on that tag, and
+grants the second principal the dataset and nothing else. **It creates no table.** Steps 7, 9, 10
+and 11 create every table, the tag attachment and both row policies in front of the room.
 
 **The slow part is IAM.** The first time the second principal was created, its impersonation grant
 took about five minutes to propagate. The script blocks until the principal can run a query. On the
@@ -148,18 +146,9 @@ bq --project_id="$PROJECT" --location=US \
 gcloud storage ls "gs://$BUCKET/trips/2022-01/"
 ```
 
-Expect the second principal's address, the connection, and three Parquet files. If the first
-command fails with `iam.serviceAccounts.getAccessToken`, the impersonation grant has not propagated.
-Wait two minutes and run it again.
-
-### T minus 35 minutes, re-verify the published figures
-
-```sh
-python3 ../../../assignments/verify-part-b.py a7
-```
-
-Expect 6.97 GB, 1.07 GB, 1.07 GB and 46.61 GB, with `tlc_yellow_trips_2023` reported empty. The
-public dataset gains a table most years, and steps 2 to 6 depend on these four numbers holding.
+Expect the second principal's address, the connection, and three Parquet files. If the first command
+fails with `iam.serviceAccounts.getAccessToken`, the impersonation grant has not propagated. Wait
+two minutes and run it again.
 
 ### Common causes, in the order they occur
 
@@ -182,9 +171,9 @@ public dataset gains a table most years, and steps 2 to 6 depend on these four n
 - The Hour 1 storage and compute drawing still on the board. Step 8 points back at it.
 
 **Network contingency.** If the room has no working connection, present from the deck. Slides 35 to
-46 carry one step each, trimmed to the type floor, and the full text of every command is
-in `capture/`. Every file in it is real output from the 24 September rehearsal, one file per
-command, numbered in the order below. Say plainly that the output is recorded.
+46 carry one step each, trimmed to the type floor, and the full text of every command is in
+`capture/`. Every file in it is real output from the 24 September rehearsal, one file per command,
+numbered in the order below. Say plainly that the output is recorded.
 
 ---
 
@@ -211,8 +200,8 @@ The captured outputs below carry the rehearsal suffix `72583`.
 
 ### Step 1 · The estimator prices a query before it runs · 3 minutes
 
-In the BigQuery editor, paste query 3 from `sql/bytes-scanned.sql` and do not press Run. Point at the
-validator: "This query will process 1.07 GB when run." Then the terminal form:
+In the BigQuery editor, paste query 3 from `sql/bytes-scanned.sql` and do not press Run. Point at
+the validator: "This query will process 1.07 GB when run." Then the terminal form:
 
 ```sh
 bq --project_id="$PROJECT" --location=US --quiet query \
@@ -275,9 +264,10 @@ dry "SELECT * FROM \`$TAXI\` LIMIT 10"
 This query will process 6.97 GB when run.   (7487651196 bytes)
 ```
 
-**What to notice.** Identical to step 2, to the byte. `LIMIT` bounds the rows returned, not the bytes
-scanned. Every column has been read by the time the limit applies. This is the most common mistake in
-A7 Part B and a reliable midterm item. The editor's Preview tab is the free way to see ten rows.
+**What to notice.** Identical to step 2, to the byte. `LIMIT` bounds the rows returned, not the
+bytes scanned. Every column has been read by the time the limit applies. This is the most common
+mistake in A7 Part B and a reliable midterm item. The editor's Preview tab is the free way to see
+ten rows.
 
 ### Step 5 · `COUNT(*)` reads no bytes · 3 minutes
 
@@ -319,9 +309,9 @@ This query will process 46.61 GB when run.   (50046543960 bytes)
 **What to notice.** This is the payload of the cost half. Put the two side by side in the editor and
 ask why before explaining. The wildcard spans thirteen yearly tables. `_TABLE_SUFFIX` is part of the
 table name, so the planner drops twelve tables before reading anything. `pickup_datetime` is a
-column, so the planner must read all thirteen to learn which rows qualify. Same rows, 43.5 times
-the bytes: $0.0065 against $0.28 a run, and on a five-minute refresh about $2,400 a month for the
-same answer.
+column, so the planner must read all thirteen to learn which rows qualify. Same rows, 43.5 times the
+bytes: $0.0065 against $0.28 a run, and on a five-minute refresh about $2,400 a month for the same
+answer.
 
 Do not demonstrate `CAST(_TABLE_SUFFIX AS INT64) = 2022` or its relatives. They still prune, and
 they turn a lesson into a detour. `sql/bytes-scanned.sql` records why.
@@ -384,8 +374,8 @@ and the partitioned one cost 560 slot-seconds to write against 230. That is the 
 write time. The same answer then bills 997 MB against 17 MB, 58 times less, collected on every read.
 The estimate reads 0.02 GB because the planner can see the partitions; the last few megabytes came
 off through clustering, which only the run can see. And `require_partition_filter` refuses a query
-before it runs, which is the Lab 7 watch-for performed. A partitioning scheme nobody filters on saves
-nothing; this option makes forgetting impossible.
+before it runs, which is the Lab 7 watch-for performed. A partitioning scheme nobody filters on
+saves nothing; this option makes forgetting impossible.
 
 ### Step 8 · The execution plan is the Dremel model · 6 minutes
 
@@ -515,20 +505,21 @@ processed 0.22 GB · billed 221.0 MB · slot time 2.8 s
 
 **What to notice.** Three results, and each one is a different control.
 
-**Delegation.** The plain external table runs as the analyst, and the analyst cannot read the bucket.
-The BigLake table over the same files reads through the connection's own service account, so the
-analyst never needs a storage grant. That is why a governed lakehouse does not grant every analyst on
-every bucket.
+**Delegation.** The plain external table runs as the analyst, and the analyst cannot read the
+bucket. The BigLake table over the same files reads through the connection's own service account, so
+the analyst never needs a storage grant. That is why a governed lakehouse does not grant every
+analyst on every bucket.
 
-**An error, not a null.** The policy tag refuses the whole query and names both columns. A null would
-let a query appear to succeed while hiding what was withheld; an error is visible and auditable.
-The instructor, who holds Fine-Grained Reader on the tag, reads the same columns without complaint.
+**An error, not a null.** The policy tag refuses the whole query and names both columns. A null
+would let a query appear to succeed while hiding what was withheld; an error is visible and
+auditable. The instructor, who holds Fine-Grained Reader on the tag, reads the same columns without
+complaint.
 
 **Why location.** A pickup zone and a timestamp together identify a rider. That is the mosaic effect
 from Week 5, and it is why a column that is not a name or a number can still be personal data.
 
-And name the side lesson in the second analyst query: it bills 221 MB for three rows, because
-`ORDER BY` forced a full read. Step 4 again, on a governed table.
+And name the side lesson in the second analyst query: it bills 221 MB for three rows, because `ORDER
+BY` forced a full read. Step 4 again, on a governed table.
 
 ### Step 11 · Row access policies, two principals, one query · 6 minutes
 
@@ -578,12 +569,13 @@ external tables,
 and BigQuery tables for Apache Iceberg
 ```
 
-**What to notice.** The owner of the project saw zero rows. **Once any row policy exists, a principal
-named in none of them sees nothing**, and ownership does not exempt anyone. Then one identical query
-returns two different answers, and neither result carries any sign that a filter was applied. The
-regional analyst from the concept block sees only their region without knowing a filter exists. And
-the plain external table cannot hold the control at all, which is the governance boundary the Hour 1
-table-type slide drew: external tables sit outside it and BigLake tables sit inside.
+**What to notice.** The owner of the project saw zero rows. **Once any row policy exists, a
+principal named in none of them sees nothing**, and ownership does not exempt anyone. Then one
+identical query returns two different answers, and neither result carries any sign that a filter was
+applied. The regional analyst from the concept block sees only their region without knowing a filter
+exists. And the plain external table cannot hold the control at all, which is the governance
+boundary the Hour 1 table-type slide drew: external tables sit outside it and BigLake tables sit
+inside.
 
 ### Step 12 · Teardown · 3 minutes
 
@@ -600,10 +592,10 @@ gcloud storage rm -r "gs://${BUCKET:?}"
 
 **Every name in these four commands is written `${NAME:?}`, and that is not decoration.** If
 `env.sh` was never sourced, `"gs://$BUCKET"` expands to `gs://`, and `gcloud storage rm -r gs://`
-deletes every bucket in the project. That happened during the rehearsal of this demonstration on
-24 September 2026, when a failed `live-setup.sh` left the names empty and a teardown cell ran
-anyway. Seven unrelated buckets were deleted, and all seven were restored from soft delete. The `:?` form refuses
-to run with an empty name.
+deletes every bucket in the project. That happened during the rehearsal of this demonstration on 24
+September 2026, when a failed `live-setup.sh` left the names empty and a teardown cell ran anyway.
+Seven unrelated buckets were deleted, and all seven were restored from soft delete. The `:?` form
+refuses to run with an empty name.
 
 Then verify, which should print four zeros:
 

@@ -2,12 +2,12 @@
 
 The 40-minute observability, reliability and FinOps demonstration for Session 14, Production
 Readiness, Observability and FinOps, taught Thursday 19 November 2026. Crown Street Markets, the
-fictional 40-store Charlotte grocery chain from Sessions 2, 6, 11 and 12, loads last night's register
-baskets into BigQuery for its replenishment dashboard. The load reports `DONE` every time, and the
-data goes wrong three ways.
+fictional 40-store Charlotte grocery chain from Sessions 2, 6, 11 and 12, loads last night's
+register baskets into BigQuery for its replenishment dashboard. The load reports `DONE` every time,
+and the data goes wrong three ways.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. The full
-`prep.ipynb` and `demo.ipynb` run on the Bash kernel matched the captures.
+Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. The full `prep.ipynb`
+and `demo.ipynb` run on the Bash kernel matched the captures.
 
 ## What the rehearsal changed
 

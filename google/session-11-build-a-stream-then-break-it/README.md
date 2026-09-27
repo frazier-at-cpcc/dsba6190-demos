@@ -1,10 +1,9 @@
 # Session 11 live demo · build a stream, then break it
 
-The hour-long streaming demonstration for Session 11, Streaming Architectures, taught Thursday
-29 October 2026. Crown Street Markets, the fictional 40-store Charlotte grocery chain from
-Session 6, streams its register sales from Pub/Sub through three Dataflow jobs into BigQuery, then
-sends them a late sale, a retried sale and a malformed record, and drains one job while cancelling
-another.
+The hour-long streaming demonstration for Session 11, Streaming Architectures, taught Thursday 29
+October 2026. Crown Street Markets, the fictional 40-store Charlotte grocery chain from Session 6,
+streams its register sales from Pub/Sub through three Dataflow jobs into BigQuery, then sends them a
+late sale, a retried sale and a malformed record, and drains one job while cancelling another.
 
 Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`.
 

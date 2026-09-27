@@ -1,45 +1,30 @@
 # Session 6 live demo · a batch pipeline, then break it
 
-The hour-long Cloud Data Fusion demonstration from
-[`../../lecture-06-ingestion-integration.md`](../../lecture-06-ingestion-integration.md), built as
-runnable pipeline definitions and captured as real output.
-
-**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo), Cloud
-Data Fusion 6.11.1 Basic edition, Google Cloud SDK 584.0.0, plugins `google-cloud` 0.24.1,
+**Captured 10 September 2026** against project `YOUR_PROJECT_ID` (UNC Charlotte Demo), Cloud Data
+Fusion 6.11.1 Basic edition, Google Cloud SDK 584.0.0, plugins `google-cloud` 0.24.1,
 `wrangler-transform` 4.11.1, `core-plugins` 2.13.1, on ephemeral Dataproc image 2.3.35-debian12.
 Every line in `capture/` is real command output. Nothing is illustrated or reconstructed.
 
 The run builds a point-of-sale ingest pipeline from a Cloud Storage source through a Wrangler
 transform into a BigQuery sink, loads a clean day and records the row count, replaces the source
-with
-a day carrying three malformed rows, discovers in one query that two of them vanished without a
+with a day carrying three malformed rows, discovers in one query that two of them vanished without a
 signal and that the row count doubled to 40,001, adds an error collector and a quarantine sink so
-the
-count reconciles, finds that the third bad row loaded anyway because a negative quantity is well
-typed, traces one column
-back to its source through field-level lineage, runs the same pipeline twice to produce duplicate
-transactions, fixes that with a sink that replaces rather than appends, breaks the pipeline a second
-way by letting a string reach a numeric column and capturing the sink's refusal, `Field 'amount' of
-type 'string' is incompatible with column 'amount' of type 'double'`, and finishes by deleting the
-instance and confirming that nothing remains.
+the count reconciles, finds that the third bad row loaded anyway because a negative quantity is well
+typed, traces one column back to its source through field-level lineage, runs the same pipeline
+twice to produce duplicate transactions, fixes that with a sink that replaces rather than appends,
+breaks the pipeline a second way by letting a string reach a numeric column and capturing the sink's
+refusal, `Field 'amount' of type 'string' is incompatible with column 'amount' of type 'double'`,
+and finishes by deleting the instance and confirming that nothing remains.
 
 **Cost is the subject of this demonstration rather than a footnote.** A Basic-edition instance bills
 $1.80 per instance-hour with the first 120 instance-hours each month free per billing account. The
 capture run measured **1.22 instance-hours** across seven pipeline runs, which is $0 on an
 unconsumed allowance and about $2.20 otherwise. An in-class evening from T minus 60 to teardown is
 about 2.5 instance-hours. Each pipeline run adds an ephemeral three-node Dataproc cluster for the
-length of the run, at
-roughly $0.04. **An instance left running costs $25.20 for one night and $1,296 for a month**, which
-is more than every other demonstration in this course combined. The figure matches the Session 6 row
-in [`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7.
+length of the run, at roughly $0.04. **An instance left running costs $25.20 for one night and
+$1,296 for a month**, which is more than every other demonstration in this course combined.
 
 ## Why this demonstration is an hour
-
-[`../teaching-notes.md`](../teaching-notes.md) records the finding that shapes this build:
-**students
-do not build a pipeline in Lab 6.** They deploy a pre-built sample from the Hub and press Run. The
-notes state the consequence directly, and it is the reason this demonstration carries more weight
-than any other in the term. It is not a preview of the lab; it is the other half of the session.
 
 | Gap between Lab 6 and what A6 grades | Step that closes it |
 |---|---|
@@ -54,36 +39,29 @@ than any other in the term. It is not a preview of the lab; it is the other half
 
 ## What the rehearsal changed
 
-The step list in `DEMO-DEVELOPMENT-PLAN.md` section 5.2 was written before any of this had been run.
-Four of its assumptions did not survive contact with the service, and each change is recorded here
-rather than made quietly.
-
 **A pipeline run takes seven and a half to nine and a half minutes, not the five to eight the plan
-assumed.** The three runs that succeeded measured 454, 533 and 571 seconds.
-Most of a run is not the work: the queue and the Dataproc cluster build dominate and the Spark job
-over 20,000 rows is the smaller part. The plan budgeted six runs
-inside sixty-one minutes; six runs alone are sixty minutes. **The hour now runs four**, each one
-started before the material that covers it, and the runbook is written as start-then-teach pairs
-rather than as a list of things to watch.
+assumed.** The three runs that succeeded measured 454, 533 and 571 seconds. Most of a run is not the
+work: the queue and the Dataproc cluster build dominate and the Spark job over 20,000 rows is the
+smaller part. The plan budgeted six runs inside sixty-one minutes; six runs alone are sixty minutes.
+**The hour now runs four**, each one started before the material that covers it, and the runbook is
+written as start-then-teach pairs rather than as a list of things to watch.
 
 **The instance takes about sixteen minutes to provision, and two create attempts failed first.** Two
 builds were measured on 10 September, at 16 minutes 46 seconds and 15 minutes 20 seconds, against
 Google's stated ten and this course's stated fifteen to twenty-five. On the first build both earlier
 `create` calls aborted after three seconds with `Failed to perform tenant project creation`, which
-is
-neither a permissions problem nor a quota problem, and the third attempt built normally. Staging
+is neither a permissions problem nor a quota problem, and the third attempt built normally. Staging
 moves from T minus 60 as a comfortable margin to T minus 60 as a requirement.
 
 **Two IAM grants are required and Lab 6 names only one of them.** The lab tells students to grant
-the
-Cloud Data Fusion API Service Agent role to the instance's Spark service account, and that grant is
-genuinely required: without it a run fails five seconds in with a list of missing
+the Cloud Data Fusion API Service Agent role to the instance's Spark service account, and that grant
+is genuinely required: without it a run fails five seconds in with a list of missing
 `storage.objects.*` permissions, and `roles/editor` on the same account does not substitute for it.
 The grant the lab does not mention is `roles/iam.serviceAccountUser` for the Data Fusion service
 agent on that same account; without it the run fails five seconds in with `User not authorized to
 act as service account`. Both are in `live-setup.sh` and both are in the runbook's failure table
-with
-the exact command. This is Week 2's material biting in Week 6, which the teaching notes predicted.
+with the exact command. This is Week 2's material biting in Week 6, which the teaching notes
+predicted.
 
 **The payload changed, and the rehearsal is the reason.** The plan expected the second identical run
 to double the table. It does not. The second run **fails outright**, because the Cloud Storage error
@@ -99,12 +77,10 @@ Output directory gs://dsba6190-pos-75439/quarantine/pos already exists
 That is a better payload than the doubling and it is captured in `capture/28-run4-wait.txt` and
 `capture/29-count-doubled.txt`. **Idempotency is not one property of a pipeline. It is a property of
 every sink in it.** The BigQuery sink would have appended and doubled the day; the Cloud Storage
-sink
-refused to run at all. The doubling is still demonstrated, at step 9, by the two runs of the
-pipeline
-that has no error sink: 20,000 rows then 40,001. And the control that made the count reconcile at
-step 11 is the same control that made the pipeline un-runnable at step 12, which is the honest
-version of the design conversation A6 asks for.
+sink refused to run at all. The doubling is still demonstrated, at step 9, by the two runs of the
+pipeline that has no error sink: 20,000 rows then 40,001. And the control that made the count
+reconcile at step 11 is the same control that made the pipeline un-runnable at step 12, which is the
+honest version of the design conversation A6 asks for.
 
 **The fix has two halves and the rehearsal proved that one is not enough.** `truncateTable` on the
 BigQuery sink was the only change the first pass made, and `capture/33-run5-wait.txt` shows that
@@ -112,19 +88,16 @@ repair failing after 563 seconds with the identical `FileAlreadyExistsException`
 sink, and `capture/35-run6-wait.txt` shows it failing again at 400 seconds. **The same defect twice,
 after a repair.** A fix that addresses the defect you noticed and not the one you did not is the
 ordinary shape of a 3 a.m. repair. The committed `pipelines/03-idempotent.json` therefore carries
-both halves: the
-BigQuery sink truncates, and the error sink writes
+both halves: the BigQuery sink truncates, and the error sink writes
 `quarantine/pos/dt=${logicalStartTime(yyyy-MM-dd-HHmmss)}` rather than one fixed directory. That is
 the deterministic partition target Concept Block 1 already teaches, applied to the sink nobody
-thinks
-of. **The captures show the version that fixed only one sink**, because that is what ran, and the
-runbook says so where it names the fix.
+thinks of. **The captures show the version that fixed only one sink**, because that is what ran, and
+the runbook says so where it names the fix.
 
 **The captured Airflow failure is replaced by a captured Data Fusion failure.** The plan made step
-10
-a capture because a Managed Airflow environment takes fifteen to twenty-five minutes to create and
-costs $0.30 to $0.60 an hour for one failed task. That reasoning still holds and the environment is
-still not built. What replaced it is a failure in the tool the room has been watching for fifty
+10 a capture because a Managed Airflow environment takes fifteen to twenty-five minutes to create
+and costs $0.30 to $0.60 an hour for one failed task. That reasoning still holds and the environment
+is still not built. What replaced it is a failure in the tool the room has been watching for fifty
 minutes: one directive removed from the recipe, so the source's amount column reaches a `FLOAT64`
 column as a string and the sink refuses the load. It is captured for the same kind of reason, stated
 plainly in the runbook: an eighth pipeline run does not fit in the hour. It is a better step because
@@ -136,12 +109,11 @@ evidence rather than a screenshot. Students have watched the same pipeline run t
 table. The lab's DAG sets `'retries': 1` on every task, and asking what that setting would have done
 to the table they are looking at lands harder than a picture of somebody else's failed task.
 
-**Three smaller corrections.** There is no GA `gcloud data-fusion`; every command is
-`gcloud beta data-fusion` and `gcloud components install beta` is a prerequisite. `describe` returns
-`NOT_FOUND` while a create is in flight, so `operations list` is the command that shows progress.
-And
-the ephemeral cluster is three `e2-custom-2-8192` nodes rather than the three `n1-standard-4` the
-plan's cost basis assumed, which makes a run cost about $0.04 rather than about $0.10.
+**Three smaller corrections.** There is no GA `gcloud data-fusion`; every command is `gcloud beta
+data-fusion` and `gcloud components install beta` is a prerequisite. `describe` returns `NOT_FOUND`
+while a create is in flight, so `operations list` is the command that shows progress. And the
+ephemeral cluster is three `e2-custom-2-8192` nodes rather than the three `n1-standard-4` the plan's
+cost basis assumed, which makes a run cost about $0.04 rather than about $0.10.
 
 ## Layout
 
@@ -162,11 +134,10 @@ plan's cost basis assumed, which makes a run cost about $0.04 rather than about 
 ## Three things this demo does that Session 5 does not
 
 **The artifact is JSON, not HCL.** A Data Fusion pipeline is a JSON document and the Studio canvas
-is
-a renderer for it. Everything the Studio does over the wire is a call to the v3 CDAP REST API, which
-is what lets an hour of clicking be captured as text. The demonstration is performed in the browser
-because the canvas, the Wrangler grid and the lineage view are visual teaching. The capture is
-performed over REST because a screenshot cannot be diffed and a log line can.
+is a renderer for it. Everything the Studio does over the wire is a call to the v3 CDAP REST API,
+which is what lets an hour of clicking be captured as text. The demonstration is performed in the
+browser because the canvas, the Wrangler grid and the lineage view are visual teaching. The capture
+is performed over REST because a screenshot cannot be diffed and a log line can.
 
 **The numbers reproduce.** `sample/make-sample.py` is seeded, so both extracts are byte-identical on
 every run, and the two independent rehearsals on 10 September returned the same 20,000 rows and the
@@ -174,17 +145,14 @@ same $2,422,034.45 from the clean day. A figure quoted on a slide is a figure th
 will also produce.
 
 **The pipeline definitions are generated, and a placeholder copy is committed beside the
-generator.**
-`google-cloud` was 0.24.1 and `wrangler-transform` 4.11.1 on 10 September, and a pipeline pinned to
-a
-version the instance does not carry fails at deploy, so `make-pipelines.py` reads the versions off
-the instance and writes the four variants against them. That is what `live-setup.sh` runs. The four
-JSON files checked in beside it carry `PROJECT_ID`, `BUCKET_NAME` and `DATASET_NAME` where the real
-identifiers go, and exist for one purpose: if the Studio has moved and a node cannot be found where
-the runbook says it is, the pipeline can be imported instead of rebuilt. Substitute three strings
-and
-import. The four differ from each other by exactly one design decision each, which is what makes the
-diffs teachable.
+generator.** `google-cloud` was 0.24.1 and `wrangler-transform` 4.11.1 on 10 September, and a
+pipeline pinned to a version the instance does not carry fails at deploy, so `make-pipelines.py`
+reads the versions off the instance and writes the four variants against them. That is what
+`live-setup.sh` runs. The four JSON files checked in beside it carry `PROJECT_ID`, `BUCKET_NAME` and
+`DATASET_NAME` where the real identifiers go, and exist for one purpose: if the Studio has moved and
+a node cannot be found where the runbook says it is, the pipeline can be imported instead of
+rebuilt. Substitute three strings and import. The four differ from each other by exactly one design
+decision each, which is what makes the diffs teachable.
 
 **Waiting is the demonstration's main cost, and the runbook treats it as content.** Every other
 session in this course runs a command and reads an answer. Here the queue and the Dataproc cluster
@@ -199,9 +167,9 @@ block of teaching that covers it, and the runbook names which run is in flight d
 
 The name suffix is derived per run, so a re-capture does not collide with a previous one in the
 global bucket namespace. **The run takes about ninety minutes**: sixteen for the instance, seven
-pipeline runs, and a few minutes for queries and teardown. Re-run before
-class if the instance version has moved, because plugin properties gain and lose names between
-releases and the runbook quotes pipeline JSON literally.
+pipeline runs, and a few minutes for queries and teardown. Re-run before class if the instance
+version has moved, because plugin properties gain and lose names between releases and the runbook
+quotes pipeline JSON literally.
 
 A second pass against an instance that is already running should not pay for a third one:
 
@@ -221,10 +189,10 @@ first, then any surviving Dataproc cluster, then the dataset, then the demo buck
 nobody asked for: the two Dataproc writes on its first cluster, and the one Data Fusion writes for
 the instance. That last one, `df-<digits>-<hash>`, was removed with the instance on the 10 September
 teardown, so the trap's pass over it is usually a no-op; it is there because the bucket carries no
-name this demonstration chose and only the `cdf_instance` label identifies it. It fires on every exit path including an interrupt and
-including a failure partway through. An earlier capture attempt on 10 September was killed mid-run
-and the trap deleted the instance correctly, which is the behaviour to preserve in any edit to this
-file.
+name this demonstration chose and only the `cdf_instance` label identifies it. It fires on every
+exit path including an interrupt and including a failure partway through. An earlier capture attempt
+on 10 September was killed mid-run and the trap deleted the instance correctly, which is the
+behaviour to preserve in any edit to this file.
 
 ## What each capture is for
 
@@ -284,11 +252,6 @@ file.
 
 ## Step 11's schema-drift run is a capture step, and time is why
 
-`DEMO-DEVELOPMENT-PLAN.md` section 5.2 made step 10 a capture because a Managed Airflow environment
-takes fifteen to twenty-five minutes to create and costs $0.30 to $0.60 an hour to produce one
-failed
-task. That reasoning is sound and the environment was not built.
-
 The step that replaced it is a capture for a different measured reason. A pipeline run takes ten
 minutes, the hour holds four, and the schema-drift run would be the eighth. It is recorded in
 `capture/39` through `capture/42`, presented from the deck at slide 52, and labelled as a capture in
@@ -313,10 +276,8 @@ twelve steps with exact commands, real expected output and what to notice, which
 during which step, the teardown checklist, and what to do when something fails in front of the room.
 
 Stage with [`live-setup.sh`](live-setup.sh) **sixty minutes before class, not thirty.** The margin
-is
-not comfort. The instance took about sixteen minutes to build on 10 September, measured twice, and
-two create
-attempts failed before one of those builds started.
+is not comfort. The instance took about sixteen minutes to build on 10 September, measured twice,
+and two create attempts failed before one of those builds started.
 
 **Do not run `capture.sh` in class.** It deletes the instance through an exit trap, and rebuilding
 one takes about sixteen minutes.
@@ -324,9 +285,9 @@ one takes about sixteen minutes.
 ## Teardown is step 12, and it is the point
 
 Session 5's teardown protected against a fraction of a cent. This one protects against $1,296 a
-month. The instance is deleted in front of the room, the deletion is confirmed with
-`gcloud beta data-fusion instances list`, and the overnight number is said out loud twice: once at
-step 1 when the meter is introduced and once at step 12 when it stops.
+month. The instance is deleted in front of the room, the deletion is confirmed with `gcloud beta
+data-fusion instances list`, and the overnight number is said out loud twice: once at step 1 when
+the meter is introduced and once at step 12 when it stops.
 
 Three things survive teardown on purpose and are listed in the runbook's checklist with the reason
 attached: four enabled APIs, and the two IAM bindings the rehearsal proved are required. Everything

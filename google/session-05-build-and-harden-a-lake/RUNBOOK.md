@@ -20,12 +20,7 @@ everything through an exit trap. `live-setup.sh` is its opposite.
 The figure covers four Cloud Storage buckets holding about 17 MB for an hour, four BigQuery queries
 reading 27 MB in total against a 1 TiB monthly free allowance, and one Cloud KMS key version. The
 dominant line is the key version, which bills $0.06 per month and is the only charge that outlives
-the evening. Storage and queries together are under a cent. The figure is an estimate from list
-pricing and is not yet verified against the Google Cloud pricing calculator;
-[`../../../docs/DEMO-RUNBOOKS-PLAN.md`](../../../docs/DEMO-RUNBOOKS-PLAN.md) section 6 records that
-verification as a prerequisite for the student version of this document. It matches the Session 5
-row in [`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7,
-which is the authoritative estimate. Keep the two in agreement.
+the evening. Storage and queries together are under a cent.
 
 ---
 
@@ -55,9 +50,7 @@ Bash kernel, converted from the step scripts in `steps/`.
 
 ## How the hour fits the session clock
 
-The session plan carried this demonstration at thirteen minutes inside 1:10 to 1:50. It is now an
-hour, and [`../../lecture-05-storage-data-lakes.md`](../../lecture-05-storage-data-lakes.md) carries
-the matching timing table.
+The session plan carried this demonstration at thirteen minutes inside 1:10 to 1:50.
 
 | Clock | Segment | Minutes |
 |---|---|---|
@@ -69,11 +62,10 @@ the matching timing table.
 | 2:30–2:55 | Guided lab · Lab 5, supervised start | 25 |
 | 2:55–3:00 | Wrap | 5 |
 
-This is the clock proposed in `DEMO-DEVELOPMENT-PLAN.md` section 3, adopted without change. Concept
-Block 1 loses five minutes. Concept Block 2 was forty minutes with a thirteen-minute demonstration
-inside it and is now twenty-five minutes of concept with the demonstration lifted out. The
-demonstration performs what the lost minutes would have described. Name each idea from the slide,
-then let the terminal supply the evidence.
+Concept Block 1 loses five minutes. Concept Block 2 was forty minutes with a thirteen-minute
+demonstration inside it and is now twenty-five minutes of concept with the demonstration lifted out.
+The demonstration performs what the lost minutes would have described. Name each idea from the
+slide, then let the terminal supply the evidence.
 
 **The guided lab is now a supervised start rather than a completion window.** Lab 5 is the Badge 2
 guided course and is submitted by Wednesday 23 September in any case. Twenty-five minutes buys the
@@ -93,20 +85,20 @@ cd "lectures/demos/session-05-build-and-harden-a-lake"
 ./steps/00-setup.sh
 ```
 
-**This script applies.** It applies exactly one thing: the ungoverned bucket the demonstration starts
-from. Step 2 adds the governed bucket beside it and step 4 runs the same command against both, so the
-ungoverned one has to exist before the hour begins.
+**This script applies.** It applies exactly one thing: the ungoverned bucket the demonstration
+starts from. Step 2 adds the governed bucket beside it and step 4 runs the same command against
+both, so the ungoverned one has to exist before the hour begins.
 
 It also creates the Cloud KMS key ring, the key, a live key version, and the Cloud Storage service
 agent's binding on that key. Those are out of band for two reasons. IAM propagation on a key takes
-longer than step 9 has, and a key ring cannot be deleted once created, so it should not be a resource
-Terraform believes it can remove.
+longer than step 9 has, and a key ring cannot be deleted once created, so it should not be a
+resource Terraform believes it can remove.
 
 It generates the sample data, because 200,000 rows of invented telemetry do not belong in a Git
 repository. Generation is seeded, so the byte counts quoted below are the byte counts you will see.
 
-The script prints the working directory, the name suffix (`86612`), every resource name, and the three-line
-teardown. The default working directory is `~/dsba6190-live-demo-05`.
+The script prints the working directory, the name suffix (`86612`), every resource name, and the
+three-line teardown. The default working directory is `~/dsba6190-live-demo-05`.
 
 ### T minus 25 minutes, verify
 
@@ -143,9 +135,9 @@ Common causes, in the order they occur:
 
 **Network contingency.** If the room has no working connection, present from the deck. Slides 30 to
 41 carry one capture slide per step, trimmed to the type floor and drawn from the same outputs, and
-the full text of every command is in `capture/`. Every file in it is real output from the
-10 September rehearsal, one file per command, numbered in the order below. Say plainly that the run
-is recorded rather than live. The repository standard is that a capture is labelled as one.
+the full text of every command is in `capture/`. Every file in it is real output from the 10
+September rehearsal, one file per command, numbered in the order below. Say plainly that the run is
+recorded rather than live. The repository standard is that a capture is labelled as one.
 
 ---
 
@@ -207,9 +199,10 @@ back as attributes:
         }
 ```
 
-**What to notice.** The plan is the review artifact. Every governance decision on slide 30 is visible
-in it before anything exists, which is the argument A5 asks students to make about enforcement rather
-than documentation. Ask the room which of the four controls they would fail a pull request over.
+**What to notice.** The plan is the review artifact. Every governance decision on slide 30 is
+visible in it before anything exists, which is the argument A5 asks students to make about
+enforcement rather than documentation. Ask the room which of the four controls they would fail a
+pull request over.
 
 ### Step 2 · Apply. Two buckets, one governed · slide 30 · 5 minutes
 
@@ -264,9 +257,9 @@ versioning_enabled: false
 ```
 
 **What to notice.** Read the two outputs side by side. The second bucket has no labels at all, which
-means no cost attribution and no owner. `public_access_prevention: inherited` is the word Google uses
-for a setting that comes from somewhere above the project, and nothing above this project sets it, so
-inherited means off. Step 4 shows what that costs.
+means no cost attribution and no owner. `public_access_prevention: inherited` is the word Google
+uses for a setting that comes from somewhere above the project, and nothing above this project sets
+it, so inherited means off. Step 4 shows what that costs.
 
 ### Step 3 · The four zones, and the object that lands in raw · slide 12 · 4 minutes
 
@@ -396,12 +389,12 @@ gcloud storage buckets remove-iam-policy-binding gs://dsba6190-staging-86612 \
 ```
 
 **What to notice.** Three outcomes, one command shape. The ungoverned bucket accepted the grant and
-served the object to the open internet in under a second. Public access prevention returned `412` and
-refused the binding. Uniform bucket-level access returned `400` and refused the per-object route,
-which is the error the lab brief predicts students will meet without an explanation attached. Say the
-distinction plainly: **public access prevention is a refusal, not a warning**, and the two controls
-close different doors. Slide 28 asks for a principal, a role, and a level; `allUsers` at bucket level
-is all three, and it is the one A5 marks down.
+served the object to the open internet in under a second. Public access prevention returned `412`
+and refused the binding. Uniform bucket-level access returned `400` and refused the per-object
+route, which is the error the lab brief predicts students will meet without an explanation attached.
+Say the distinction plainly: **public access prevention is a refusal, not a warning**, and the two
+controls close different doors. Slide 28 asks for a principal, a role, and a level; `allUsers` at
+bucket level is all three, and it is the one A5 marks down.
 
 ### Step 5 · Versioning is the undo · slide 25 · 6 minutes
 
@@ -479,11 +472,11 @@ gcloud storage ls --all-versions --long \
 Expect three generations still listed. Restore the good one again with the same `cp`.
 
 **What to notice.** The overwrite did not replace the object; it added a generation and moved the
-pointer. The delete did not remove the bytes; it removed the live pointer. Versioning is the undo for
-both, and `#<generation>` is the syntax that names a specific past. Then say the cost consequence:
-every superseded generation is still stored and still billed, which is why a lifecycle rule that
-expires noncurrent versions belongs on any versioned bucket that takes real traffic. That rule is
-absent here on purpose. Ask the room to name it as a gap.
+pointer. The delete did not remove the bytes; it removed the live pointer. Versioning is the undo
+for both, and `#<generation>` is the syntax that names a specific past. Then say the cost
+consequence: every superseded generation is still stored and still billed, which is why a lifecycle
+rule that expires noncurrent versions belongs on any versioned bucket that takes real traffic. That
+rule is absent here on purpose. Ask the room to name it as a gap.
 
 ### Step 6 · CSV to Parquet. Two arguments, two numbers · slides 18 and 20 · 7 minutes
 
@@ -556,9 +549,9 @@ Expect, in the `Bytes Processed` column:
 
 **What to notice.** Identical rows, identical answer, and BigQuery read 7.7 times fewer bytes from
 the Parquet copy. Explain the second number rather than the first: 1,600,000 is exactly 200,000 rows
-times eight bytes, which is the `value` column and nothing else. Columnar storage let the engine skip
-five of the six columns without decompressing them. The CSV table had no such option, because a row
-format must read every byte of every row to reach one field.
+times eight bytes, which is the `value` column and nothing else. Columnar storage let the engine
+skip five of the six columns without decompressing them. The CSV table had no such option, because a
+row format must read every byte of every row to reach one field.
 
 Then read the `Bytes Billed` column and be honest about it. BigQuery bills a **10 MB minimum per
 table scanned**, so at this size the cheaper query is billed more than it read. The ratio is the
@@ -631,11 +624,11 @@ name: dsba6190-lake-65111
 
 **What to notice.** Say plainly that **nothing moves tonight**. Cloud Storage evaluates lifecycle
 rules asynchronously, roughly once a day, and every object in this bucket was written minutes ago.
-The rule is the artifact. Then make the two points slide 11 carries. The rule encodes an access-pattern
-decision, so a rule that moves weekly-read data to Coldline costs more than leaving it in Standard.
-And a rule whose action is `Delete` is a retention policy expressed in code and also a way to destroy
-evidence somebody was legally required to keep, which is why deletion rules deserve the review a
-production deploy gets. There is no `Delete` rule here on purpose.
+The rule is the artifact. Then make the two points slide 11 carries. The rule encodes an
+access-pattern decision, so a rule that moves weekly-read data to Coldline costs more than leaving
+it in Standard. And a rule whose action is `Delete` is a retention policy expressed in code and also
+a way to destroy evidence somebody was legally required to keep, which is why deletion rules deserve
+the review a production deploy gets. There is no `Delete` rule here on purpose.
 
 ### Step 8 · Retention, and a delete that fails · slides 14 and 24 · 5 minutes
 
@@ -680,10 +673,9 @@ until 2026-09-10T12:33:11.232127-07:00.
 ```
 
 **What to notice.** This is the seam A5 grades. The Raw zone's Immutable contract was stated in
-Concept Block 1 as a sentence and it is a `retention_policy` here. Read the error's last clause aloud:
-the object cannot be deleted **or overwritten**, and the refusal applies to the account that wrote it.
-`assignments/briefs.md` asks how the immutability requirement is *enforced* rather than documented,
-and this refusal is the answer.
+Concept Block 1 as a sentence and it is a `retention_policy` here. Read the error's last clause
+aloud: the object cannot be deleted **or overwritten**, and the refusal applies to the account that
+wrote it.
 
 Then show where Bucket Lock is, in the Console, on the bucket's Protection tab, **and do not click
 it.** Say the three consequences in order: locking makes the retention period permanent, permanent
@@ -749,9 +741,9 @@ scheduled to be destroyed.
     type: KEY_DISABLED
 ```
 
-**The refusal is not always immediate.** The rehearsal saw it within seconds; an earlier run was still
-serving the object ten seconds after the disable. Cloud Storage can answer a read from a cached
-unwrapped key for a short while. If the first read succeeds, say so, keep talking through the
+**The refusal is not always immediate.** The rehearsal saw it within seconds; an earlier run was
+still serving the object ten seconds after the disable. Cloud Storage can answer a read from a
+cached unwrapped key for a short while. If the first read succeeds, say so, keep talking through the
 argument below, and run it again. Writing is refused on the same schedule and is worth showing once
 the refusal has arrived:
 
@@ -775,13 +767,13 @@ gcloud storage cat gs://dsba6190-secure-86612/raw/regulated.csv \
 Expect the content back.
 
 **What to notice.** Nothing happened to the object. It was encrypted before this step and it is
-encrypted now, and slide 24's point is that CMEK did not add encryption. What changed is who holds the
-key, and that is worth exactly one thing: the ability to make ciphertext permanently unreadable
+encrypted now, and slide 24's point is that CMEK did not add encryption. What changed is who holds
+the key, and that is worth exactly one thing: the ability to make ciphertext permanently unreadable
 without finding every copy of it. Name the two sides. **Crypto-shredding** is a faster and more
 provable deletion than a delete sweep across an unknown number of replicas and backups. It is also
-the failure mode: `disable` was reversible here, `destroy` is not, and losing the key loses the data.
-Then say what this costs to leave running. A key version bills $0.06 per month for as long as it
-exists, and the key ring cannot be deleted at all.
+the failure mode: `disable` was reversible here, `destroy` is not, and losing the key loses the
+data. Then say what this costs to leave running. A key version bills $0.06 per month for as long as
+it exists, and the key ring cannot be deleted at all.
 
 ### Step 10 · Partition pruning, measured · slide 15 · 6 minutes
 
@@ -896,12 +888,12 @@ ERROR: (gcloud.org-policies.set-policy) Permission 'orgpolicy.policies.create' d
 on resource '//cloudresourcemanager.googleapis.com/projects/YOUR_PROJECT_ID'
 ```
 
-**What to notice.** `get-ancestors` returns one row, and that row is the project itself. This project
-has no organization and no folder above it, so there is nothing to attach an organization policy to
-and `orgpolicy.policyAdmin` is a role that cannot be held here. Every command above is real output
-from the 10 September rehearsal. **The one thing this course cannot show you is an enforced policy,
-because the course does not own an organization.** Say that in those words rather than presenting a
-picture of one.
+**What to notice.** `get-ancestors` returns one row, and that row is the project itself. This
+project has no organization and no folder above it, so there is nothing to attach an organization
+policy to and `orgpolicy.policyAdmin` is a role that cannot be held here. Every command above is
+real output from the 10 September rehearsal. **The one thing this course cannot show you is an
+enforced policy, because the course does not own an organization.** Say that in those words rather
+than presenting a picture of one.
 
 Then finish the argument with what the lab brief already tells them: an organization-level public
 access prevention policy overrides the bucket setting, so a Lab 5 step that fails to make something
@@ -959,9 +951,9 @@ period. Ask what would have happened with the seven years on slide 30 and a lock
 answer land.
 
 **End here.** The last thing on screen is a destroy that had to be argued with. Say that A5 asks for
-retention policies *and* recovery procedures, and that this step is where those two requirements meet:
-the control that protects the data from you is the same control that stops you cleaning up, and a
-design that does not plan for its own teardown is not finished. Then move to the lab at 2:30.
+retention policies *and* recovery procedures, and that this step is where those two requirements
+meet: the control that protects the data from you is the same control that stops you cleaning up,
+and a design that does not plan for its own teardown is not finished. Then move to the lab at 2:30.
 
 ---
 
@@ -1035,8 +1027,8 @@ Run this the same evening. Not tomorrow.
 | The step 12 destroy succeeds on the first attempt | The retention period expired, which means more than an hour passed since step 8. Say so, and present `capture/58-destroy-refused.txt` for the refusal |
 
 The captured output is not a lesser version of this demonstration. It is the same run, recorded on
-10 September 2026, and every line is real. Switching to it costs the room nothing except the sight of
-a command being typed.
+10 September 2026, and every line is real. Switching to it costs the room nothing except the sight
+of a command being typed.
 
 ---
 
@@ -1098,5 +1090,4 @@ that form.
 
 **The numbers above are counted from the built PDF, not from the AsciiDoc headings.** The converter
 inserts nothing into this deck, because Session 5 now carries an authored `== Agenda` slide, but
-three slides split in two when a table and a figure share a heading. Verify against
-`slides/pdf/Session_05_Cloud_Storage_and_Data_Lakes.pdf` before quoting a number here.
+three slides split in two when a table and a figure share a heading.

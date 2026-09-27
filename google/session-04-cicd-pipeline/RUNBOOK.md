@@ -1,8 +1,8 @@
 # Session 4 CI/CD demo · runbook
 
 The infrastructure pipeline, worked. Twenty-three minutes, seven steps. A companion to the hour-long
-Session 4 demonstration, and the worked example for the approval-control and drift-detection sections
-of Assignment A4.
+Session 4 demonstration, and the worked example for the approval-control and drift-detection
+sections of Assignment A4.
 
 Rehearsed end to end on 10 September 2026 against project `YOUR_PROJECT_ID` and the repository
 `frazier-at-cpcc/dsba6190-infrastructure-pipeline`, Terraform v1.5.7, `hashicorp/google` v5.45.2,
@@ -40,11 +40,12 @@ account, and the federation remain between runs and cost nothing measurable.
 | 6 | 21 | A scheduled `plan -detailed-exitcode` | An issue labelled `drift` |
 
 Slide numbers are the numbers printed on the footer of the 57-slide Session 4 deck. Verify them once
-against the built PDF before class; the deck builder inserts an agenda slide that heading counts miss.
+against the built PDF before class; the deck builder inserts an agenda slide that heading counts
+miss.
 
-The pipeline is real GitHub Actions, which means every run takes between fifteen and fifty seconds on
-a hosted runner. Each step below says what to say while the runner works. Do not fill that time with
-silence and do not fill it by reading the workflow file.
+The pipeline is real GitHub Actions, which means every run takes between fifteen and fifty seconds
+on a hosted runner. Each step below says what to say while the runner works. Do not fill that time
+with silence and do not fill it by reading the workflow file.
 
 ---
 
@@ -61,10 +62,10 @@ cd lectures/demos/session-04-cicd-pipeline
 
 It applies the two buckets with your own credentials so the room starts from existing
 infrastructure, resets `main` to `repo/`, pushes three branches ready to become pull requests,
-enables the scheduled drift workflow, and closes any drift issue left from a rehearsal. A bucket that
-exists but is missing from state is imported before the apply. The reset commit carries `[skip ci]`,
-so no apply run waits at the gate before class. The first approval the room sees is the one it just
-read.
+enables the scheduled drift workflow, and closes any drift issue left from a rehearsal. A bucket
+that exists but is missing from state is imported before the apply. The reset commit carries `[skip
+ci]`, so no apply run waits at the gate before class. The first approval the room sees is the one it
+just read.
 
 In `demo.ipynb`, every cell that waits on GitHub Actions is a bounded loop. It returns when the run
 completes and prints the run's conclusion and address. When the apply run reaches the gate, the cell
@@ -111,8 +112,8 @@ from the rehearsal on 10 September. The plain-text captures are in `capture/`.
 
 ## The sequence
 
-Every command runs from `~/dsba6190-live-demo-04-cicd`. The three demo branches already exist on GitHub, so
-no step involves editing HCL in front of the room.
+Every command runs from `~/dsba6190-live-demo-04-cicd`. The three demo branches already exist on
+GitHub, so no step involves editing HCL in front of the room.
 
 ### Step 1 · The repository, and who it trusts · slide 21 · 3 minutes
 
@@ -133,11 +134,11 @@ Expect four variables, none of them a secret, and one line:
 assertion.repository == 'frazier-at-cpcc/dsba6190-infrastructure-pipeline'
 ```
 
-**What to notice.** There is no key. GitHub presents a signed token that names the repository; Google
-Cloud trusts that token for this one repository and hands back a token that lasts an hour. Stage 5
-runs as `github-actions-tf`, and nobody can download its credentials because it has none. Say that
-this is the whole answer to A4's secrets question for the pipeline itself, and that the application's
-own secrets are a separate question the hour-long demo answers.
+**What to notice.** There is no key. GitHub presents a signed token that names the repository;
+Google Cloud trusts that token for this one repository and hands back a token that lasts an hour.
+Stage 5 runs as `github-actions-tf`, and nobody can download its credentials because it has none.
+Say that this is the whole answer to A4's secrets question for the pipeline itself, and that the
+application's own secrets are a separate question the hour-long demo answers.
 
 ### Step 2 · A compliant pull request · slide 20 · 4 minutes
 
@@ -146,7 +147,8 @@ gh pr create --base main --head demo/label-cost-center --fill --web
 ```
 
 The browser opens on the new pull request. Show the diff: three lines added to `terraform.tfvars`.
-Within twenty seconds the check appears and passes, and a comment lands. Rehearsed at fifteen seconds.
+Within twenty seconds the check appears and passes, and a comment lands. Rehearsed at fifteen
+seconds.
 
 While the runner works, say what it is doing: `fmt -check`, `init` against the state bucket,
 `validate`, then `plan`. Nothing it does can change infrastructure.
@@ -176,9 +178,9 @@ gh pr merge 5 --squash --delete-branch
 ```
 
 Use the number the browser shows; the rehearsal's was 1. Switch to the **Actions** tab. The `apply`
-workflow appears with two jobs. The first, **plan the merged commit**, runs and finishes. The second,
-**stage 4 gate, then stage 5 apply**, shows an amber clock and the run page shows a yellow banner:
-**Review deployments**.
+workflow appears with two jobs. The first, **plan the merged commit**, runs and finishes. The
+second, **stage 4 gate, then stage 5 apply**, shows an amber clock and the run page shows a yellow
+banner: **Review deployments**.
 
 Do not click yet. Open the plan job's summary. The plan is printed there, again, for the approver.
 
@@ -246,11 +248,11 @@ Public access to a bucket is not permitted.
 
 Close the pull request from the browser.
 
-**What to notice.** The gate named the resource and the reason, which a human reviewer might not have.
-Then name the second layer: every bucket here sets `public_access_prevention = "enforced"`, so if
-someone bypassed the pipeline and granted `allUsers` in the Console, the platform would refuse too.
-Pipeline policy can explain itself; Organization Policy cannot be bypassed. A4 grades the student on
-knowing both exist and which does what.
+**What to notice.** The gate named the resource and the reason, which a human reviewer might not
+have. Then name the second layer: every bucket here sets `public_access_prevention = "enforced"`, so
+if someone bypassed the pipeline and granted `allUsers` in the Console, the platform would refuse
+too. Pipeline policy can explain itself; Organization Policy cannot be bypassed. A4 grades the
+student on knowing both exist and which does what.
 
 ### Step 5 · The replace nobody announced · slide 25 · 3 minutes
 
@@ -272,11 +274,12 @@ Add the label allow-replace = "true" to say that this is intended.
 
 Close the pull request.
 
-**What to notice.** `1 to add, 1 to destroy` on a one-line change. A bucket cannot move, so Terraform
-plans to delete it and make a new one, and every object in it would go. The rule does not forbid the
-replace; it requires the author to say out loud that they meant it. That is A4's destructive-change
-prevention in one sentence: destruction requires a deliberate act. `prevent_destroy` on the lake
-bucket is the other mechanism, and the hour-long demo performs it at step 11.
+**What to notice.** `1 to add, 1 to destroy` on a one-line change. A bucket cannot move, so
+Terraform plans to delete it and make a new one, and every object in it would go. The rule does not
+forbid the replace; it requires the author to say out loud that they meant it. That is A4's
+destructive-change prevention in one sentence: destruction requires a deliberate act.
+`prevent_destroy` on the lake bucket is the other mechanism, and the hour-long demo performs it at
+step 11.
 
 ### Step 6 · Drift · slide 21 · 5 minutes
 
@@ -316,9 +319,9 @@ gh workflow run drift
 
 The issue closes itself with a comment naming the time.
 
-**What to notice.** Drift detection is the only stage that runs on a timer. A4 asks how you find drift
-and what you do when you find it; the answer has two halves, and the second half is a decision, not a
-command. Sometimes reality should win, and then the fix is a commit, or an import.
+**What to notice.** Drift detection is the only stage that runs on a timer. A4 asks how you find
+drift and what you do when you find it; the answer has two halves, and the second half is a
+decision, not a command. Sometimes reality should win, and then the fix is a commit, or an import.
 
 ### Step 7 · Close on A4 · 1 minute
 

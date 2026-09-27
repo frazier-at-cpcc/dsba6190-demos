@@ -1,19 +1,19 @@
 # Session 7 live demo · make the cost visible, then govern it
 
-The hour-long demonstration for Session 7, Warehouses and Lakehouses, taught Thursday 1 October 2026.
-The first half prices queries against the New York City taxi data and builds a partitioned table
-live. The second half governs one month of the same data as a lakehouse: an external table, a BigLake
-table, a policy tag and two row access policies, queried as two different principals.
+The hour-long demonstration for Session 7, Warehouses and Lakehouses, taught Thursday 1 October
+2026. The first half prices queries against the New York City taxi data and builds a partitioned
+table live. The second half governs one month of the same data as a lakehouse: an external table, a
+BigLake table, a policy tag and two row access policies, queried as two different principals.
 
-The hour is framed as one company's work. **Queen City Trip Analytics** is a fictional
-twelve-person analytics company in South End, Charlotte, that sells demand and pricing dashboards to
+The hour is framed as one company's work. **Queen City Trip Analytics** is a fictional twelve-person
+analytics company in South End, Charlotte, that sells demand and pricing dashboards to
 ground-transportation fleets and uses New York's public trip data as its benchmark market. Its
 airport product stands behind step 7, and its first fleet customer's analyst is the second principal
 in steps 10 and 11. `RUNBOOK.md` carries the full mapping.
 
-Rehearsed and captured on 24 September 2026 against project `YOUR_PROJECT_ID`, BigQuery CLI
-2.1.38 and Google Cloud SDK 586.0.0. There is no Terraform in this demonstration. The artifacts are
-SQL and a handful of `bq` and `gcloud` commands.
+Rehearsed and captured on 24 September 2026 against project `YOUR_PROJECT_ID`, BigQuery CLI 2.1.38
+and Google Cloud SDK 586.0.0. There is no Terraform in this demonstration. The artifacts are SQL and
+a handful of `bq` and `gcloud` commands.
 
 ## Why this demonstration is an hour
 

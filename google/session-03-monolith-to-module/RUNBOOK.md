@@ -141,9 +141,9 @@ cp main.tf.nearline main.tf && terraform plan
 terraform apply -auto-approve
 ```
 
-`~ storage_class = "STANDARD" -> "NEARLINE"` with **14 unchanged attributes hidden**, then
-`0 added, 1 changed, 0 destroyed` in under a second. **What to notice.** The bucket keeps its name,
-its objects, and its URL.
+`~ storage_class = "STANDARD" -> "NEARLINE"` with **14 unchanged attributes hidden**, then `0 added,
+1 changed, 0 destroyed` in under a second. **What to notice.** The bucket keeps its name, its
+objects, and its URL.
 
 ### Step 5 · Destroy and recreate. Stop · 4 minutes
 
@@ -152,9 +152,9 @@ cp main.tf.renamed main.tf && terraform plan
 cp main.tf.nearline main.tf
 ```
 
-`-/+ destroy and then create replacement`, and on the `name` line, `# forces replacement`.
-`Plan: 1 to add, 0 to change, 1 to destroy.` **Do not apply.** Ask what would have happened if this
-bucket held the fleet's raw trips, and let the silence run. Restore `main.tf.nearline` before step 6.
+`-/+ destroy and then create replacement`, and on the `name` line, `# forces replacement`. `Plan: 1
+to add, 0 to change, 1 to destroy.` **Do not apply.** Ask what would have happened if this bucket
+held the fleet's raw trips, and let the silence run. Restore `main.tf.nearline` before step 6.
 **What to notice.** `forces replacement` is the string to search for in any plan you did not write.
 
 ### Step 6 · Terraform finds the drift · 4 minutes
@@ -165,9 +165,8 @@ In the Console, open the bucket, edit its labels, set `owner` to `someone-at-2am
 terraform plan
 ```
 
-`~ "owner" = "someone-at-2am" -> "dsba6190"` in all three label maps, and
-`Plan: 0 to add, 1 to change, 0 to destroy.` **What to notice.** This is detection. Nothing
-prevented the edit.
+`~ "owner" = "someone-at-2am" -> "dsba6190"` in all three label maps, and `Plan: 0 to add, 1 to
+change, 0 to destroy.` **What to notice.** This is detection. Nothing prevented the edit.
 
 ### Step 7 · One module, two environments · 5 minutes
 
@@ -193,10 +192,10 @@ terraform output dev_labels
 ```
 
 The typo `environment = "production"` fails at plan time with `environment must be one of: dev,
-test, prod.` The corrected root passes `extra_labels` with `environment = "sandbox"` and
-`team = "fleet-dashboards"` to the dev lake. The plan adds `team` to both buckets and leaves
-`environment` alone, and `terraform output dev_labels` shows `"environment" = "dev"`. **What to
-notice.** `merge(var.extra_labels, local.enforced)` puts the enforced map last, so it wins.
+test, prod.` The corrected root passes `extra_labels` with `environment = "sandbox"` and `team =
+"fleet-dashboards"` to the dev lake. The plan adds `team` to both buckets and leaves `environment`
+alone, and `terraform output dev_labels` shows `"environment" = "dev"`. **What to notice.**
+`merge(var.extra_labels, local.enforced)` puts the enforced map last, so it wins.
 
 ### Step 9 · Safe deletion: prevent_destroy, then force_destroy · 6 minutes
 
@@ -209,12 +208,12 @@ terraform destroy -auto-approve -target=module.prod_lake
 gcloud storage ls "gs://${PROD_BUCKET:?}/raw/"
 ```
 
-The apply shows `~ force_destroy = true -> false` on both buckets. The first destroy fails twice with
-`Error: Instance cannot be destroyed`, once per bucket, because `lifecycle.prevent_destroy` accepts
-literal values only and so guards every environment. With the lifecycle block deleted, the targeted
-destroy fails with `Error trying to delete bucket dsba6190-prod-raw-26095 containing objects without
-force_destroy set to true`. The trip file is still listed. **What to notice.** Deleting the block
-deleted the guard. The second control held anyway.
+The apply shows `~ force_destroy = true -> false` on both buckets. The first destroy fails twice
+with `Error: Instance cannot be destroyed`, once per bucket, because `lifecycle.prevent_destroy`
+accepts literal values only and so guards every environment. With the lifecycle block deleted, the
+targeted destroy fails with `Error trying to delete bucket dsba6190-prod-raw-26095 containing
+objects without force_destroy set to true`. The trip file is still listed. **What to notice.**
+Deleting the block deleted the guard. The second control held anyway.
 
 ### Step 10 · Environments from one map · 5 minutes
 
@@ -226,9 +225,9 @@ terraform apply -auto-approve
 ```
 
 The first plan reads `module.dev_lake... has moved to module.lake["dev"]` for both buckets and
-`Plan: 0 to add, 0 to change, 0 to destroy.` Adding `test` to the map plans
-**exactly 1 to add**. **What to notice.** Without the two `moved` blocks, the new addresses would
-have planned the destruction of dev and prod. All three environments still share one state.
+`Plan: 0 to add, 0 to change, 0 to destroy.` Adding `test` to the map plans **exactly 1 to add**.
+**What to notice.** Without the two `moved` blocks, the new addresses would have planned the
+destruction of dev and prod. All three environments still share one state.
 
 ### Step 11 · The Lab 3 VM as a module · 8 minutes
 
@@ -266,10 +265,10 @@ terraform providers
 ```
 
 Make the `owner` label edit on the prod bucket in the Console between the first two commands. The
-first plan returned **exit code 0**; after the edit, **exit code 2**. The lock file records
-`version = "5.45.2"` under `constraints = "~> 5.0"`, with hashes. **What to notice.** Exit code 2 is
-the hook a scheduled pipeline uses next week, and the committed lock file is what makes the next
-checkout resolve the same provider.
+first plan returned **exit code 0**; after the edit, **exit code 2**. The lock file records `version
+= "5.45.2"` under `constraints = "~> 5.0"`, with hashes. **What to notice.** Exit code 2 is the hook
+a scheduled pipeline uses next week, and the committed lock file is what makes the next checkout
+resolve the same provider.
 
 ### Step 13 · Teardown, and proof that nothing remains · 4 minutes
 
@@ -283,8 +282,8 @@ terraform state list
 
 Empty the prod bucket on purpose first, because `force_destroy` is false. The destroy removed three
 buckets in about a second each. The listings returned **0 buckets and 0 instances**, and the state
-held 0 resources. **What to notice.** Every destructive command names its target as `${VAR:?}`, so an
-empty variable refuses to run rather than widening the delete.
+held 0 resources. **What to notice.** Every destructive command names its target as `${VAR:?}`, so
+an empty variable refuses to run rather than widening the delete.
 
 ---
 

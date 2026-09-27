@@ -2,10 +2,10 @@
 
 Build a stream, then break it. One hour, eleven steps, 1:30 to 2:30.
 
-Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Pub/Sub, three
-Dataflow streaming jobs on Apache Beam 2.76.0 in `us-central1`, each on one `e2-standard-2` worker
-with Streaming Engine and no external IPs, and BigQuery. Every command below was run, and
-`capture/` holds the full output of each one.
+Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Pub/Sub, three Dataflow
+streaming jobs on Apache Beam 2.76.0 in `us-central1`, each on one `e2-standard-2` worker with
+Streaming Engine and no external IPs, and BigQuery. Every command below was run, and `capture/`
+holds the full output of each one.
 
 **Do not run `capture.sh` in class.** It stages its own topics and jobs and deletes everything
 through an exit trap. `live-setup.sh` provisions and never destroys.
@@ -72,8 +72,8 @@ gcloud dataflow jobs list --region "$REGION" --status=active --filter="name~crow
 
 The script enables the Dataflow and Pub/Sub APIs, grants the Dataflow service agent its role and
 waits 60 seconds, creates the topic, the three subscriptions, the dead-letter topic and its
-subscription, a staging bucket and a dataset, and launches the three jobs. It then blocks twice.
-It waits until all three jobs report Running, which took **111 seconds** after submission on the
+subscription, a staging bucket and a dataset, and launches the three jobs. It then blocks twice. It
+waits until all three jobs report Running, which took **111 seconds** after submission on the
 rehearsal. It then publishes five-sale warm-up bursts until the baseline table exists, which took
 **250 seconds**. Allow about seven minutes in all. T minus 30 leaves room for one failed launch.
 
@@ -122,9 +122,9 @@ b'register test 1'  CLT-001   21274643676181478
 b'register test 2'  CLT-002   21275728857067390
 ```
 
-Create a scratch topic and subscription, publish three messages, pull them back. **What to
-notice.** They came back 3, 1, 2, and every publish got its own message ID. Step 7 depends on the
-second point.
+Create a scratch topic and subscription, publish three messages, pull them back. **What to notice.**
+They came back 3, 1, 2, and every publish got its own message ID. Step 7 depends on the second
+point.
 
 ### Step 2 · Three jobs, started before class · slide 31 · 4 minutes
 
@@ -136,8 +136,8 @@ jobs running 111 s after submission
 first rows 250 s after submission
 ```
 
-Name the three variants and open the console links the cell prints. **What to notice.** Four
-minutes from submission to the first row is why no streaming job starts in front of the room.
+Name the three variants and open the console links the cell prints. **What to notice.** Four minutes
+from submission to the first row is why no streaming job starts in front of the room.
 
 ### Step 3 · A burst, and rows in BigQuery · slides 32 and 33 · 6 minutes
 
@@ -154,10 +154,10 @@ Beam's on-time firing. Step 6 shows the other value.
 
 ### Step 4 · The watermark, in the console · slide 34 · 6 minutes
 
-No capture; this step is live only. Open the baseline job. Walk the job graph from Read to Write
-and point at the DeadLetter branch. Open job metrics and show data freshness and system latency.
-**What to notice.** Data freshness is the watermark as a number: how far event time trails the
-wall clock. When the watermark passes a window's end, the window fires.
+No capture; this step is live only. Open the baseline job. Walk the job graph from Read to Write and
+point at the DeadLetter branch. Open job metrics and show data freshness and system latency. **What
+to notice.** Data freshness is the watermark as a number: how far event time trails the wall clock.
+When the watermark passes a window's end, the window fires.
 
 ### Step 5 · A sale rung 30 minutes ago · slide 35 · 7 minutes
 
@@ -201,8 +201,8 @@ sale_id: S-BAD-1790524181
 
 Three identical dead letters arrived, one from each job, because all three share one dead-letter
 topic. **What to notice.** No job stopped. Without the dead-letter branch, streaming Dataflow
-retries a failing element indefinitely and the stream stalls behind it: the poison pill from
-Hour 2. The until-loop cell may print one copy; the next cell pulls the rest.
+retries a failing element indefinitely and the stream stalls behind it: the poison pill from Hour 2.
+The until-loop cell may print one copy; the next cell pulls the rest.
 
 ### Step 9 · Lag, backlog, and what to alert on · slide 39 · 5 minutes
 

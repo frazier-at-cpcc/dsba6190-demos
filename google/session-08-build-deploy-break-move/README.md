@@ -1,7 +1,7 @@
 # Session 8 live demo · build, deploy, update, break, and move
 
-The hour-long container demonstration for Session 8, Containers and Kubernetes, taught Thursday
-8 October 2026. Queen City Trip Analytics, the fictional South End firm from Session 7, ships its
+The hour-long container demonstration for Session 8, Containers and Kubernetes, taught Thursday 8
+October 2026. Queen City Trip Analytics, the fictional South End firm from Session 7, ships its
 fare-quote API to GKE and then to Cloud Run while a dispatcher loop asks for quotes throughout.
 
 Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`.

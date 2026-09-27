@@ -2,11 +2,11 @@
 
 The hour-long platform demonstration for Session 1, Cloud Foundations. Queen City Trip Analytics,
 the fictional South End analytics firm used across the course, runs one night's trip rollup on a
-Compute Engine VM, as a Cloud Run job, and as a BigQuery query, then compares what each one
-managed, took and billed.
+Compute Engine VM, as a Cloud Run job, and as a BigQuery query, then compares what each one managed,
+took and billed.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. It replaces
-the fifteen-minute Console walkthrough the session taught on 20 August.
+Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. It replaces the
+fifteen-minute Console walkthrough the session taught on 20 August.
 
 ## What the rehearsal changed
 

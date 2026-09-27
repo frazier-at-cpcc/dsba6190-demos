@@ -6,9 +6,9 @@ trains two fuel-economy models on the UCI Auto MPG dataset, registers both as ve
 serves one from an endpoint and the other as a batch job, prices three trips at $3.20 a gallon, and
 undeploys the endpoint in front of the room.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. The notebooks
-were generated from `capture.sh`'s commands and checked with `bash -n`; they have not yet been run
-end to end against the project.
+Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`. The notebooks were
+generated from `capture.sh`'s commands and checked with `bash -n`; they have not yet been run end to
+end against the project.
 
 ## What the rehearsal changed
 

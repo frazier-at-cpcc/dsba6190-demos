@@ -25,13 +25,13 @@ Connect token to Google Cloud, which exchanges it for a short-lived token for th
 4. No bucket is destroyed and recreated unless the change carries `allow-replace = "true"`.
 
 Rule 1 has a second layer: every bucket also sets `public_access_prevention = "enforced"`, so the
-platform refuses the binding even when the pipeline is bypassed. The pipeline rule can say which line
-broke; the platform rule cannot be bypassed. A delivery process wants both.
+platform refuses the binding even when the pipeline is bypassed. The pipeline rule can say which
+line broke; the platform rule cannot be bypassed. A delivery process wants both.
 
 ## Try it
 
-Open a pull request that changes `terraform.tfvars`. Read the plan the workflow posts. Merge it, then
-approve the deployment under **Actions**. Then open a pull request that adds
+Open a pull request that changes `terraform.tfvars`. Read the plan the workflow posts. Merge it,
+then approve the deployment under **Actions**. Then open a pull request that adds
 
 ```hcl
 resource "google_storage_bucket_iam_member" "public" {

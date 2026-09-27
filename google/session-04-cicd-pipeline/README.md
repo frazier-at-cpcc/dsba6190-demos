@@ -2,9 +2,9 @@
 
 A companion to the hour-long Session 4 demonstration. Where that demonstration performs state,
 locking, import, and drift at one terminal, this one performs the six-stage delivery pipeline that
-Concept Block 2 describes and that Assignment A4 asks students to specify: a pull request that
-posts its own plan, a policy gate that rejects without a human, an approval gate that a human must
-open, an apply that runs as a service account, and a scheduled plan that finds drift.
+Concept Block 2 describes and that Assignment A4 asks students to specify: a pull request that posts
+its own plan, a policy gate that rejects without a human, an approval gate that a human must open,
+an apply that runs as a service account, and a scheduled plan that finds drift.
 
 It runs on the instructor's GitHub account and the UNC Charlotte demo project.
 
@@ -44,9 +44,10 @@ permission that no narrower predefined role carries. The runbook says so out lou
 
 ## Why the repository is public
 
-Required reviewers on a GitHub environment are free on a public repository and need GitHub Enterprise on a private one. The approval
-gate is stage 4 of the pipeline and the demonstration does not work without it. The repository holds
-a project id, which is not a secret, and no credential of any kind.
+Required reviewers on a GitHub environment are free on a public repository and need GitHub
+Enterprise on a private one. The approval gate is stage 4 of the pipeline and the demonstration does
+not work without it. The repository holds a project id, which is not a secret, and no credential of
+any kind.
 
 ## Re-running it
 

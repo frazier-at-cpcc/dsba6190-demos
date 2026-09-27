@@ -2,9 +2,9 @@
 
 One nightly job, three ways. One hour, twelve steps, 1:30 to 2:30.
 
-Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Compute Engine,
-Cloud Run jobs, Cloud Storage and BigQuery in `us-east1` and the `US` multi-region. Every command
-below was run, and `capture/` holds the full output of each one.
+Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Compute Engine, Cloud
+Run jobs, Cloud Storage and BigQuery in `us-east1` and the `US` multi-region. Every command below
+was run, and `capture/` holds the full output of each one.
 
 **Do not run `capture.sh` in class.** It stages its own bucket and deletes everything through an
 exit trap. `live-setup.sh` provisions and never destroys.
@@ -89,16 +89,15 @@ Kernel**, **Bash**. Have the Console open on a second tab for step 4.
 | 11 | Where cost appears | 4 | 43 |
 | 12 | Teardown | 5 | 44 |
 
-Slide 28 is the divider, slide 29 introduces the scenario, and slides 30 and 31 carry the run
-sheet. Slide 32, how you talk to Google Cloud, opens the hour before step 1. The deck runs to 52
-slides.
+Slide 28 is the divider, slide 29 introduces the scenario, and slides 30 and 31 carry the run sheet.
+Slide 32, how you talk to Google Cloud, opens the hour before step 1. The deck runs to 52 slides.
 
 ### Step 1 · Who and where · 4 minutes
 
 `gcloud config list`, `gcloud auth list`, then `gcloud projects describe`. The project has a name,
-`UNC Charlotte Demo`, an ID, `YOUR_PROJECT_ID`, and a number. **What to notice.** The ID is the
-one that never changes and the one every command uses. Nearly every permission error this term is
-the wrong account or the wrong project.
+`UNC Charlotte Demo`, an ID, `YOUR_PROJECT_ID`, and a number. **What to notice.** The ID is the one
+that never changes and the one every command uses. Nearly every permission error this term is the
+wrong account or the wrong project.
 
 ### Step 2 · Where the project sits · 3 minutes
 
@@ -109,44 +108,44 @@ nothing.
 
 ### Step 3 · Geography · 3 minutes
 
-43 regions, nine in the United States, three zones in `us-east1`. **What to notice.** `us-east1`
-is in Moncks Corner, South Carolina, the closest region to Charlotte. Latency, data location and
-price all follow from this one choice.
+43 regions, nine in the United States, three zones in `us-east1`. **What to notice.** `us-east1` is
+in Moncks Corner, South Carolina, the closest region to Charlotte. Latency, data location and price
+all follow from this one choice.
 
 ### Step 4 · A bucket, and what cannot change · 6 minutes
 
 Create a bucket in the Console first, then the same bucket with `gcloud storage buckets create`.
 `buckets describe` shows `location_type: region`. `buckets update --location us` fails with
-`unrecognized arguments: --location`. Changing the default class to `NEARLINE` succeeds.
-**What to notice.** Location is fixed at creation; the storage class is not. Ask which of the two
-creations the room could hand to a colleague. Let the silence argue for infrastructure as code.
+`unrecognized arguments: --location`. Changing the default class to `NEARLINE` succeeds. **What to
+notice.** Location is fixed at creation; the storage class is not. Ask which of the two creations
+the room could hand to a colleague. Let the silence argue for infrastructure as code.
 
 ### Step 5 · Last night's file · 3 minutes
 
 One object, 135,535,057 bytes, and `job/rollup.sh`: `gcloud storage cat` into an `awk` rollup,
-written back to the bucket with its own timing. **What to notice.** The same eight lines run on
-the VM and on Cloud Run.
+written back to the bucket with its own timing. **What to notice.** The same eight lines run on the
+VM and on Cloud Run.
 
 ### Step 6 · The job on a virtual machine · 9 minutes
 
 An `e2-standard-2` with a startup script that runs the rollup and shuts the machine down. From
-create to `TERMINATED`: **104 seconds** on the rehearsal. The rollup itself: **7 seconds**. The
-disk is still there after the machine stops. **What to notice.** The company chose the operating
-system, the machine size and the shutdown. Boot time, not work, dominated the run. A stopped VM
-still bills for its disk.
+create to `TERMINATED`: **104 seconds** on the rehearsal. The rollup itself: **7 seconds**. The disk
+is still there after the machine stops. **What to notice.** The company chose the operating system,
+the machine size and the shutdown. Boot time, not work, dominated the run. A stopped VM still bills
+for its disk.
 
 ### Step 7 · The same job on Cloud Run · 7 minutes
 
-A Cloud Run job on Google's `google-cloud-cli` image, 2 vCPU and 2 GiB. The execution ran for
-**29 seconds** from start to completion, and the rollup inside it for **3**. Nothing remains
-running afterwards. **What to notice.** No operating system, no disk, no shutdown line. The
-company packaged a command and Google ran it.
+A Cloud Run job on Google's `google-cloud-cli` image, 2 vCPU and 2 GiB. The execution ran for **29
+seconds** from start to completion, and the rollup inside it for **3**. Nothing remains running
+afterwards. **What to notice.** No operating system, no disk, no shutdown line. The company packaged
+a command and Google ran it.
 
 ### Step 8 · The same question in BigQuery · 6 minutes
 
-`bq load` took **12 seconds** of wall time. The query processed 0.05 GB and billed **51 MB** with 0.1 seconds of
-slot time. **What to notice.** BigQuery read two of the seven columns. On-demand pricing bills bytes
-processed, so the columns a query names are its cost.
+`bq load` took **12 seconds** of wall time. The query processed 0.05 GB and billed **51 MB** with
+0.1 seconds of slot time. **What to notice.** BigQuery read two of the seven columns. On-demand
+pricing bills bytes processed, so the columns a query names are its cost.
 
 ### Step 9 · Three platforms, one answer · 3 minutes
 

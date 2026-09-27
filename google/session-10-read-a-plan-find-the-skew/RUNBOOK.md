@@ -2,11 +2,11 @@
 
 Read a plan, find the skew. One hour, eleven steps, 1:30 to 2:30, taught on Zoom.
 
-Captured end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Serverless for
-Apache Spark runtime 2.2, which ran Spark 3.5.3 on Java 17, and BigQuery. `capture/` holds the full
-output of every command, and `plan/` holds the four physical plans the job wrote. `live-setup.sh`,
-`lib.sh` and the two notebooks are derived from `capture.sh` and have not yet run against the
-project. **Run `prep.ipynb` and `demo.ipynb` once, end to end, before 22 October.**
+Captured end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Serverless for Apache
+Spark runtime 2.2, which ran Spark 3.5.3 on Java 17, and BigQuery. `capture/` holds the full output
+of every command, and `plan/` holds the four physical plans the job wrote. `live-setup.sh`, `lib.sh`
+and the two notebooks are derived from `capture.sh` and have not yet run against the project. **Run
+`prep.ipynb` and `demo.ipynb` once, end to end, before 22 October.**
 
 **Do not run `capture.sh` in class.** It stages its own bucket and dataset and deletes both through
 an exit trap. `live-setup.sh` provisions and never destroys.
@@ -30,9 +30,9 @@ and 8. It bills its fleet customers every month by joining a year of trips, **30
 its accounts dimension, **5,001 rows**, and summing fares by account tier and month.
 
 Street hails carry the account `WALKUP`, which is never invoiced and holds **60 per cent** of the
-trips. It is a real value, not a null, so the join's `isnotnull` filter keeps it, and every
-`WALKUP` trip hashes to the same partition. That one key is the skew. The job generates its own data
-from fixed seeds, so every number below reproduces.
+trips. It is a real value, not a null, so the join's `isnotnull` filter keeps it, and every `WALKUP`
+trip hashes to the same partition. That one key is the skew. The job generates its own data from
+fixed seeds, so every number below reproduces.
 
 `jobs/billing.py` runs in five modes. `generate` writes the data. `baseline`, `broadcast`, `salted`
 and `aqe` run the same join four ways, and each writes its physical plan to `plans/<mode>/` and its
@@ -76,10 +76,10 @@ four to five minutes.
 `env.sh` exports every name the notebook uses and sources `lib.sh`, which defines the helpers:
 `submit` sends a batch with `--async`, `waitfor` polls it with an until-loop, `planof` prints the
 plan a variant wrote, `evlog` prints its stage table, `biggest` prints the largest task in each
-shuffle-reading stage, `finalplan` prints the plan adaptive execution actually ran, `apptime`
-prints how long the Spark application ran, and `bqq` runs a BigQuery query with the cache off and
-prints slot time and bytes processed. Every batch carries the properties `capture.sh` used: runtime
-2.2, `spark.eventLog.compress=false`, dynamic allocation off, two executors of four cores, and 200
+shuffle-reading stage, `finalplan` prints the plan adaptive execution actually ran, `apptime` prints
+how long the Spark application ran, and `bqq` runs a BigQuery query with the cache off and prints
+slot time and bytes processed. Every batch carries the properties `capture.sh` used: runtime 2.2,
+`spark.eventLog.compress=false`, dynamic allocation off, two executors of four cores, and 200
 shuffle partitions.
 
 | Symptom | Cause | Fix |
@@ -92,18 +92,17 @@ shuffle partitions.
 | `evlog` prints `no finished event log ... yet` | The batch is still running, so its log is still `.inprogress` | Run `waitfor` for that variant first |
 
 **Drive the hour from `demo.ipynb`** on the Bash kernel: VS Code, **Select Kernel**, **Jupyter
-Kernel**, **Bash**. On Zoom, share the notebook window rather than the whole screen, and zoom one step
-further than feels necessary, because the stage tables are dense.
+Kernel**, **Bash**. On Zoom, share the notebook window rather than the whole screen, and zoom one
+step further than feels necessary, because the stage tables are dense.
 
 ---
 
 ## Why the batches are asynchronous
 
-Each Spark variant took 164 to 213 seconds from submission to finish. Four of them run
-synchronously would spend a quarter of the hour waiting. Instead, each batch is submitted with
-`--async` one step before it is needed and collected later by `waitfor`, which polls every ten
-seconds. At most one batch runs at a time, so the demonstration never competes with itself for CPU
-quota.
+Each Spark variant took 164 to 213 seconds from submission to finish. Four of them run synchronously
+would spend a quarter of the hour waiting. Instead, each batch is submitted with `--async` one step
+before it is needed and collected later by `waitfor`, which polls every ten seconds. At most one
+batch runs at a time, so the demonstration never competes with itself for CPU quota.
 
 | Batch | Submitted | About ready | Needed |
 |---|---|---|---|
@@ -130,9 +129,9 @@ quota.
 | 10 | Annotate the plan together | 5 | 40 |
 | 11 | Teardown | 2 | 41 |
 
-Slide 27 is the divider, slide 28 introduces the scenario, and slides 29 and 30 carry the run
-sheet. Slide 15, in Hour 1, shows the full plan tree that step 2 reads. Slides 44 to 49 are the A9
-workshop and slides 53 and 54 scaffold the Lab 10 annotation. The deck runs to 57 slides.
+Slide 27 is the divider, slide 28 introduces the scenario, and slides 29 and 30 carry the run sheet.
+Slide 15, in Hour 1, shows the full plan tree that step 2 reads. Slides 44 to 49 are the A9 workshop
+and slides 53 and 54 scaffold the Lab 10 annotation. The deck runs to 57 slides.
 
 ### Step 1 · The billing job, and the first batch submitted · 5 minutes
 
@@ -185,9 +184,9 @@ submit aqe aqe "$AQE_ON"
 bqq "SELECT account_id, COUNT(*) AS trips, ... GROUP BY 1 ORDER BY 2 DESC LIMIT 5"
 ```
 
-`WALKUP` holds **17,997,932 trips, a share of 0.5999**. The next largest account holds 2,597.
-**What to notice.** Cause meets symptom: the 18,058,073 records in the largest task are `WALKUP`
-plus the few ordinary accounts that hash to the same partition.
+`WALKUP` holds **17,997,932 trips, a share of 0.5999**. The next largest account holds 2,597. **What
+to notice.** Cause meets symptom: the 18,058,073 records in the largest task are `WALKUP` plus the
+few ordinary accounts that hash to the same partition.
 
 ### Step 5 · Broadcast: the join shuffle is gone · 7 minutes
 
@@ -197,10 +196,10 @@ planof broadcast | sed -n '2,10p'
 evlog broadcast
 ```
 
-`BroadcastExchange (7)` and `BroadcastHashJoin Inner BuildRight (8)` replace the two join
-Exchanges. Only `Exchange (11)`, after the join, remains. The only 200-task stage left reads 0.0 MB
-with a maximum task of 2.8 s. Wall clock **164 seconds** against 213. **What to notice.** Broadcast
-needs one side small enough to copy to every executor. Here it is 5,001 rows.
+`BroadcastExchange (7)` and `BroadcastHashJoin Inner BuildRight (8)` replace the two join Exchanges.
+Only `Exchange (11)`, after the join, remains. The only 200-task stage left reads 0.0 MB with a
+maximum task of 2.8 s. Wall clock **164 seconds** against 213. **What to notice.** Broadcast needs
+one side small enough to copy to every executor. Here it is 5,001 rows.
 
 ### Step 6 · Salted: one key becomes thirty-two · 6 minutes
 
@@ -227,13 +226,13 @@ evlog aqe
 biggest aqe
 ```
 
-The printed plan says `isFinalPlan=false`. The final plan from the event log shows
-`AQEShuffleRead coalesced` on every shuffle and no skew split. The join ran as **5 tasks** with a
-median of 9.0 s and a maximum of **20.0 s**, a ratio of **2.2**. The largest task still read
-**206.2 MB**, which is below the default `skewedPartitionThresholdInBytes` of 256 MB, so adaptive
-execution never treated it as skewed. Wall clock **169 seconds**. **Say plainly** that the ratio
-improved because the median rose, and that the straggler got longer. Adaptive execution is not a
-substitute for knowing the data.
+The printed plan says `isFinalPlan=false`. The final plan from the event log shows `AQEShuffleRead
+coalesced` on every shuffle and no skew split. The join ran as **5 tasks** with a median of 9.0 s
+and a maximum of **20.0 s**, a ratio of **2.2**. The largest task still read **206.2 MB**, which is
+below the default `skewedPartitionThresholdInBytes` of 256 MB, so adaptive execution never treated
+it as skewed. Wall clock **169 seconds**. **Say plainly** that the ratio improved because the median
+rose, and that the straggler got longer. Adaptive execution is not a substitute for knowing the
+data.
 
 ### Step 8 · The same join in BigQuery · 5 minutes
 
@@ -241,8 +240,8 @@ substitute for knowing the data.
 bqq "SELECT a.tier, DATE_TRUNC(t.pickup_date, MONTH) AS month, COUNT(*) AS trips, ... JOIN ..."
 ```
 
-**1.4 slot-seconds, 686.7 MB processed, 4 stages**, and no batch to start. **What to notice.** If
-it fits in SQL, use SQL. Ask which version the billing team should maintain.
+**1.4 slot-seconds, 686.7 MB processed, 4 stages**, and no batch to start. **What to notice.** If it
+fits in SQL, use SQL. Ask which version the billing team should maintain.
 
 ### Step 9 · Four variants, one answer · 3 minutes
 
@@ -272,9 +271,9 @@ bq --project_id="${PROJECT:?}" rm -r -f -d "${DATASET:?}"
 gcloud dataproc batches list --region "$REGION" --filter="state=RUNNING"
 ```
 
-A finished batch releases its own machines. The bucket and the dataset hold the data, the plans,
-the event logs and four result tables. The rehearsal listed **0** running batches afterwards. Every
-name is written `${NAME:?}` so an empty variable refuses to run.
+A finished batch releases its own machines. The bucket and the dataset hold the data, the plans, the
+event logs and four result tables. The rehearsal listed **0** running batches afterwards. Every name
+is written `${NAME:?}` so an empty variable refuses to run.
 
 ---
 
