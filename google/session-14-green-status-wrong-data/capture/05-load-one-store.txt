@@ -1,0 +1,7 @@
+$ nightly_load gs://$BUCKET/incoming/one-store.csv
+
+load job   s14_load_1790539210_19022
+state      DONE
+errors     none
+rows       377
+into       store_sales$20260926

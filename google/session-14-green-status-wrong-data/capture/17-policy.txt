@@ -1,0 +1,4 @@
+$ gcloud monitoring policies create --policy-from-file=policy.json --notification-channels=$CHANNEL
+
+The new metric is not visible to Monitoring yet. Retrying in 30 s.
+projects/YOUR_PROJECT_ID/alertPolicies/256999765134236465

@@ -1,0 +1,5 @@
+$ gcloud storage cat $OLD | sed -n 1,3p   (the same URL still serves the file)
+
+sale_date,store_id,region,neighborhood,register_id,basket_id,items,basket_value,payment_type
+2026-07-29,CLT-001,Center City,Uptown,CLT-001-R07,CLT-001-20260729-00000,4,13.38,card
+2026-07-29,CLT-001,Center City,Uptown,CLT-001-R05,CLT-001-20260729-00001,1,3.80,card

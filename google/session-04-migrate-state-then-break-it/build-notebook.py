@@ -65,8 +65,9 @@ notebook("prep", [
 
 notebook("demo", [
     md("# Session 4 · Migrate state, then break it\n\n"
-       "A bucket, a topic and a generated password on local state, moved to a versioned "
-       "backend and then broken eight ways."),
+       "Queen City Trip Analytics, a fictional South End, Charlotte firm, gains a second "
+       "engineer and moves its state off one laptop. A bucket, a topic and a generated "
+       "password on local state, moved to a versioned backend and then broken eight ways."),
     LOAD,
 
     md("## Step 1 · Read the state you already have"),

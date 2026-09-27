@@ -26,31 +26,56 @@ STATE_PREFIX="session-04-cicd"
 
 commit() { git -c user.name="Your Name" -c user.email="you@example.edu" commit -q "$@"; }
 
-rm -rf "$WORK"
+rm -rf "${WORK:?}"
 git clone -q "https://github.com/$REPO.git" "$WORK"
 cd "$WORK"
 git checkout -q -B main
+# The provider lock file is written by the local init below. Kept out of every
+# commit so the room sees only the lines each pull request is about.
+printf 'env.sh\n.terraform.lock.hcl\n' >> "$WORK/.git/info/exclude"
 
-# main must equal repo/. If it does not, push it and let apply.yml run; the
-# instructor approves that one from the browser before class.
+# main must equal repo/.
 find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 cp -R "$HERE/repo/." .
-if ! git diff --quiet || [ -n "$(git status --porcelain)" ]; then
-  git add -A
-  commit -m "Reset main to the reference pipeline"
-  git push -q origin main
-  echo "main was reset and pushed. Approve the resulting apply under Actions before class."
-fi
 
 # Baseline applied with the instructor's credentials, so the room starts
 # from two existing buckets and every plan in class is a change, not a create.
+# Applied before main is pushed, so no runner plans against a state that is
+# about to change underneath it.
 terraform init -no-color -reconfigure \
   -backend-config="bucket=$STATE_BUCKET" -backend-config="prefix=$STATE_PREFIX" >/dev/null
+# A bucket that exists but is missing from state (state lost, or a teardown
+# that stopped halfway) would make apply fail with 409. Adopt it instead.
+for r in lake scratch; do
+  if ! terraform state list 2>/dev/null | grep -qx "google_storage_bucket.$r" \
+     && gcloud storage buckets describe "gs://$PROJECT-cicd-$r" --project "$PROJECT" >/dev/null 2>&1; then
+    echo "gs://$PROJECT-cicd-$r exists but is not in state. Importing it."
+    terraform import -no-color "google_storage_bucket.$r" "$PROJECT-cicd-$r" >/dev/null
+  fi
+done
 terraform apply -no-color -auto-approve >/dev/null
 gcloud storage buckets update "gs://$PROJECT-cicd-scratch" --update-labels env=dev --project "$PROJECT" >/dev/null
 
+# The reset commit carries [skip ci]. An apply run for it would wait at the
+# production gate, and while it waits it holds the terraform-state
+# concurrency group, so every pull-request run in class would queue behind it.
+# The baseline is already applied above, so the run would have nothing to do.
+if ! git diff --quiet || [ -n "$(git status --porcelain)" ]; then
+  git add -A
+  commit -m "Reset main to the reference pipeline [skip ci]"
+  git push -q origin main
+  echo "main was reset to repo/ and pushed without triggering apply."
+fi
+
 # Three branches, pushed, each one `gh pr create` away.
-git push -q origin --delete demo/label-cost-center demo/make-scratch-public demo/move-scratch 2>/dev/null || true
+# One branch per push: a multi-ref delete fails as a whole when any one ref is
+# already gone, which left a stale branch behind and broke the push below.
+# Deleting a branch also closes any pull request still open from it.
+for b in demo/label-cost-center demo/make-scratch-public demo/move-scratch; do
+  if git ls-remote --exit-code --heads origin "$b" >/dev/null; then
+    git push -q origin --delete "$b"
+  fi
+done
 
 git checkout -q -b demo/label-cost-center main
 cat >> terraform.tfvars <<'EOF'
@@ -97,7 +122,10 @@ export LAKE_BUCKET="$PROJECT-cicd-lake"
 export SCRATCH_BUCKET="$PROJECT-cicd-scratch"
 export WORKDIR="$WORK"
 ENVEOF
-echo "env.sh" >> "$WORK/.git/info/exclude"
+
+# The after-class teardown disables the scheduled drift workflow, because
+# against destroyed buckets it would open an issue every morning.
+gh workflow enable drift --repo "$REPO" 2>/dev/null || true
 
 # Any drift issue left from a rehearsal would spoil step 6.
 for n in $(gh issue list --repo "$REPO" --label drift --state open --json number --jq '.[].number'); do

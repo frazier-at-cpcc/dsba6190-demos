@@ -1,0 +1,10 @@
+$ nightly_load $GOOD; ALTER TABLE store_sales DROP COLUMN basket_total
+
+load job   s14_load_1790539229_23431
+state      DONE
+errors     none
+rows       12270
+into       store_sales$20260926
+Altered YOUR_PROJECT_ID.store_ops_39158.store_sales
+
+processed 0.0 MB · billed 0.0 MB · label pipeline:fix

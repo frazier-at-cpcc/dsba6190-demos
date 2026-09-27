@@ -1,0 +1,17 @@
+$ gcloud storage buckets update gs://$BUCKET --lifecycle-file=lifecycle.json
+
+Updating gs://s14-store-sales-raw-39158/...
+default_storage_class: STANDARD
+labels:
+  env: demo
+  pipeline: nightly-store-sales
+  team: replenishment
+lifecycle_config:
+  rule:
+  - action:
+      storageClass: NEARLINE
+      type: SetStorageClass
+    condition:
+      age: 30
+      matchesStorageClass:
+      - STANDARD

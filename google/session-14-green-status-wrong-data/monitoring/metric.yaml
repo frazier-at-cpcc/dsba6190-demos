@@ -1,0 +1,14 @@
+# A log-based counter: one point for every data check that wrote status RED.
+name: @@METRIC@@
+description: Crown Street store_sales data checks that returned RED (run @@SUFFIX@@)
+filter: logName="projects/@@PROJECT@@/logs/@@LOG@@" AND jsonPayload.status="RED"
+metricDescriptor:
+  metricKind: DELTA
+  valueType: INT64
+  unit: "1"
+  labels:
+  - key: check
+    valueType: STRING
+    description: freshness, volume, schema or distribution
+labelExtractors:
+  check: EXTRACT(jsonPayload.signal)

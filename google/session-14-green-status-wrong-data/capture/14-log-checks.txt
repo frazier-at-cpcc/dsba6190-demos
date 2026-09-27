@@ -1,0 +1,6 @@
+$ log_checks   (one structured entry per check, with gcloud logging write)
+
+INFO   {"expected":"yesterday, < 26 h","observed":"newest 2026-09-26, 0 h old","signal":"freshness","status":"GREEN","table":"store_sales","sale_date":"2026-09-26"}
+INFO   {"expected":"80 to 120%","observed":"12270 rows, 100% of 7-day mean","signal":"volume","status":"GREEN","table":"store_sales","sale_date":"2026-09-26"}
+INFO   {"expected":"9 columns, typed","observed":"matches contract","signal":"schema","status":"GREEN","table":"store_sales","sale_date":"2026-09-26"}
+INFO   {"expected":"null < 1.0%, $45.75 ± 10%","observed":"null 0.0%, mean $45.46","signal":"distribution","status":"GREEN","table":"store_sales","sale_date":"2026-09-26"}

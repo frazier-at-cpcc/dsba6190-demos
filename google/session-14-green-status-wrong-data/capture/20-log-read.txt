@@ -1,0 +1,14 @@
+$ gcloud logging read 'logName=projects/$PROJECT/logs/$LOG AND jsonPayload.status=RED' --limit=1
+
+{
+  "severity": "ERROR",
+  "logName": "projects/YOUR_PROJECT_ID/logs/s14-dq-39158",
+  "jsonPayload": {
+    "expected": "80 to 120%",
+    "observed": "377 rows, 3% of 7-day mean",
+    "sale_date": "2026-09-26",
+    "signal": "volume",
+    "status": "RED",
+    "table": "store_sales"
+  }
+}

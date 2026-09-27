@@ -67,5 +67,6 @@ Open `demo.ipynb` on the Bash kernel. In VS Code choose **Select Kernel**, **Jup
 | 11 | Streaming | [Build a stream, then break it](session-11-build-a-stream-then-break-it/) | [Runbook](session-11-build-a-stream-then-break-it/RUNBOOK.md) |
 | 12 | Machine Learning in BigQuery | Build a leaky model, then catch it | Released 12 November, after its assignment closes |
 | 13 | Vertex AI | [Train, register and serve](session-13-vertex-train-register-serve/) | [Runbook](session-13-vertex-train-register-serve/RUNBOOK.md) |
+| 14 | Production Readiness and FinOps | [Green status, wrong data](session-14-green-status-wrong-data/) | [Runbook](session-14-green-status-wrong-data/RUNBOOK.md) |
 
-Session 9 is the midterm and Session 14 is a worked review, so neither has a demonstration.
+Session 9 is the midterm, and it is the only session without a demonstration.

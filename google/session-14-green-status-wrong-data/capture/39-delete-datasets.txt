@@ -1,0 +1,3 @@
+$ bq rm -r -f -d ${DATASET:?}; bq rm -r -f -d ${BACKUP:?}
+
+both datasets removed

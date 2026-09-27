@@ -17,6 +17,31 @@ and one topic live for about twenty minutes and hold a few kilobytes, and the do
 versioned state bucket. The figure matches the Session 4 row in
 [`../../../docs/DEMO-DEVELOPMENT-PLAN.md`](../../../docs/DEMO-DEVELOPMENT-PLAN.md) section 7.
 
+## The scenario · Queen City Trip Analytics
+
+The hour is one Charlotte company's first month with shared state. **Queen City Trip Analytics** is
+fictional: a twelve-person analytics firm in South End, Charlotte, that sells trip-demand dashboards
+to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform, on
+one engineer's laptop. Tonight a second engineer joins, state on one laptop becomes the risk, and the
+company moves its state to a shared, versioned, locked backend before anything else breaks.
+
+The scenario renames no resource and changes no command. It names what each resource is to the
+company.
+
+| Demo resource | What it is in the scenario |
+|---|---|
+| `google_storage_bucket.raw` | The trip bucket, where fleets drop their nightly trip files |
+| `google_pubsub_topic.events` | The topic that carries trip events to the dashboards |
+| `random_password.db_admin` | The admin credential for the dashboard database, and the reason state is sensitive |
+| The state bucket, `dsba6190-tfstate-<SUFFIX>` | The shared backend both engineers use from tonight on |
+| `google_storage_bucket.legacy` | An archive bucket someone created by hand before the company adopted Terraform |
+| `google_storage_bucket.annex` | A cold-storage annex made the same way and adopted through a reviewed `import` block |
+| The second terminal in steps 5 and 6 | The engineer who joined this month |
+| `report.csv` in step 11 | A fleet customer's quarterly totals, of which nobody has a copy |
+
+The estate holds no real trips, and the password protects no database. The runbook's scenario
+section maps each step to what the company is doing, and slide 28 of the deck introduces the company.
+
 ## Why this demonstration is an hour
 
 The guided lab that follows it, **Manage Terraform State (GSP752)**, leaves four gaps that the

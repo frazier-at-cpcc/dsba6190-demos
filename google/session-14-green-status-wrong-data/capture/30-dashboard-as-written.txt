@@ -1,0 +1,8 @@
+$ q "the replenishment dashboard's query, as written"
+
++------------+-----------+
+| store_days | sales_usd |
++------------+-----------+
+|        280 | 3931870.0 |
++------------+-----------+
+processed 24.0 MB · billed 25.0 MB · label pipeline:replenishment_dashboard

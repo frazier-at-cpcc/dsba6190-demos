@@ -1,0 +1,4 @@
+$ gcloud monitoring policies delete ${POLICY:?}; channels delete ${CHANNEL:?}
+
+Deleted policy [256999765134236465].
+Deleted notification_channel [8208825125805119441].

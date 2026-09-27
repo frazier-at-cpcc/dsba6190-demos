@@ -1,0 +1,4 @@
+$ gcloud logging metrics delete ${METRIC:?}; gcloud logging logs delete ${LOG:?}
+
+Deleted [s14_dq_red_39158].
+Deleted [s14-dq-39158].

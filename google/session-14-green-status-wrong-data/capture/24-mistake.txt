@@ -1,0 +1,6 @@
+$ BEFORE=$(date -u +%FT%TZ); PIPELINE=mistake q "DELETE FROM store_sales WHERE sale_date = last night"
+
+recovery point 2026-09-27T20:03:56Z
+Number of affected rows: 12270
+
+processed 0.0 MB · billed 0.0 MB · label pipeline:mistake

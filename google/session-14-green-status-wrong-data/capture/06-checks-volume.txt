@@ -1,0 +1,11 @@
+$ checks
+
++--------------+----------------------------+---------------------------+--------+
+|    signal    |          observed          |         expected          | status |
++--------------+----------------------------+---------------------------+--------+
+| freshness    | newest 2026-09-26, 0 h old | yesterday, < 26 h         | GREEN  |
+| volume       | 377 rows, 3% of 7-day mean | 80 to 120%                | RED    |
+| schema       | matches contract           | 9 columns, typed          | GREEN  |
+| distribution | null 0.0%, mean $44.46     | null < 1.0%, $45.75 ± 10% | GREEN  |
++--------------+----------------------------+---------------------------+--------+
+processed 21.3 MB · billed 30.0 MB · label pipeline:dq_checks

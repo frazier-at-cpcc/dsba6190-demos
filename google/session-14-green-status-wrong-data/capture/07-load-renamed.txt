@@ -1,0 +1,7 @@
+$ nightly_load gs://$BUCKET/incoming/renamed-column.csv
+
+load job   s14_load_1790539219_1121
+state      DONE
+errors     none
+rows       12270
+into       store_sales$20260926

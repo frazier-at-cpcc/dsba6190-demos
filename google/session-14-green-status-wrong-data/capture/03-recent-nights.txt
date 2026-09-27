@@ -1,0 +1,11 @@
+$ q "SELECT sale_date, COUNT(*) FROM store_sales WHERE sale_date >= last night - 3 GROUP BY 1"
+
++------------+-------+-----------+
+| sale_date  | rows  | sales_usd |
++------------+-------+-----------+
+| 2026-09-23 | 12420 |  558614.0 |
+| 2026-09-24 | 12394 |  570815.0 |
+| 2026-09-25 | 12029 |  556529.0 |
+| 2026-09-26 | 12270 |  557779.0 |
++------------+-------+-----------+
+processed 0.7 MB · billed 10.0 MB · label pipeline:adhoc

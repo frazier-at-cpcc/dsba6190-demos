@@ -1,0 +1,18 @@
+$ cat metric.yaml && gcloud logging metrics create $METRIC --config-from-file=metric.yaml
+
+# A log-based counter: one point for every data check that wrote status RED.
+name: s14_dq_red_39158
+description: Crown Street store_sales data checks that returned RED (run 39158)
+filter: logName="projects/YOUR_PROJECT_ID/logs/s14-dq-39158" AND jsonPayload.status="RED"
+metricDescriptor:
+  metricKind: DELTA
+  valueType: INT64
+  unit: "1"
+  labels:
+  - key: check
+    valueType: STRING
+    description: freshness, volume, schema or distribution
+labelExtractors:
+  check: EXTRACT(jsonPayload.signal)
+
+Created [s14_dq_red_39158].

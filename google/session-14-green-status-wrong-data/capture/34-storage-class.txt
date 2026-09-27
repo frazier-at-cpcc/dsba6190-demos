@@ -1,0 +1,5 @@
+$ gcloud storage objects describe $OLD; objects update --storage-class=NEARLINE; describe again
+
+gs://s14-store-sales-raw-39158/raw/dt=2026-07-29/sales.csv  STANDARD  generation 1790539172090394
+.......
+gs://s14-store-sales-raw-39158/raw/dt=2026-07-29/sales.csv  NEARLINE  generation 1790539486510772

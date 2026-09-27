@@ -1,0 +1,4 @@
+$ gcloud beta monitoring channels create --type=email --channel-labels=email_address=instructor@example.edu
+
+Created notification channel [projects/YOUR_PROJECT_ID/notificationChannels/8208825125805119441].
+projects/YOUR_PROJECT_ID/notificationChannels/8208825125805119441

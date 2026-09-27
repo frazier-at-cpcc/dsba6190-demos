@@ -27,6 +27,55 @@ authoritative estimate. Keep the two in agreement.
 
 ---
 
+## The scenario · Queen City Trip Analytics
+
+The hour is taught as one company's first month with shared state, so that students watch each
+control protect a business rather than a demonstration estate. **Queen City Trip Analytics** is
+fictional: a twelve-person analytics firm in South End, Charlotte, that sells trip-demand dashboards
+to ground-transportation fleets. In Session 3 it codified its nightly-trips bucket with Terraform, on
+one engineer's laptop.
+
+Tonight is month one. A second engineer joins, and state that lives on one laptop becomes the
+company's largest risk. The company moves its state to a shared, versioned, locked backend before
+anything else breaks, and then meets each failure that backend exists to survive. No resource and no
+command changes for the scenario. The table names what each resource is to the company.
+
+| Demo resource | What it is in the scenario |
+|---|---|
+| `google_storage_bucket.raw`, `dsba6190-raw-<SUFFIX>` | The trip bucket, where fleets drop their nightly trip files |
+| `google_pubsub_topic.events`, `dsba6190-events-<SUFFIX>` | The topic that carries trip events to the dashboards |
+| `random_password.db_admin` | The admin credential for the dashboard database. Terraform generated it, so Terraform stores it, and that is why state is sensitive |
+| `dsba6190-tfstate-<SUFFIX>`, created by hand in step 2 | The shared state bucket both engineers use from tonight on |
+| `google_storage_bucket.legacy`, `dsba6190-legacy-<SUFFIX>` | An archive bucket someone created by hand in the Console before the company adopted Terraform. Nobody wrote down its settings |
+| `google_storage_bucket.annex`, `dsba6190-annex-<SUFFIX>` | A cold-storage annex made the same way, which the company adopts through a reviewed `import` block |
+| `time_sleep.slow_apply` | It has no business meaning. It holds an apply open long enough for the room to see the lock |
+| The second terminal in steps 5 and 6 | The engineer who joined this month |
+| `report.csv` in step 11 | A fleet customer's quarterly totals, of which nobody has a copy |
+
+| Step | What the company is doing |
+|---|---|
+| 1 | The founding engineer reads the state on the laptop and finds the database credential in plain text |
+| 2 | The company builds the bucket its state will share before the new engineer runs anything |
+| 3 | The company moves its state off the laptop and into that bucket, and the credential moves with it |
+| 4 | The company confirms that the estate did not change, then deletes the copies left on the laptop |
+| 5 | Both engineers run Terraform at once, and the lock makes the new engineer wait |
+| 6 | An apply on one laptop dies mid-run and leaves its lock behind |
+| 7 | Someone deletes the state object, and a prior generation restores the company's record |
+| 8 | The company adopts the two buckets that predate its use of Terraform |
+| 9 | An engineer on call changes a label on the trip bucket at 2 a.m., and someone deletes the trip-event topic |
+| 10 | The company hands the legacy archive back to manual management and renames the trip bucket's address |
+| 11 | A fleet's quarterly totals land in the trip bucket, and two controls refuse to destroy it |
+
+**One honesty note, say it at step 1.** The estate holds no real trips. The trip bucket stays empty
+until step 11 writes one file, and the password protects no database. The scenario names what each
+resource would be at the company.
+
+Introduce the company on the scenario slide, slide 28, in about two minutes. Then open each step with
+one sentence of what the company is doing. Each step below begins with that sentence, and the slide
+notes carry it too.
+
+---
+
 ## How the hour fits the session clock
 
 The session plan carried this demonstration at fifteen minutes inside 1:10 to 1:50. It is now an
@@ -103,14 +152,14 @@ Common causes, in the order they occur:
 - Editor open on `~/dsba6190-live-demo-04/main.tf`.
 - Browser tab on the Cloud Console, Cloud Storage, in the demo project. Steps 2, 3, 8 and 9 are
   better seen there.
-- Deck on slide 9. The demonstration's own slide is 28 and the captured output runs from slide 30 to
-  slide 40, one slide per step.
+- Deck on slide 9. The scenario slide is 28, the run sheet is slides 29 and 30, and the captured
+  output runs from slide 31 to slide 41, one slide per step.
 
 **Slide numbers.** Every number in this document is the number printed in the bottom right corner of
-the built deck, `slides/pdf/Session_04_Terraform_State_and_Automation.pdf`, which is 56 slides.
+the built deck, `slides/pdf/Session_04_Terraform_State_and_Automation.pdf`, which is 57 slides.
 
 **Network contingency.** If the room has no working connection, advance to the capture slides. Slides
-30 to 40 carry a trimmed capture for each step and the full files are in `capture/`, one file per
+31 to 41 carry a trimmed capture for each step and the full files are in `capture/`, one file per
 command, numbered in the order below. Every line is real output from the 10 September rehearsal. Say
 plainly that the run is recorded rather than live. The repository standard is that a capture is
 labelled as one.
@@ -125,6 +174,9 @@ command needs a `-var` flag.
 Each step leaves the precondition the next one needs. Do not reorder them.
 
 ### Step 1 · Read the state you already have · slide 9 · 6 minutes
+
+Queen City's state lives on one laptop, the founding engineer's, and tonight a second engineer needs
+it.
 
 ```sh
 terraform state list
@@ -168,6 +220,8 @@ the security point from slide 9, and it is the reason the next step exists.
 
 ### Step 2 · Bootstrap the state bucket, with versioning · slide 10 · 5 minutes
 
+Before the new engineer runs anything, Queen City builds the bucket its state will share.
+
 ```sh
 gcloud storage buckets create gs://dsba6190-tfstate-<SUFFIX> \
   --project YOUR_PROJECT_ID --location=US-EAST1 \
@@ -204,6 +258,9 @@ not exist, and a configuration cannot create the bucket its own state lives in. 
 chicken-and-egg the guided lab's watch-for names.
 
 ### Step 3 · The backend block, and the migration · slide 14 · 6 minutes
+
+Queen City moves its state off the laptop and into the shared bucket, and the dashboard database
+credential moves with it.
 
 ```sh
 cp backend.tf.staged backend.tf
@@ -253,6 +310,8 @@ that the IAM policy on this bucket is a production access-control decision, not 
 
 ### Step 4 · Plan says no changes · slide 14 · 3 minutes
 
+Queen City confirms that moving the record changed nothing in its estate, then cleans the laptop.
+
 ```sh
 terraform plan
 ```
@@ -279,6 +338,9 @@ rm terraform.tfstate terraform.tfstate.backup
 ```
 
 ### Step 5 · Two terminals, one lock · slide 13 · 6 minutes
+
+Both Queen City engineers run Terraform against the same estate at the same moment. The first
+terminal is the founding engineer and the second is the engineer who joined this month.
 
 ```sh
 cp main.tf.sleep main.tf
@@ -329,7 +391,8 @@ Let the first terminal finish before moving on.
 
 ### Step 6 · The crashed run, and `force-unlock` · slide 12 · 4 minutes
 
-Locking has a failure mode, and it is the one students meet first.
+An apply on one Queen City laptop dies mid-run, and the lock it took stays behind. Locking has a
+failure mode, and it is the one students meet first.
 
 **First terminal:**
 
@@ -367,6 +430,9 @@ apply is still running, and there is nothing in the command that can tell the di
 `Who:` and `Created:` fields exist so a human can. Check them, then message the person, then unlock.
 
 ### Step 7 · Versioning is the undo · slide 10 · 5 minutes
+
+Someone at Queen City deletes the state object, and the company finds out what versioning bought it
+in step 2.
 
 ```sh
 gcloud storage rm gs://dsba6190-tfstate-<SUFFIX>/envs/dev/default.tfstate \
@@ -423,8 +489,9 @@ A4 is graded on, and step 11 makes it concrete.
 
 ### Step 8 · Import what somebody built by hand · slides 16 and 17 · 9 minutes
 
-Two buckets in this project were created before class, out of band, with settings nobody wrote down.
-Show them in the Console. This is what inheriting an estate looks like.
+Queen City adopts the archive bucket and the cold-storage annex that someone created by hand before
+the company used Terraform. Two buckets in this project were created before class, out of band, with
+settings nobody wrote down. Show them in the Console. This is what inheriting an estate looks like.
 
 ```sh
 cp legacy.tf.guess legacy.tf
@@ -492,6 +559,8 @@ terraform apply
 
 ### Step 9 · Drift, and which side should win · slide 21 · 6 minutes
 
+An engineer on call edits a label on Queen City's trip bucket at 2 a.m. and tells nobody.
+
 In the **Cloud Console**, open the raw bucket, edit its labels, and change `owner` to
 `someone-at-2am`. Save. Doing it in the Console is the point. A person changed something outside
 Terraform and told nobody.
@@ -551,7 +620,10 @@ terraform apply
 **What to notice.** One apply reconciles both drifts, because both are the same operation: make
 reality match the configuration.
 
-### Step 10 · Surgery on the record · slide 41 · 5 minutes
+### Step 10 · Surgery on the record · slide 50 · 5 minutes
+
+Queen City hands the legacy archive back to manual management, then renames the trip bucket's address
+without moving the bucket.
 
 ```sh
 terraform state list
@@ -624,9 +696,11 @@ state, without changing any real infrastructure.
 **What to notice.** Read the last sentence of that output aloud. The resource never moved, and the
 plan that a minute ago proposed to destroy and rebuild a bucket now proposes nothing. The record was
 told the new address. Name this as the tool for the module refactor A3 asked for, and as the reason
-slide 41's rule is *use the `terraform state` subcommands* rather than *never touch state*.
+slide 50's rule is *use the `terraform state` subcommands* rather than *never touch state*.
 
 ### Step 11 · Refuse to destroy, then permit it · slide 25 · 5 minutes
+
+A fleet's quarterly totals land in Queen City's trip bucket, and nobody has another copy.
 
 ```sh
 echo "quarterly totals, and nobody has a copy" > report.csv
@@ -784,25 +858,26 @@ kind of constraint students meet on their own and read as a mistake.
 
 ## Where the captured output is on the deck
 
-The deck carries the demonstration. Slide 28 lists the eleven steps with their minute budgets, and
-slides 30 to 40 carry one trimmed capture each, in step order. Every line on them is real output from
+The deck carries the demonstration. Slide 28 introduces Queen City Trip Analytics, slides 29 and 30
+list the eleven steps with their minute budgets, and slides 31 to 41 carry one trimmed capture each,
+in step order. Every line on them is real output from
 the 10 September 2026 rehearsal, and each slide's speaker notes name the capture date and the source
 files. They do not replace performing the demonstration. They are the projected output so the room
 can read what the terminal shows, and the fallback if the network fails.
 
 | Step | Deck slide | Captures on it |
 |---|---|---|
-| 1 | 30 | `02-output-redacted`, `03-state-show-redacted`, `05-password-in-plain-text` |
-| 2 | 31 | `08-state-bucket-controls` |
-| 3 | 32 | `10-init-migrate`, `11-state-object-in-bucket`, `12-password-in-the-bucket` |
-| 4 | 33 | `13-plan-no-changes`, `14-local-copy-left-behind` |
-| 5 | 34 | `16-lock-refused` |
-| 6 | 35 | `18-stale-lock`, `19-force-unlock` |
-| 7 | 36 | `22-plan-with-no-state`, `23-generations` |
-| 8 | 37 | `28-plan-after-import`, `31-plan-import-block` |
-| 9 | 38 | `35-refresh-only`, `36-plan-still-drifted` |
-| 10 | 39 | `44-plan-address-change`, `45-state-mv`, `46-plan-after-mv` |
-| 11 | 40 | `48-prevent-destroy`, `49-bucket-not-empty` |
+| 1 | 31 | `02-output-redacted`, `03-state-show-redacted`, `05-password-in-plain-text` |
+| 2 | 32 | `08-state-bucket-controls` |
+| 3 | 33 | `10-init-migrate`, `11-state-object-in-bucket`, `12-password-in-the-bucket` |
+| 4 | 34 | `13-plan-no-changes`, `14-local-copy-left-behind` |
+| 5 | 35 | `16-lock-refused` |
+| 6 | 36 | `18-stale-lock`, `19-force-unlock` |
+| 7 | 37 | `22-plan-with-no-state`, `23-generations` |
+| 8 | 38 | `28-plan-after-import`, `31-plan-import-block` |
+| 9 | 39 | `35-refresh-only`, `36-plan-still-drifted` |
+| 10 | 40 | `44-plan-address-change`, `45-state-mv`, `46-plan-after-mv` |
+| 11 | 41 | `48-prevent-destroy`, `49-bucket-not-empty` |
 
 Each block was trimmed to hold its longest line at 14pt or larger, which is the deck framework's
 floor for a listing. The generated password is masked on the slides exactly as it is masked in

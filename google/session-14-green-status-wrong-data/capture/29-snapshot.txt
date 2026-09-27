@@ -1,0 +1,11 @@
+$ bq mk --dataset $BACKUP; CREATE SNAPSHOT TABLE $BACKUP.store_sales_$LAST_ID CLONE store_sales
+
+Dataset 'YOUR_PROJECT_ID:store_ops_bak_39158' successfully created.
+Created YOUR_PROJECT_ID.store_ops_bak_39158.store_sales_20260926
+
+processed 0.0 MB · billed 0.0 MB · label pipeline:backup
+        tableId            Type                Labels                Time Partitioning      Clustered Fields  
+ ---------------------- ---------- ------------------------------ ------------------------ ------------------ 
+  store_sales_20260926   SNAPSHOT   pipeline:nightly-store-sales   DAY (field: sale_date)                     
+                                    team:replenishment                                                        
+                                    env:demo                                                                  

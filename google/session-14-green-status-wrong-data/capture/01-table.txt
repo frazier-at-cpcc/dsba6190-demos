@@ -1,0 +1,14 @@
+$ bq show store_sales   (partitioning, labels, rows before last night)
+
+{
+  "labels": {
+    "pipeline": "nightly-store-sales",
+    "team": "replenishment",
+    "env": "demo"
+  },
+  "timePartitioning": {
+    "type": "DAY",
+    "field": "sale_date"
+  },
+  "numRows": "726438"
+}

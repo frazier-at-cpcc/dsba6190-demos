@@ -39,7 +39,7 @@ account, and the federation remain between runs and cost nothing measurable.
 | 5 | 21 | `apply`, by a service account through federation | The apply job log |
 | 6 | 21 | A scheduled `plan -detailed-exitcode` | An issue labelled `drift` |
 
-Slide numbers are the numbers printed on the footer of the 56-slide Session 4 deck. Verify them once
+Slide numbers are the numbers printed on the footer of the 57-slide Session 4 deck. Verify them once
 against the built PDF before class; the deck builder inserts an agenda slide that heading counts miss.
 
 The pipeline is real GitHub Actions, which means every run takes between fifteen and fifty seconds on
@@ -59,11 +59,17 @@ cd lectures/demos/session-04-cicd-pipeline
 ./live-setup.sh YOUR_PROJECT_ID frazier-at-cpcc/dsba6190-infrastructure-pipeline
 ```
 
-It resets `main` to `repo/`, applies the two buckets with your own credentials so the room starts
-from existing infrastructure, pushes three branches ready to become pull requests, and closes any
-drift issue left from a rehearsal. If it had to reset `main`, an apply run is now waiting under
-Actions. Approve it before class or the first live approval will be that one rather than the one the
-room just read.
+It applies the two buckets with your own credentials so the room starts from existing
+infrastructure, resets `main` to `repo/`, pushes three branches ready to become pull requests,
+enables the scheduled drift workflow, and closes any drift issue left from a rehearsal. A bucket that
+exists but is missing from state is imported before the apply. The reset commit carries `[skip ci]`,
+so no apply run waits at the gate before class. The first approval the room sees is the one it just
+read.
+
+In `demo.ipynb`, every cell that waits on GitHub Actions is a bounded loop. It returns when the run
+completes and prints the run's conclusion and address. When the apply run reaches the gate, the cell
+prints the browser instruction once and keeps waiting for your click. A cell that waits longer than
+fifteen minutes stops and says so.
 
 ### T minus 25 minutes, verify
 
@@ -83,6 +89,11 @@ Expect no run in progress, and three buckets: `cicd-lake`, `cicd-scratch`, `tfst
 | `Error acquiring the state lock` | A previous run is still applying, or a local terminal holds the lock | Wait for the run; `terraform force-unlock` only if the holder is dead |
 | A check named CodeRabbit appears | An app installed on the account reviews public repositories | Ignore it, or uninstall it from the account settings |
 | The drift run fails with `label not found` | The `drift` label is missing | `gh label create drift --repo OWNER/REPO` |
+| `live-setup.sh` prints `exists but is not in state. Importing it.` | The state file lost the buckets and the buckets survived. The state for this demo was found empty on 27 September with both buckets still present | Nothing. The script adopts both buckets before it applies. Without the import, the apply fails with `409` |
+| `live-setup.sh` stops with `! [rejected] demo/... (non-fast-forward)` | An older copy of `live-setup.sh` deleted the three branches in one push, which fails as a whole when one branch is already gone | Use the current script. It deletes each branch in its own push |
+| A pull-request check sits in **Queued** and never starts | An apply run is waiting at the gate. It holds the `terraform-state` concurrency group, and every pull-request run queues behind it | Approve or reject that run under Actions. The current `live-setup.sh` pushes its reset with `[skip ci]` and creates no such run |
+| An open `drift` issue appears the morning after class | The daily drift plan ran against the destroyed buckets and reported them as missing | The after-class cells disable the drift workflow. `live-setup.sh` enables it again |
+| A notebook cell prints `No ... run after 120 s` | GitHub did not create the run, often because the push or dispatch failed | Read the cell's earlier output, then the Actions tab. Rerun the cell once the run exists |
 
 ### Set up the room
 
@@ -339,7 +350,11 @@ terraform init -reconfigure \
   -backend-config="prefix=session-04-cicd"
 terraform destroy
 git checkout -- main.tf
+gh workflow disable drift
 ```
+
+The last line stops the daily drift plan. Against destroyed buckets it reports two missing buckets
+as drift and opens an issue every morning. `live-setup.sh` enables it again before the next class.
 
 The `sed` is the point, not a shortcut. `prevent_destroy` makes Terraform refuse, and the only way
 through is a deliberate edit that never reaches `main`. Rehearsed output:
@@ -367,8 +382,10 @@ Run this the same evening. Not tomorrow.
 - [ ] ~~**Keys.**~~
 - [ ] ~~**BigQuery.**~~
 - [ ] ~~**Registry.**~~
-- [ ] **GitHub.** Every demo branch deleted, every demo pull request closed, no open `drift` issue.
-      `live-setup.sh` does all three, so running it is also the check.
+- [ ] **GitHub.** Every demo branch deleted, every demo pull request closed, no open `drift` issue,
+      and the drift workflow disabled. The notebook closes the two rejected pull requests with
+      `--delete-branch`, and the merge deletes the third branch. The notebook's last cell lists
+      what is left. Do not run `live-setup.sh` as the check, because it applies the buckets again.
 - [ ] **Verify against billing, next morning.** Billing → Reports, filtered to the demo project,
       grouped by service, for yesterday. Expect Cloud Storage at $0.00 or $0.01.
 - [ ] **Budget alert still armed.** The $50 budget on the project is unchanged.
@@ -408,7 +425,7 @@ only when the course is done with it.
 | `repo/` | Source of truth for the GitHub repository. `live-setup.sh` resets `main` to it |
 | `repo/policy/buckets.rego` | The four rules. Rule numbers match the README |
 | `bootstrap.sh` | One-time Google Cloud and GitHub setup. Idempotent. Re-run it after renaming the repository |
-| `live-setup.sh` | Before class. Applies the baseline, pushes the three demo branches, closes stale drift issues |
+| `live-setup.sh` | Before class. Applies the baseline, pushes the three demo branches, enables the drift workflow, closes stale drift issues |
 | `capture.sh` | The headless rehearsal. Never in class |
 | `capture/` | Real output from the 10 September rehearsal, one file per step |
 | `~/dsba6190-live-demo-04-cicd` | The clone `live-setup.sh` leaves, with `main` checked out and the backend initialised |

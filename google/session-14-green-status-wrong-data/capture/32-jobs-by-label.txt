@@ -1,0 +1,17 @@
+$ q "bytes billed by pipeline label, INFORMATION_SCHEMA.JOBS"
+
++-------------------------+------+--------------+-----------+
+|        pipeline         | jobs | processed_mb | billed_mb |
++-------------------------+------+--------------+-----------+
+| dq_checks               |    9 |        192.8 |     270.0 |
+| adhoc                   |    4 |          1.1 |      50.0 |
+| replenishment_dashboard |    2 |         26.8 |      35.0 |
+| restore                 |    1 |          2.3 |      30.0 |
+| slo_report              |    1 |          0.0 |      10.0 |
+| nightly_load            |    8 |          6.8 |       0.0 |
+| backfill                |    2 |         67.0 |       0.0 |
+| fix                     |    1 |          0.0 |       0.0 |
+| mistake                 |    1 |          0.0 |       0.0 |
+| backup                  |    1 |          0.0 |       0.0 |
++-------------------------+------+--------------+-----------+
+processed 0.1 MB · billed 20.0 MB · label pipeline:adhoc

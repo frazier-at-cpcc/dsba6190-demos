@@ -1,0 +1,9 @@
+$ verify: count every resource type whose name carries $SUFFIX
+
+datasets         0
+snapshots        0
+buckets          0
+log metrics      0
+logs             0
+policies         0
+channels         0

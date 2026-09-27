@@ -1,0 +1,11 @@
+$ q "SELECT region, COUNT(*), COUNTIF(basket_value IS NULL), AVG(basket_value) ... last night"
+
++-------------+------+-------------+-------------+
+|   region    | rows | null_values | mean_basket |
++-------------+------+-------------+-------------+
+| Center City | 4500 |           0 |       45.55 |
+| East        | 1246 |           0 |       44.49 |
+| North       | 2352 |        2352 |        NULL |
+| South       | 4172 |           0 |       45.74 |
++-------------+------+-------------+-------------+
+processed 0.3 MB · billed 10.0 MB · label pipeline:adhoc

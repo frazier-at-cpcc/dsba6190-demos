@@ -1,0 +1,9 @@
+$ q "RPO and RTO for this event, from INFORMATION_SCHEMA.JOBS"
+
++---------+--------------+---------+----------+-----------------+
+|  step   | finished_utc | deleted | inserted | s_after_mistake |
++---------+--------------+---------+----------+-----------------+
+| mistake | 20:04:01     |   12270 |        0 |               0 |
+| restore | 20:04:10     |       0 |    12270 |               9 |
++---------+--------------+---------+----------+-----------------+
+processed 0.1 MB · billed 20.0 MB · label pipeline:adhoc

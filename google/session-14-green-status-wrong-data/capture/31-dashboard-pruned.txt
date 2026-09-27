@@ -1,0 +1,8 @@
+$ q "the same query, filtered on the partition column"
+
++------------+-----------+
+| store_days | sales_usd |
++------------+-----------+
+|        280 | 3931870.0 |
++------------+-----------+
+processed 2.8 MB · billed 10.0 MB · label pipeline:replenishment_dashboard

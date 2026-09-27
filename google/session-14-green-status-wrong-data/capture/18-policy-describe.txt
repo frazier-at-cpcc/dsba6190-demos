@@ -1,0 +1,9 @@
+$ gcloud monitoring policies describe $POLICY
+
+conditions:
+- conditionThreshold:
+    comparison: COMPARISON_GT
+    filter: resource.type = "global" AND metric.type = "logging.googleapis.com/user/s14_dq_red_39158"
+displayName: store_sales data check RED (run 39158)
+enabled: true
+notificationChannels: 1

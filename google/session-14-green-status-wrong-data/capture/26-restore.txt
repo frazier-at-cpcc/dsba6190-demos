@@ -1,0 +1,10 @@
+$ PIPELINE=restore q "CREATE TEMP TABLE lost AS ... FOR SYSTEM_TIME AS OF '$BEFORE'; INSERT INTO store_sales SELECT * FROM lost"
+
+CREATE TEMP TABLE lost AS
+   SELECT * FROM `YOUR_PROJECT_ID.store_ops_39158.store_sales` FOR SYSTEM_TIME AS OF TIMESTAMP '2026-09-27T20:03:56Z' WHERE sale_date = '2026-09-26'; -- at [1:2]
+Created YOUR_PROJECT_ID._script145a6a09d829cf98b22a6a142b8c7abee5f502b1.lost
+
+INSERT INTO `YOUR_PROJECT_ID.store_ops_39158.store_sales` SELECT * FROM lost; -- at [3:4]
+Number of affected rows: 12270
+
+processed 2.3 MB · billed 30.0 MB · label pipeline:restore

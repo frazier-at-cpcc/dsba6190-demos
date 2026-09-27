@@ -1,0 +1,18 @@
+
+[1;32m>>> Generate sixty nights of store sales, the last one 2026-09-26[0m
+store-sales: 60 nights 2026-07-29 to 2026-09-26, 738,708 rows; last night 12,270 rows, one-store 377 (3.1%), North 2,352 (19.2%)
+
+[1;32m>>> Create the raw bucket and upload the files[0m
+Average throughput: 4.4MiB/s
+
+[1;32m>>> Create the partitioned, labelled table and backfill fifty-nine nights[0m
+
+  Staged. Fifty-nine nights loaded; last night (2026-09-26) waits for step 1.
+
+      source ./session-14-green-status-wrong-data/.work/env.sh
+
+  Table     YOUR_PROJECT_ID.store_ops_39158.store_sales
+  Bucket    gs://s14-store-sales-raw-39158
+  Teardown  step 8 of demo.ipynb, or
+            bq --project_id=YOUR_PROJECT_ID rm -r -f -d store_ops_39158
+            gcloud storage rm -r gs://s14-store-sales-raw-39158

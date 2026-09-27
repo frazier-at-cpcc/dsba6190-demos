@@ -1,0 +1,26 @@
+{
+  "displayName": "store_sales data check RED (run @@SUFFIX@@)",
+  "combiner": "OR",
+  "conditions": [{
+    "displayName": "A data check on last night's store_sales returned RED",
+    "conditionThreshold": {
+      "filter": "resource.type = \"global\" AND metric.type = \"logging.googleapis.com/user/@@METRIC@@\"",
+      "aggregations": [{
+        "alignmentPeriod": "300s",
+        "perSeriesAligner": "ALIGN_SUM",
+        "crossSeriesReducer": "REDUCE_SUM",
+        "groupByFields": ["metric.label.check"]
+      }],
+      "comparison": "COMPARISON_GT",
+      "thresholdValue": 0,
+      "duration": "0s",
+      "trigger": {"count": 1}
+    }
+  }],
+  "alertStrategy": {"autoClose": "1800s"},
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "The nightly store_sales load finished and a data check on its output failed. The replenishment dashboard is showing wrong data. Runbook: check the signal named in the label, then reload the partition."
+  },
+  "userLabels": {"team": "replenishment", "run": "@@SUFFIX@@"}
+}
