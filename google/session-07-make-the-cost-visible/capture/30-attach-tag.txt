@@ -1,0 +1,3 @@
+$ bq update --schema schema-tagged.json $DS.trips_lake   (tag two location columns)
+
+Table 'YOUR_PROJECT_ID:dsba6190_wh_72583.trips_lake' successfully updated.

@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/deployment-v2.yaml
+
+deployment.apps/fare-api configured

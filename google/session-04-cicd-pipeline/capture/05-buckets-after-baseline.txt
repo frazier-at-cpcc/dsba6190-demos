@@ -1,0 +1,9 @@
+$ gcloud storage ls --project YOUR_PROJECT_ID
+
+gs://YOUR_PROJECT_ID-cicd-lake/
+gs://YOUR_PROJECT_ID-cicd-scratch/
+gs://YOUR_PROJECT_ID-tfstate-cicd/
+gs://dataproc-staging-us-central1-PROJECT_NUMBER-tteodzcj/
+gs://dataproc-temp-us-central1-PROJECT_NUMBER-hdghzmrw/
+gs://df-10174408436694998479-4i4indfnlyi7davyor2empv4fu/
+gs://dsba6190-pos-75439/

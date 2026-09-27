@@ -1,0 +1,6 @@
+$ python3 cdap.py deploy  (03-idempotent)
+
+Deployed  pos-03-idempotent
+  artifact   cdap-data-pipeline 6.11.1
+  stages     5
+  edges      4

@@ -1,0 +1,8 @@
+$ gcloud kms keys versions disable 1
+
+algorithm: GOOGLE_SYMMETRIC_ENCRYPTION
+createTime: '2026-09-10T18:14:18.335737077Z'
+generateTime: '2026-09-10T18:14:18.335737077Z'
+name: projects/YOUR_PROJECT_ID/locations/us-east1/keyRings/dsba6190-demo/cryptoKeys/lake-cmek/cryptoKeyVersions/1
+protectionLevel: SOFTWARE
+state: DISABLED

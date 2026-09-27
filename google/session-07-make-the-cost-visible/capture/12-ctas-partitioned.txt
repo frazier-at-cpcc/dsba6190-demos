@@ -1,0 +1,5 @@
+$ q "CREATE TABLE $DS.trips_2022_part PARTITION BY DATE(pickup_datetime) CLUSTER BY pickup_location_id AS ..."
+
+Created YOUR_PROJECT_ID.dsba6190_wh_72583.trips_2022_part
+
+processed 3.49 GB · billed 3574.0 MB · slot time 559.7 s · cache false

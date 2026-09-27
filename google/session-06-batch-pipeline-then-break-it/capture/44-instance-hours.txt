@@ -1,0 +1,9 @@
+$ instance-hours consumed by this capture run
+
+instance   dsba6190-demo-75439
+edition    Basic, $1.80 per instance-hour
+from       create issued
+to         teardown issued
+wall clock 4390 seconds (1 h 13 min)
+billable   1.22 instance-hours
+allowance  120 free instance-hours per month, per billing account

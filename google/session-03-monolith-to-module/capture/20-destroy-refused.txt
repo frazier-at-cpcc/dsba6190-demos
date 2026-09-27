@@ -1,0 +1,40 @@
+$ terraform destroy
+
+module.prod_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.dev_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+
+Changes to Outputs:
+  - dev_bucket  = "gs://dsba6190-dev-raw-26095" -> null
+  - dev_labels  = {
+      - cost-center         = "dsba6190"
+      - data-classification = "internal"
+      - environment         = "dev"
+      - owner               = "data-platform"
+      - team                = "fleet-dashboards"
+    } -> null
+  - prod_bucket = "gs://dsba6190-prod-raw-26095" -> null
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+
+Error: Instance cannot be destroyed
+
+  on modules/data-lake/main.tf line 12:
+  12: resource "google_storage_bucket" "raw" {
+
+Resource module.dev_lake.google_storage_bucket.raw has
+lifecycle.prevent_destroy set, but the plan calls for this resource to be
+destroyed. To avoid this error and continue with the plan, either disable
+lifecycle.prevent_destroy or reduce the scope of the plan using the -target
+flag.
+
+Error: Instance cannot be destroyed
+
+  on modules/data-lake/main.tf line 12:
+  12: resource "google_storage_bucket" "raw" {
+
+Resource module.prod_lake.google_storage_bucket.raw has
+lifecycle.prevent_destroy set, but the plan calls for this resource to be
+destroyed. To avoid this error and continue with the plan, either disable
+lifecycle.prevent_destroy or reduce the scope of the plan using the -target
+flag.

@@ -1,0 +1,44 @@
+$ cp -R stages/07-foreach/. . && terraform init && terraform plan
+
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+
+Terraform will perform the following actions:
+
+  # module.dev_lake.google_storage_bucket.raw has moved to module.lake["dev"].google_storage_bucket.raw
+    resource "google_storage_bucket" "raw" {
+        id                          = "dsba6190-dev-raw-26095"
+        name                        = "dsba6190-dev-raw-26095"
+        # (15 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.prod_lake.google_storage_bucket.raw has moved to module.lake["prod"].google_storage_bucket.raw
+    resource "google_storage_bucket" "raw" {
+        id                          = "dsba6190-prod-raw-26095"
+        name                        = "dsba6190-prod-raw-26095"
+        # (15 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + buckets     = {
+      + dev  = "gs://dsba6190-dev-raw-26095"
+      + prod = "gs://dsba6190-prod-raw-26095"
+    }
+  - dev_bucket  = "gs://dsba6190-dev-raw-26095" -> null
+  - dev_labels  = {
+      - cost-center         = "dsba6190"
+      - data-classification = "internal"
+      - environment         = "dev"
+      - owner               = "data-platform"
+      - team                = "fleet-dashboards"
+    } -> null
+  - prod_bucket = "gs://dsba6190-prod-raw-26095" -> null
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.

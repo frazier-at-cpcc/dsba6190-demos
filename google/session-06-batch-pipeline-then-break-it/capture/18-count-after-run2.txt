@@ -1,0 +1,7 @@
+$ bq query  (what arrived from a file with three bad rows in it)
+
++-------------+
+| rows_loaded |
++-------------+
+|       40001 |
++-------------+

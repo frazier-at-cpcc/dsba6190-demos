@@ -1,0 +1,4 @@
+$ gcloud ai endpoints predict $ENDPOINT_ID   (after undeploy)
+
+Using endpoint [https://us-central1-prediction-aiplatform.googleapis.com/]
+ERROR: (gcloud.ai.endpoints.predict) FAILED_PRECONDITION: Endpoint projects/YOUR_PROJECT_ID/locations/us-central1/endpoints/474131953885380608 misconfigured, "traffic_split" not set.  Verify if any models are deployed to the endpoint and traffic split is configured for them.

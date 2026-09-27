@@ -1,0 +1,8 @@
+$ bq show -j dsba6190-65111-parq
+
+Job YOUR_PROJECT_ID:dsba6190-65111-parq
+
+  Job Type    State      Start Time         Duration                 User Email               Bytes Processed   Bytes Billed   Billing Tier   Labels  
+ ---------- --------- ----------------- ---------------- ----------------------------------- ----------------- -------------- -------------- -------- 
+  query      SUCCESS   10 Sep 14:32:59   0:00:00.784000   instructor@example.edu   1600000           10485760       1                      
+

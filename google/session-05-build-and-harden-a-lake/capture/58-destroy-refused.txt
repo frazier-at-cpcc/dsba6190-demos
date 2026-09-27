@@ -1,0 +1,520 @@
+$ terraform destroy
+
+google_storage_bucket.secure: Refreshing state... [id=dsba6190-secure-65111]
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_storage_bucket.vault: Refreshing state... [id=dsba6190-vault-65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+google_bigquery_dataset.lake: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_bigquery_table.readings_parquet: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/events]
+google_bigquery_table.readings_csv: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # google_bigquery_dataset.lake will be destroyed
+  - resource "google_bigquery_dataset" "lake" {
+      - creation_time                   = 1789065170240 -> null
+      - dataset_id                      = "dsba6190_lake_65111" -> null
+      - default_partition_expiration_ms = 0 -> null
+      - default_table_expiration_ms     = 0 -> null
+      - delete_contents_on_destroy      = true -> null
+      - description                     = "Session 5 live demo. External tables over the lake bucket." -> null
+      - effective_labels                = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+        } -> null
+      - etag                            = "nI3vCiggeavTF0YRJa+OiQ==" -> null
+      - id                              = "projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111" -> null
+      - is_case_insensitive             = false -> null
+      - labels                          = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+        } -> null
+      - last_modified_time              = 1789065170240 -> null
+      - location                        = "US" -> null
+      - max_time_travel_hours           = "168" -> null
+      - project                         = "YOUR_PROJECT_ID" -> null
+      - resource_tags                   = {} -> null
+      - self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111" -> null
+      - terraform_labels                = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+        } -> null
+
+      - access {
+          - role          = "OWNER" -> null
+          - user_by_email = "instructor@example.edu" -> null
+        }
+      - access {
+          - role          = "OWNER" -> null
+          - special_group = "projectOwners" -> null
+        }
+      - access {
+          - role          = "READER" -> null
+          - special_group = "projectReaders" -> null
+        }
+      - access {
+          - role          = "WRITER" -> null
+          - special_group = "projectWriters" -> null
+        }
+    }
+
+  # google_bigquery_table.events will be destroyed
+  - resource "google_bigquery_table" "events" {
+      - allow_resource_tags_on_deletion = false -> null
+      - creation_time                   = 1789065275919 -> null
+      - dataset_id                      = "dsba6190_lake_65111" -> null
+      - deletion_protection             = false -> null
+      - effective_labels                = {} -> null
+      - etag                            = "DpnT6UYoNX4yttvkvG1obA==" -> null
+      - expiration_time                 = 0 -> null
+      - id                              = "projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/events" -> null
+      - labels                          = {} -> null
+      - last_modified_time              = 1789065276347 -> null
+      - location                        = "US" -> null
+      - num_bytes                       = 0 -> null
+      - num_long_term_bytes             = 0 -> null
+      - num_rows                        = 0 -> null
+      - project                         = "YOUR_PROJECT_ID" -> null
+      - require_partition_filter        = false -> null
+      - resource_tags                   = {} -> null
+      - schema                          = jsonencode(
+            [
+              - {
+                  - mode = "NULLABLE"
+                  - name = "reading_id"
+                  - type = "INTEGER"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "device_id"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "plant"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "metric"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "value"
+                  - type = "FLOAT"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "dt"
+                  - type = "DATE"
+                },
+            ]
+        ) -> null
+      - self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/events" -> null
+      - table_id                        = "events" -> null
+      - terraform_labels                = {} -> null
+      - type                            = "EXTERNAL" -> null
+
+      - external_data_configuration {
+          - autodetect            = true -> null
+          - compression           = "NONE" -> null
+          - ignore_unknown_values = false -> null
+          - max_bad_records       = 0 -> null
+          - source_format         = "PARQUET" -> null
+          - source_uris           = [
+              - "gs://dsba6190-lake-65111/curated/events/*",
+            ] -> null
+
+          - hive_partitioning_options {
+              - mode                     = "AUTO" -> null
+              - require_partition_filter = false -> null
+              - source_uri_prefix        = "gs://dsba6190-lake-65111/curated/events/" -> null
+            }
+        }
+    }
+
+  # google_bigquery_table.readings_csv will be destroyed
+  - resource "google_bigquery_table" "readings_csv" {
+      - allow_resource_tags_on_deletion = false -> null
+      - creation_time                   = 1789065170801 -> null
+      - dataset_id                      = "dsba6190_lake_65111" -> null
+      - deletion_protection             = false -> null
+      - effective_labels                = {} -> null
+      - etag                            = "f4L+Oe+3nU+9sytEMM6l6g==" -> null
+      - expiration_time                 = 0 -> null
+      - id                              = "projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv" -> null
+      - labels                          = {} -> null
+      - last_modified_time              = 1789065171494 -> null
+      - location                        = "US" -> null
+      - num_bytes                       = 0 -> null
+      - num_long_term_bytes             = 0 -> null
+      - num_rows                        = 0 -> null
+      - project                         = "YOUR_PROJECT_ID" -> null
+      - require_partition_filter        = false -> null
+      - resource_tags                   = {} -> null
+      - schema                          = jsonencode(
+            [
+              - {
+                  - mode = "NULLABLE"
+                  - name = "reading_id"
+                  - type = "INTEGER"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "device_id"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "plant"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "metric"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "value"
+                  - type = "FLOAT"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "recorded_at"
+                  - type = "TIMESTAMP"
+                },
+            ]
+        ) -> null
+      - self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv" -> null
+      - table_id                        = "readings_csv" -> null
+      - terraform_labels                = {} -> null
+      - type                            = "EXTERNAL" -> null
+
+      - external_data_configuration {
+          - autodetect            = true -> null
+          - compression           = "NONE" -> null
+          - ignore_unknown_values = false -> null
+          - max_bad_records       = 0 -> null
+          - source_format         = "CSV" -> null
+          - source_uris           = [
+              - "gs://dsba6190-lake-65111/raw/readings/readings.csv",
+            ] -> null
+
+          - csv_options {
+              - allow_jagged_rows     = false -> null
+              - allow_quoted_newlines = false -> null
+              - encoding              = "UTF-8" -> null
+              - field_delimiter       = "," -> null
+              - quote                 = "\"" -> null
+              - skip_leading_rows     = 1 -> null
+            }
+        }
+    }
+
+  # google_bigquery_table.readings_parquet will be destroyed
+  - resource "google_bigquery_table" "readings_parquet" {
+      - allow_resource_tags_on_deletion = false -> null
+      - creation_time                   = 1789065170823 -> null
+      - dataset_id                      = "dsba6190_lake_65111" -> null
+      - deletion_protection             = false -> null
+      - effective_labels                = {} -> null
+      - etag                            = "C7Xy3wYj1qQrlFv0Bbu2fw==" -> null
+      - expiration_time                 = 0 -> null
+      - id                              = "projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet" -> null
+      - labels                          = {} -> null
+      - last_modified_time              = 1789065171232 -> null
+      - location                        = "US" -> null
+      - num_bytes                       = 0 -> null
+      - num_long_term_bytes             = 0 -> null
+      - num_rows                        = 0 -> null
+      - project                         = "YOUR_PROJECT_ID" -> null
+      - require_partition_filter        = false -> null
+      - resource_tags                   = {} -> null
+      - schema                          = jsonencode(
+            [
+              - {
+                  - mode = "NULLABLE"
+                  - name = "reading_id"
+                  - type = "INTEGER"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "device_id"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "plant"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "metric"
+                  - type = "STRING"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "value"
+                  - type = "FLOAT"
+                },
+              - {
+                  - mode = "NULLABLE"
+                  - name = "recorded_at"
+                  - type = "STRING"
+                },
+            ]
+        ) -> null
+      - self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet" -> null
+      - table_id                        = "readings_parquet" -> null
+      - terraform_labels                = {} -> null
+      - type                            = "EXTERNAL" -> null
+
+      - external_data_configuration {
+          - autodetect            = true -> null
+          - compression           = "NONE" -> null
+          - ignore_unknown_values = false -> null
+          - max_bad_records       = 0 -> null
+          - source_format         = "PARQUET" -> null
+          - source_uris           = [
+              - "gs://dsba6190-lake-65111/curated/readings/readings.parquet",
+            ] -> null
+        }
+    }
+
+  # google_storage_bucket.lake will be destroyed
+  - resource "google_storage_bucket" "lake" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "lake"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-lake-65111" -> null
+      - labels                      = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "lake"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-lake-65111" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "enforced" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-lake-65111" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "lake"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-lake-65111" -> null
+
+      - lifecycle_rule {
+          - action {
+              - storage_class = "NEARLINE" -> null
+              - type          = "SetStorageClass" -> null
+            }
+          - condition {
+              - age                                     = 30 -> null
+              - days_since_custom_time                  = 0 -> null
+              - days_since_noncurrent_time              = 0 -> null
+              - matches_prefix                          = [] -> null
+              - matches_storage_class                   = [] -> null
+              - matches_suffix                          = [] -> null
+              - no_age                                  = false -> null
+              - num_newer_versions                      = 0 -> null
+              - send_age_if_zero                        = true -> null
+              - send_days_since_custom_time_if_zero     = false -> null
+              - send_days_since_noncurrent_time_if_zero = false -> null
+              - send_num_newer_versions_if_zero         = false -> null
+              - with_state                              = "ANY" -> null
+            }
+        }
+      - lifecycle_rule {
+          - action {
+              - storage_class = "ARCHIVE" -> null
+              - type          = "SetStorageClass" -> null
+            }
+          - condition {
+              - age                                     = 365 -> null
+              - days_since_custom_time                  = 0 -> null
+              - days_since_noncurrent_time              = 0 -> null
+              - matches_prefix                          = [] -> null
+              - matches_storage_class                   = [] -> null
+              - matches_suffix                          = [] -> null
+              - no_age                                  = false -> null
+              - num_newer_versions                      = 0 -> null
+              - send_age_if_zero                        = true -> null
+              - send_days_since_custom_time_if_zero     = false -> null
+              - send_days_since_noncurrent_time_if_zero = false -> null
+              - send_num_newer_versions_if_zero         = false -> null
+              - with_state                              = "ANY" -> null
+            }
+        }
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T18:32:15.001Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+
+      - versioning {
+          - enabled = true -> null
+        }
+    }
+
+  # google_storage_bucket.secure will be destroyed
+  - resource "google_storage_bucket" "secure" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "regulated"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-secure-65111" -> null
+      - labels                      = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "regulated"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-secure-65111" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "enforced" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-secure-65111" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "regulated"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-secure-65111" -> null
+
+      - encryption {
+          - default_kms_key_name = "projects/YOUR_PROJECT_ID/locations/us-east1/keyRings/dsba6190-demo/cryptoKeys/lake-cmek" -> null
+        }
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T18:33:16.120Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # google_storage_bucket.staging will be destroyed
+  - resource "google_storage_bucket" "staging" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {} -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-staging-65111" -> null
+      - labels                      = {} -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-staging-65111" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-staging-65111" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {} -> null
+      - uniform_bucket_level_access = false -> null
+      - url                         = "gs://dsba6190-staging-65111" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T18:32:12.154Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # google_storage_bucket.vault will be destroyed
+  - resource "google_storage_bucket" "vault" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "raw"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-vault-65111" -> null
+      - labels                      = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "raw"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-vault-65111" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "enforced" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-vault-65111" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "course"      = "dsba6190"
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+          - "zone"        = "raw"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-vault-65111" -> null
+
+      - retention_policy {
+          - is_locked        = false -> null
+          - retention_period = 3600 -> null
+        }
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T18:33:09.035Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 8 to destroy.
+
+Changes to Outputs:
+  - lake_bucket    = "gs://dsba6190-lake-65111" -> null
+  - secure_bucket  = "gs://dsba6190-secure-65111" -> null
+  - staging_bucket = "gs://dsba6190-staging-65111" -> null
+  - vault_bucket   = "gs://dsba6190-vault-65111" -> null
+google_storage_bucket.vault: Destroying... [id=dsba6190-vault-65111]
+google_storage_bucket.staging: Destroying... [id=dsba6190-staging-65111]
+google_storage_bucket.secure: Destroying... [id=dsba6190-secure-65111]
+google_bigquery_table.readings_parquet: Destroying... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.events: Destroying... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/events]
+google_bigquery_table.readings_csv: Destroying... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+google_bigquery_table.readings_parquet: Destruction complete after 0s
+google_bigquery_table.events: Destruction complete after 0s
+google_bigquery_table.readings_csv: Destruction complete after 0s
+google_bigquery_dataset.lake: Destroying... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_storage_bucket.lake: Destroying... [id=dsba6190-lake-65111]
+google_storage_bucket.secure: Destruction complete after 1s
+google_bigquery_dataset.lake: Destruction complete after 1s
+google_storage_bucket.staging: Destruction complete after 1s
+google_storage_bucket.lake: Destruction complete after 1s
+
+Error: could not delete non-empty bucket due to error when deleting contents: googleapi: Error 403: Object 'dsba6190-vault-65111/raw/incident.csv' is subject to bucket's retention policy or object retention and cannot be deleted or overwritten until 2026-09-10T12:33:11.232127-07:00, retentionPolicyNotMet
+

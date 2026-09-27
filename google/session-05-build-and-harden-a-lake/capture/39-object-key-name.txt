@@ -1,0 +1,4 @@
+$ gcloud storage objects describe  (which key encrypted it)
+
+kms_key: projects/YOUR_PROJECT_ID/locations/us-east1/keyRings/dsba6190-demo/cryptoKeys/lake-cmek/cryptoKeyVersions/1
+name: raw/regulated.csv

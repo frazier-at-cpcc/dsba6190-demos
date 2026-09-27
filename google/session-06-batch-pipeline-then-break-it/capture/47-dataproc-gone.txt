@@ -1,0 +1,3 @@
+$ gcloud dataproc clusters list  (nothing survives a run)
+
+Listed 0 items.

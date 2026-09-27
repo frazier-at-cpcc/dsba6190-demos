@@ -1,0 +1,3 @@
+$ cat request.json   (raw vehicle attributes, no hand normalization)
+
+{"instances": [[8, 350, 165, 3693, 11.5, 70, 1], [4, 97, 88, 2130, 14.5, 71, 3], [4, 140, 86, 2790, 15.6, 82, 1]]}

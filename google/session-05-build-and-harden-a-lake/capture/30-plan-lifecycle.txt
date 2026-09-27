@@ -1,0 +1,53 @@
+$ terraform plan
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+google_bigquery_dataset.lake: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_bigquery_table.readings_parquet: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.readings_csv: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.lake will be updated in-place
+  ~ resource "google_storage_bucket" "lake" {
+        id                          = "dsba6190-lake-65111"
+        name                        = "dsba6190-lake-65111"
+        # (15 unchanged attributes hidden)
+
+      + lifecycle_rule {
+          + action {
+              + storage_class = "NEARLINE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                   = 30
+              + matches_prefix        = []
+              + matches_storage_class = []
+              + matches_suffix        = []
+              + send_age_if_zero      = true
+              + with_state            = (known after apply)
+            }
+        }
+      + lifecycle_rule {
+          + action {
+              + storage_class = "ARCHIVE"
+              + type          = "SetStorageClass"
+            }
+          + condition {
+              + age                   = 365
+              + matches_prefix        = []
+              + matches_storage_class = []
+              + matches_suffix        = []
+              + send_age_if_zero      = true
+              + with_state            = (known after apply)
+            }
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

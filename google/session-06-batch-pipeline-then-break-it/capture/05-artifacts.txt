@@ -1,0 +1,6 @@
+$ python3 cdap.py artifacts  (what the instance actually carries)
+
+cdap-data-pipeline       6.11.1       SYSTEM
+core-plugins             2.13.1       SYSTEM
+google-cloud             0.24.1       SYSTEM
+wrangler-transform       4.11.1       SYSTEM

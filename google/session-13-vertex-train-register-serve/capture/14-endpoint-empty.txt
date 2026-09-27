@@ -1,0 +1,4 @@
+$ gcloud ai endpoints describe $ENDPOINT_ID   (no deployed models: nothing is billing)
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+displayName: qc-fuel-33351

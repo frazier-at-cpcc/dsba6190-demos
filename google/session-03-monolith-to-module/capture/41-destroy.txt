@@ -1,0 +1,160 @@
+$ terraform destroy
+
+module.lake["test"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-test-raw-26095]
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.lake["dev"].google_storage_bucket.raw will be destroyed
+  - resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "dev"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-dev-raw-26095" -> null
+      - labels                      = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "dev"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-dev-raw-26095" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-dev-raw-26095" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "dev"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-dev-raw-26095" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-27T16:22:00.248Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # module.lake["prod"].google_storage_bucket.raw will be destroyed
+  - resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "prod"
+          - "owner"               = "someone-at-2am"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-prod-raw-26095" -> null
+      - labels                      = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "prod"
+          - "owner"               = "someone-at-2am"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-prod-raw-26095" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-prod-raw-26095" -> null
+      - storage_class               = "NEARLINE" -> null
+      - terraform_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "prod"
+          - "owner"               = "someone-at-2am"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-prod-raw-26095" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-27T16:22:00.215Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # module.lake["test"].google_storage_bucket.raw will be destroyed
+  - resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "test"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-test-raw-26095" -> null
+      - labels                      = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "test"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-test-raw-26095" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-test-raw-26095" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "cost-center"         = "dsba6190"
+          - "data-classification" = "internal"
+          - "environment"         = "test"
+          - "owner"               = "data-platform"
+          - "team"                = "fleet-dashboards"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-test-raw-26095" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-27T16:22:22.241Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 3 to destroy.
+
+Changes to Outputs:
+  - buckets = {
+      - dev  = "gs://dsba6190-dev-raw-26095"
+      - prod = "gs://dsba6190-prod-raw-26095"
+      - test = "gs://dsba6190-test-raw-26095"
+    } -> null
+module.lake["test"].google_storage_bucket.raw: Destroying... [id=dsba6190-test-raw-26095]
+module.lake["prod"].google_storage_bucket.raw: Destroying... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Destroying... [id=dsba6190-dev-raw-26095]
+module.lake["prod"].google_storage_bucket.raw: Destruction complete after 1s
+module.lake["test"].google_storage_bucket.raw: Destruction complete after 1s
+module.lake["dev"].google_storage_bucket.raw: Destruction complete after 1s
+
+Destroy complete! Resources: 3 destroyed.

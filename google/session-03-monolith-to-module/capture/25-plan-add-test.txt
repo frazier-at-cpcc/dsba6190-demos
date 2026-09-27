@@ -1,0 +1,55 @@
+$ cp main.tf.test main.tf && terraform plan   (test added to the map)
+
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.lake["test"].google_storage_bucket.raw will be created
+  + resource "google_storage_bucket" "raw" {
+      + effective_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "test"
+          + "owner"               = "data-platform"
+          + "team"                = "fleet-dashboards"
+        }
+      + force_destroy               = false
+      + id                          = (known after apply)
+      + labels                      = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "test"
+          + "owner"               = "data-platform"
+          + "team"                = "fleet-dashboards"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-test-raw-26095"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "test"
+          + "owner"               = "data-platform"
+          + "team"                = "fleet-dashboards"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  ~ buckets = {
+      + test = (known after apply)
+        # (2 unchanged attributes hidden)
+    }

@@ -1,0 +1,12 @@
+$ gcloud storage ls  (ten prefixes, one per day)
+
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-08/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-09/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-10/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-11/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-12/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-13/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-14/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-15/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-16/
+gs://dsba6190-lake-65111/curated/events/dt=2026-09-17/

@@ -1,0 +1,18 @@
+$ python3 stages.py <broadcast event log>
+
+Copying gs://qc-billing/eventlogs/app-20260927160618775-0390 to file://./session-10-read-a-plan-find-the-skew/.work/broadcast.events
+  
+........
+
+Average throughput: 25.5MiB/s
+stage  tasks    min    p25  median    p75     max  max/med  shuffle read
+    0      1    3.6    3.6     3.6    3.6     3.6      1.0       0.0 MB
+    1      1    4.8    4.8     4.8    4.8     4.8      1.0       0.0 MB
+    2      1    1.9    1.9     1.9    1.9     1.9      1.0       0.0 MB
+    3      5    1.7    1.7     2.3    2.5     2.5      1.1       0.0 MB
+    4      8    1.6    1.6     2.8   10.7    16.8      5.9       0.0 MB
+    5    200    0.1    0.1     0.1    0.2     2.8     23.5       0.0 MB
+    6      5    0.3    0.4     0.4    0.5     0.5      1.1       0.0 MB
+    7      8    0.5    0.5     0.6    7.5    12.4     19.9       0.0 MB
+    8    200    0.0    0.0     0.0    0.1     0.3      8.1       0.0 MB
+    9      1    0.1    0.1     0.1    0.1     0.1      1.0       0.0 MB

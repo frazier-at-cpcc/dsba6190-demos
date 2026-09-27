@@ -1,0 +1,3 @@
+$ python registers.py $TOPIC malformed   (total sent as "$3.49")
+
+published one CLT-022 sale with total "$3.49", message id 22066267526601937

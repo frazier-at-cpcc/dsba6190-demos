@@ -1,0 +1,10 @@
+$ python3 cdap.py wait  (run 4, identical to run 3)
+
+      0s  PENDING
+    172s  STARTING
+    282s  RUNNING
+    392s  FAILED
+
+run      f8de45c2-ad63-11f1-99d6-9ebe96f6d8d9
+status   FAILED
+duration 383s

@@ -1,0 +1,3 @@
+$ kubectl uncordon gke-qc-fare-20854-default-pool-addfde80-lxh2
+
+node/gke-qc-fare-20854-default-pool-addfde80-lxh2 uncordoned

@@ -1,0 +1,20 @@
+# Step 8. A pod that holds 256 MiB against a 64 MiB limit. Kubernetes kills it.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fare-api-oom
+  labels: {app: fare-api-oom, company: queen-city-trip-analytics}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: fare-api-oom}}
+  template:
+    metadata:
+      labels: {app: fare-api-oom}
+    spec:
+      containers:
+      - name: fare-api
+        image: IMAGE_BASE:v2
+        env: [{name: ALLOCATE_MB, value: "256"}]
+        resources:
+          requests: {cpu: 100m, memory: 64Mi}
+          limits: {cpu: 500m, memory: 64Mi}

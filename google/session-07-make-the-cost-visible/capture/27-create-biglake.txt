@@ -1,0 +1,5 @@
+$ q "CREATE EXTERNAL TABLE $DS.trips_lake WITH CONNECTION `$CONNECTION` OPTIONS (...)"
+
+Created YOUR_PROJECT_ID.dsba6190_wh_72583.trips_lake
+
+processed 0.00 GB · billed 0.0 MB · slot time 0.0 s · cache false

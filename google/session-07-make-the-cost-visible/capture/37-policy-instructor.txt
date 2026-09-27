@@ -1,0 +1,4 @@
+$ q "CREATE ROW ACCESS POLICY all_rows ON trips_lake GRANT TO ('user:$ME') FILTER USING (TRUE)"
+
+Created row access policy all_rows on table YOUR_PROJECT_ID.dsba6190_wh_72583.trips_lake
+processed 0.00 GB · billed 0.0 MB · slot time 0.0 s · cache false

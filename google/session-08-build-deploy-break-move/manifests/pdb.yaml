@@ -1,0 +1,8 @@
+# Step 9. A budget that allows one pod at a time to move. Drains proceed, one at a time.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fare-api
+spec:
+  minAvailable: 2
+  selector: {matchLabels: {app: fare-api}}

@@ -1,0 +1,3 @@
+$ q "GRANT roles/bigquery.dataViewer ON SCHEMA $CURATED TO $ANALYST"   (one dataset)
+
+processed 0.00 GB · billed 0.0 MB · slot time 0.0 s · cache false

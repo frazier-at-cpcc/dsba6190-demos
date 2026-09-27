@@ -1,0 +1,11 @@
+$ diff the VM, Cloud Run and BigQuery rollups
+
+      12 vm.csv
+      12 run.csv
+      12 bq.csv
+      36 total
+VM and Cloud Run agree
+VM and BigQuery agree
+Airport,180274,4882936.69
+Ballantyne,139369,1916173.62
+Camp North End,59880,665714.03

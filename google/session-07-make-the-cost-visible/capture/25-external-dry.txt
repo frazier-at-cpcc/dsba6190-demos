@@ -1,0 +1,3 @@
+$ dry "SELECT payment_type, COUNT(*) AS trips, ROUND(AVG(tip_amount), 2) AS avg_tip FROM trips_ext GROUP BY 1"
+
+This query will process 0.00 GB when run.   (0 bytes)

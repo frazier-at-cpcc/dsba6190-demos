@@ -1,0 +1,6 @@
+$ gcloud storage rm gs://$PROD_BUCKET/**   (delete the data on purpose, first)
+
+Removing objects:
+  
+Removing gs://dsba6190-prod-raw-26095/raw/trips-2026-09-02.csv...
+.....

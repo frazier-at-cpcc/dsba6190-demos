@@ -1,0 +1,5 @@
+$ gcloud storage cp  (the record that has to survive)
+
+Copying file://_incident.csv to gs://dsba6190-vault-65111/raw/incident.csv
+  
+....

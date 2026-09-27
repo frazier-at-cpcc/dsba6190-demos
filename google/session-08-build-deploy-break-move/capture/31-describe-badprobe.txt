@@ -1,0 +1,10 @@
+$ kubectl describe pod fare-api-64f4f898bb-j6hn9 | grep -A8 Events
+
+  Type     Reason     Age                 From               Message
+  ----     ------     ----                ----               -------
+  Normal   Scheduled  46s                 default-scheduler  Successfully assigned default/fare-api-64f4f898bb-j6hn9 to gke-qc-fare-20854-default-pool-addfde80-gkc9
+  Normal   Pulled     46s                 kubelet            Container image "us-central1-docker.pkg.dev/YOUR_PROJECT_ID/qc-fare-20854/fare-api:v2" already present on machine and can be accessed by the pod
+  Normal   Created    46s                 kubelet            Container created
+  Normal   Started    46s                 kubelet            Container started
+  Warning  Unhealthy  21s (x13 over 44s)  kubelet            Readiness probe failed: Get "http://10.64.2.17:8080/readyz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Warning  Unhealthy  2s (x10 over 20s)   kubelet            Readiness probe failed: HTTP probe failed with statuscode: 404

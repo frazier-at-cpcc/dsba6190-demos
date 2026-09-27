@@ -1,0 +1,83 @@
+$ terraform apply
+
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+random_password.db_admin: Refreshing state... [id=none]
+google_storage_bucket.annex: Preparing import... [id=YOUR_PROJECT_ID/dsba6190-annex-46421]
+google_storage_bucket.annex: Refreshing state... [id=YOUR_PROJECT_ID/dsba6190-annex-46421]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.legacy: Refreshing state... [id=dsba6190-legacy-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.annex will be updated in-place
+  # (imported from "YOUR_PROJECT_ID/dsba6190-annex-46421")
+  ~ resource "google_storage_bucket" "annex" {
+        default_event_based_hold    = false
+        effective_labels            = {
+            "environment" = "prod"
+            "owner"       = "unknown"
+        }
+        enable_object_retention     = false
+        force_destroy               = false
+        id                          = "dsba6190-annex-46421"
+      ~ labels                      = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        location                    = "US-WEST1"
+        name                        = "dsba6190-annex-46421"
+        project                     = "YOUR_PROJECT_ID"
+        project_number              = PROJECT_NUMBER
+        public_access_prevention    = "inherited"
+        requester_pays              = false
+        self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-annex-46421"
+        storage_class               = "COLDLINE"
+      ~ terraform_labels            = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        uniform_bucket_level_access = true
+        url                         = "gs://dsba6190-annex-46421"
+
+        soft_delete_policy {
+            effective_time             = "2026-09-10T13:20:27.492Z"
+            retention_duration_seconds = 604800
+        }
+    }
+
+  # google_storage_bucket.legacy will be updated in-place
+  ~ resource "google_storage_bucket" "legacy" {
+        id                          = "dsba6190-legacy-46421"
+      ~ labels                      = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        name                        = "dsba6190-legacy-46421"
+      ~ terraform_labels            = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        # (13 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to import, 0 to add, 2 to change, 0 to destroy.
+google_storage_bucket.annex: Importing... [id=YOUR_PROJECT_ID/dsba6190-annex-46421]
+google_storage_bucket.annex: Import complete [id=YOUR_PROJECT_ID/dsba6190-annex-46421]
+google_storage_bucket.annex: Modifying... [id=dsba6190-annex-46421]
+google_storage_bucket.legacy: Modifying... [id=dsba6190-legacy-46421]
+google_storage_bucket.legacy: Modifications complete after 0s [id=dsba6190-legacy-46421]
+google_storage_bucket.annex: Modifications complete after 0s [id=dsba6190-annex-46421]
+
+Apply complete! Resources: 1 imported, 0 added, 2 changed, 0 destroyed.
+
+Outputs:
+
+db_admin_password = <sensitive>
+raw_bucket = "gs://dsba6190-raw-46421"

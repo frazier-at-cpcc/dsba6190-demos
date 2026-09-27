@@ -1,0 +1,13 @@
+$ bq show --schema trips_lake   (which columns carry the tag)
+
+vendor_id            -
+pickup_datetime      -
+dropoff_datetime     -
+passenger_count      -
+trip_distance        -
+payment_type         -
+fare_amount          -
+tip_amount           -
+total_amount         -
+pickup_location_id   policy tag 739779242571205825
+dropoff_location_id  policy tag 739779242571205825

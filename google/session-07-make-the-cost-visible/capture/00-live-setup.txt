@@ -1,0 +1,50 @@
+
+[1;32m>>> APIs[0m
+
+[1;32m>>> The second principal, dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com[0m
+
+[1;32m>>> The bucket and one month of trips as Parquet[0m
+
+[1;32m>>> The BigQuery connection BigLake reads through[0m
+
+[1;32m>>> The taxonomy and its policy tag[0m
+
+[1;32m>>> Grant the second principal the dataset, and nothing else[0m
+
+[1;32m>>> Wait until the second principal can run a query[0m
+
+[1;32m>>> The working directory[0m
+
+  Staged for the live demo. Nothing has been queried and no table exists.
+
+  Working directory   ./session-07-make-the-cost-visible/.work
+  Project             YOUR_PROJECT_ID
+  Name suffix         72583
+  Second principal    ready 2 s after the grant
+
+  Load the names and the helpers into the shell you will teach from:
+
+      source ./session-07-make-the-cost-visible/.work/env.sh
+
+  Created and waiting for the hour:
+    dataset      dsba6190_wh_72583          (US, empty)
+    bucket       gs://dsba6190-trips-72583/trips/2022-01/   (3 Parquet files)
+    connection   YOUR_PROJECT_ID.US.dsba6190-lake-72583
+                 reads as bqcx-PROJECT_NUMBER-2u86@gcp-sa-bigquery-condel.iam.gserviceaccount.com
+    taxonomy     dsba6190-72583, tag trip_location
+    principal    dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com
+                 bigquery.jobUser on the project, dataViewer on the dataset,
+                 no Cloud Storage access, no policy-tag access
+
+  NOT created. The hour creates each of these at its own step:
+    trips_2022, trips_2022_part   step 7
+    trips_ext                     step 9
+    trips_lake, the tag on it     step 10
+    two row access policies       step 11
+
+  Teardown is step 12, and it is also:
+    bq --project_id=YOUR_PROJECT_ID rm -r -f -d dsba6190_wh_72583
+    bq --project_id=YOUR_PROJECT_ID --location=US rm -f --connection YOUR_PROJECT_ID.US.dsba6190-lake-72583
+    gcloud storage rm -r gs://dsba6190-trips-72583
+    curl -s -X DELETE -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+         -H "x-goog-user-project: YOUR_PROJECT_ID" https://datacatalog.googleapis.com/v1/projects/YOUR_PROJECT_ID/locations/us/taxonomies/2531934371604342040

@@ -1,0 +1,5 @@
+$ gcloud run services describe qc-fare-api   (scaling)
+
+            cpu: 1000m
+            memory: 512Mi
+      containerConcurrency: 80

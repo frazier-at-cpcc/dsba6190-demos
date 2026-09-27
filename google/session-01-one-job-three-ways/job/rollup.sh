@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Queen City's nightly rollup: trips and revenue by pickup zone.
+# The same script runs on a Compute Engine VM and as a Cloud Run job.
+#   rollup.sh <BUCKET> <PLATFORM>
+set -euo pipefail
+B="${1:?bucket}"; P="${2:?platform}"
+T0=$(date +%s)
+gcloud storage cat "gs://$B/raw/trips-2026-08-19.csv" \
+  | awk -F, 'NR > 1 { n[$3]++; r[$3] += $6 }
+             END { for (z in n) printf "%s,%d,%.2f\n", z, n[z], r[z] }' \
+  | sort > /tmp/rollup.csv
+gcloud storage cp /tmp/rollup.csv "gs://$B/out/$P/rollup.csv" --quiet
+echo "platform=$P host=$(hostname) cpus=$(nproc) seconds=$(( $(date +%s) - T0 ))" \
+  | gcloud storage cp - "gs://$B/out/$P/timing.txt" --quiet

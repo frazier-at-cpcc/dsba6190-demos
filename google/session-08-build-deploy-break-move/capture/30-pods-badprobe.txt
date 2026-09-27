@@ -1,0 +1,7 @@
+$ kubectl get pods
+
+NAME                        READY   STATUS    RESTARTS   AGE
+fare-api-57c46cd767-6cbts   1/1     Running   0          2m26s
+fare-api-57c46cd767-kdzrx   1/1     Running   0          2m23s
+fare-api-57c46cd767-p9blw   1/1     Running   0          2m25s
+fare-api-64f4f898bb-j6hn9   0/1     Running   0          45s

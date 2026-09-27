@@ -1,0 +1,9 @@
+$ plan
+
+slot time      2.187 s
+bytes read     175105676
+
+stage                          input rows   output rows   shuffle bytes   parallel
+S00: Input                        36255983         15366          254890         62
+S01: Sort+                           15366            30             505          6
+S02: Output                             30             5              85          1

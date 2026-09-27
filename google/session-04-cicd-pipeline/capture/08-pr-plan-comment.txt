@@ -1,0 +1,76 @@
+$ bash -c gh pr view 1 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --comments | sed -n '/Terraform plan for/,$p' | head -80
+
+## Terraform plan for `9364ed7`
+
+**Stage 2 · plan:** Plan: 0 to add, 2 to change, 0 to destroy.
+
+**Stage 3 · policy:** passed
+
+```
+
+4 tests, 4 passed, 0 warnings, 0 failures, 0 exceptions
+```
+
+<details><summary>Full plan output</summary>
+
+```hcl
+google_storage_bucket.scratch: Refreshing state... [id=YOUR_PROJECT_ID-cicd-scratch]
+google_storage_bucket.lake: Refreshing state... [id=YOUR_PROJECT_ID-cicd-lake]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.lake will be updated in-place
+  ~ resource "google_storage_bucket" "lake" {
+      ~ effective_labels            = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        id                          = "YOUR_PROJECT_ID-cicd-lake"
+      ~ labels                      = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        name                        = "YOUR_PROJECT_ID-cicd-lake"
+      ~ terraform_labels            = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # google_storage_bucket.scratch will be updated in-place
+  ~ resource "google_storage_bucket" "scratch" {
+      ~ effective_labels            = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        id                          = "YOUR_PROJECT_ID-cicd-scratch"
+      ~ labels                      = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        name                        = "YOUR_PROJECT_ID-cicd-scratch"
+      ~ terraform_labels            = {
+          + "cost-center" = "dsba6190"
+            # (3 unchanged elements hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+```
+
+</details>
+
+_The plan is the code review. Approve the diff above, not the HCL._
+
+<!-- Sticky Pull Request Commentterraform -->
+--

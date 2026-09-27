@@ -1,0 +1,3 @@
+$ gh issue list --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --label drift --state closed --limit 1 --json number,title,state --jq .[] | "#\(.number) \(.title) \(.state)"
+
+#4 Drift detected: reality differs from main CLOSED

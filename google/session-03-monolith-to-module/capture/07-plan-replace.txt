@@ -1,0 +1,32 @@
+$ cp main.tf.renamed main.tf && terraform plan
+
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.raw must be replaced
+-/+ resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - enable_object_retention     = false -> null
+      ~ id                          = "dsba6190-raw-26095" -> (known after apply)
+      ~ name                        = "dsba6190-raw-26095" -> "dsba6190-raw-renamed-26095" # forces replacement
+      ~ project                     = "YOUR_PROJECT_ID" -> (known after apply)
+      ~ project_number              = PROJECT_NUMBER -> (known after apply)
+      ~ public_access_prevention    = "inherited" -> (known after apply)
+      - requester_pays              = false -> null
+      + rpo                         = (known after apply)
+      ~ self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-raw-26095" -> (known after apply)
+      ~ url                         = "gs://dsba6190-raw-26095" -> (known after apply)
+        # (7 unchanged attributes hidden)
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-27T16:21:42.719Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.

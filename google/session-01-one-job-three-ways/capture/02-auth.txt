@@ -1,0 +1,9 @@
+$ gcloud auth list --filter=status:ACTIVE
+
+          Credentialed Accounts
+ACTIVE  ACCOUNT
+*       instructor@example.edu
+
+To set the active account, run:
+    $ gcloud config set account `ACCOUNT`
+

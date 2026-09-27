@@ -1,0 +1,110 @@
+$ terraform destroy
+
+random_password.db_admin: Refreshing state... [id=none]
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.landing: Refreshing state... [id=dsba6190-raw-46421]
+google_storage_bucket.annex: Refreshing state... [id=dsba6190-annex-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # google_pubsub_topic.events will be destroyed
+  - resource "google_pubsub_topic" "events" {
+      - effective_labels = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - id               = "projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421" -> null
+      - labels           = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - name             = "dsba6190-events-46421" -> null
+      - project          = "YOUR_PROJECT_ID" -> null
+      - terraform_labels = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+    }
+
+  # google_storage_bucket.annex will be destroyed
+  - resource "google_storage_bucket" "annex" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-annex-46421" -> null
+      - labels                      = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - location                    = "US-WEST1" -> null
+      - name                        = "dsba6190-annex-46421" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-annex-46421" -> null
+      - storage_class               = "COLDLINE" -> null
+      - terraform_labels            = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-annex-46421" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T13:20:27.492Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # random_password.db_admin will be destroyed
+  - resource "random_password" "db_admin" {
+      - bcrypt_hash = (sensitive value) -> null
+      - id          = "none" -> null
+      - length      = 24 -> null
+      - lower       = true -> null
+      - min_lower   = 0 -> null
+      - min_numeric = 0 -> null
+      - min_special = 0 -> null
+      - min_upper   = 0 -> null
+      - number      = true -> null
+      - numeric     = true -> null
+      - result      = (sensitive value) -> null
+      - special     = true -> null
+      - upper       = true -> null
+    }
+
+  # time_sleep.slow_apply will be destroyed
+  - resource "time_sleep" "slow_apply" {
+      - create_duration = "90s" -> null
+      - id              = "2026-09-10T13:23:44Z" -> null
+      - triggers        = {
+          - "suffix" = "46421"
+        } -> null
+    }
+
+Plan: 0 to add, 0 to change, 4 to destroy.
+
+Changes to Outputs:
+  - db_admin_password = (sensitive value) -> null
+  - landing_bucket    = "gs://dsba6190-raw-46421" -> null
+  - raw_bucket        = "gs://dsba6190-raw-46421" -> null
+
+Error: Instance cannot be destroyed
+
+  on main.tf line 45:
+  45: resource "google_storage_bucket" "landing" {
+
+Resource google_storage_bucket.landing has lifecycle.prevent_destroy set, but
+the plan calls for this resource to be destroyed. To avoid this error and
+continue with the plan, either disable lifecycle.prevent_destroy or reduce
+the scope of the plan using the -target flag.

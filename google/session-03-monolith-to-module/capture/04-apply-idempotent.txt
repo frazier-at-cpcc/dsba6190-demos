@@ -1,0 +1,10 @@
+$ terraform apply   (again, nothing edited)
+
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-26095]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.

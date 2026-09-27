@@ -1,0 +1,6 @@
+$ gcloud ai models list-version $MODEL_ID
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+VERSION_ID  VERSION_ALIASES  VERSION_CREATE_TIME  ARTIFACT_URI
+1           ridge,default    18:28:38             model
+2           boosted          18:50:23             model

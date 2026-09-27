@@ -1,0 +1,6 @@
+$ python3 cdap.py deploy  (04-drift)
+
+Deployed  pos-04-drift
+  artifact   cdap-data-pipeline 6.11.1
+  stages     5
+  edges      4

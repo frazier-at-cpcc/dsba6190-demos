@@ -1,0 +1,7 @@
+$ bq query  (nulls, before there is anything to be null)
+
++---------+-------------+--------------+
+| null_ts | null_amount | negative_qty |
++---------+-------------+--------------+
+|       0 |           0 |            0 |
++---------+-------------+--------------+

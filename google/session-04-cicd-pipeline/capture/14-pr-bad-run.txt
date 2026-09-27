@@ -1,0 +1,33 @@
+
+X make-scratch-public-1833 pull-request frazier-at-cpcc/dsba6190-infrastructure-pipeline#2 · 34538239994
+Triggered via pull_request less than a minute ago
+
+JOBS
+X stages 1 to 3 · validate, plan, policy in 18s (ID 103074720795)
+  ✓ Set up job
+  ✓ Check out the pull request
+  ✓ Authenticate to Google Cloud through Workload Identity Federation
+  ✓ Install Terraform 1.5.7
+  ✓ Stage 1 · fmt
+  ✓ Stage 1 · init
+  ✓ Stage 1 · validate
+  ✓ Stage 2 · plan
+  ✓ Install conftest
+  ✓ Stage 3 · policy
+  ✓ Compose the pull-request comment
+  ✓ Stage 2 · post the plan on the pull request
+  X Fail the check when policy failed
+  ✓ Post Authenticate to Google Cloud through Workload Identity Federation
+  ✓ Post Check out the pull request
+  ✓ Complete job
+
+ANNOTATIONS
+X Process completed with exit code 1.
+stages 1 to 3 · validate, plan, policy: .github#19
+
+X Process completed with exit code 1.
+stages 1 to 3 · validate, plan, policy: .github#21
+
+
+To see what failed, try: gh run view 34538239994 --log-failed
+View this run on GitHub: https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/actions/runs/34538239994

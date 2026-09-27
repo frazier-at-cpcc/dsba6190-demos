@@ -1,0 +1,4 @@
+$ gcloud storage buckets list --filter=name~$SUFFIX; gcloud compute instances list --filter=name~$SUFFIX
+
+buckets: 0
+instances: 0

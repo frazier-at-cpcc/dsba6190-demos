@@ -1,0 +1,11 @@
+
+[1;32m>>> APIs[0m
+
+[1;32m>>> One night of trips[0m
+wrote 2,000,000 trips to ./session-01-one-job-three-ways/.work/trips-2026-08-19.csv
+
+[1;32m>>> The company's bucket, the file and the job[0m
+
+[1;32m>>> Staged in 74 s[0m
+  source ./session-01-one-job-three-ways/.work/env.sh
+  bucket gs://qc-nightly-24113  (135535732 bytes)

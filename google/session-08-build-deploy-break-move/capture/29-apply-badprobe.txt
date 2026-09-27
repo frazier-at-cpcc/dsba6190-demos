@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/deployment-badprobe.yaml   (probe on /readyz, which does not exist)
+
+deployment.apps/fare-api configured

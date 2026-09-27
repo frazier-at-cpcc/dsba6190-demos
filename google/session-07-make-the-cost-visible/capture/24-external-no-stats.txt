@@ -1,0 +1,4 @@
+$ bq show   (trips_ext against trips_2022)
+
+{"table":"trips_ext","type":"EXTERNAL","numRows":"0","numBytes":"0"}
+{"table":"trips_2022","type":"TABLE","numRows":"36255983","numBytes":"3746596329"}

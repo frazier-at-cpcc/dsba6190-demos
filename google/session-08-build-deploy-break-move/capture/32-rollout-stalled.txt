@@ -1,0 +1,4 @@
+$ kubectl rollout status deployment/fare-api --timeout=20s
+
+Waiting for deployment "fare-api" rollout to finish: 1 out of 3 new replicas have been updated...
+error: timed out waiting for the condition

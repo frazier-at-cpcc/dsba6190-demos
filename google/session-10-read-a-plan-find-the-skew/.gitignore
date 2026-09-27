@@ -1,0 +1,4 @@
+.work/
+.venv/
+.capture-run.log
+__pycache__/

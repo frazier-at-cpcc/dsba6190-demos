@@ -1,0 +1,6 @@
+$ verify: the dataset, the connection, the taxonomy and the bucket are gone
+
+0
+0
+0
+0

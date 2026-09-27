@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/pdb-strict.yaml   (minAvailable 3)
+
+poddisruptionbudget.policy/fare-api created

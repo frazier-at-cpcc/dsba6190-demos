@@ -1,0 +1,50 @@
+$ terraform destroy
+
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.raw will be destroyed
+  - resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "someone-at-2am"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-raw-26095" -> null
+      - labels                      = {
+          - "environment" = "demo"
+          - "owner"       = "someone-at-2am"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-raw-26095" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-raw-26095" -> null
+      - storage_class               = "NEARLINE" -> null
+      - terraform_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "someone-at-2am"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-raw-26095" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-27T16:21:42.719Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+google_storage_bucket.raw: Destroying... [id=dsba6190-raw-26095]
+google_storage_bucket.raw: Destruction complete after 1s
+
+Destroy complete! Resources: 1 destroyed.

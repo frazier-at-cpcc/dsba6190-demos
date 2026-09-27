@@ -1,0 +1,6 @@
+$ gcloud storage ls -l gs://$BUCKET/trips/2022-01/
+
+  17805935  2026-09-24T17:56:48Z  gs://dsba6190-trips-72583/trips/2022-01/part-000000000000.parquet
+  24484370  2026-09-24T17:56:50Z  gs://dsba6190-trips-72583/trips/2022-01/part-000000000001.parquet
+  19973448  2026-09-24T17:56:48Z  gs://dsba6190-trips-72583/trips/2022-01/part-000000000002.parquet
+TOTAL: 3 objects, 62263753 bytes (59.38MiB)

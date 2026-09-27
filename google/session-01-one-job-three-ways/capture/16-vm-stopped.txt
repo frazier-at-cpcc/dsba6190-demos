@@ -1,0 +1,5 @@
+$ gcloud compute instances list --filter=name=$VM   (it stopped itself)
+
+NAME                 ZONE        MACHINE_TYPE   STATUS
+qc-nightly-vm-24113  us-east1-b  e2-standard-2  TERMINATED
+create to TERMINATED: 104 s

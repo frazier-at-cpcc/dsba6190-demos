@@ -1,0 +1,8 @@
+$ q "SELECT pickup_location_id, COUNT(*) AS trips, ROUND(SUM(total_amount), 2) AS revenue FROM trips_2022_part <one week, JFK>"
+
++--------------------+-------+------------+
+| pickup_location_id | trips |  revenue   |
++--------------------+-------+------------+
+| 132                | 36718 | 2211168.26 |
++--------------------+-------+------------+
+processed 0.02 GB · billed 17.0 MB · slot time 0.2 s · cache false

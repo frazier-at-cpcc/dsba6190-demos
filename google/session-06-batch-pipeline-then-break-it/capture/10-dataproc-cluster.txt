@@ -1,0 +1,4 @@
+$ gcloud dataproc clusters list  (taken 150 seconds into the run)
+
+NAME                                                 STATUS    MACHINE_TYPE_URI  PRIMARY_WORKER_COUNT  WORKER_CONFIG_MACHINE_TYPE_URI
+cdap-pos-01-ba-3240f6e2-ad60-11f1-a362-922120e72055  CREATING  e2-custom-2-8192  2                     e2-custom-2-8192

@@ -1,0 +1,10 @@
+$ gcloud artifacts docker images describe $IMAGE_BASE:v2 --show-package-vulnerability
+
+   2         severity: CRITICAL
+  16         severity: HIGH
+   4         severity: LOW
+  27         severity: MEDIUM
+   1     HIGH:
+   1     LOW:
+   1     MEDIUM:
+   1     MINIMAL:

@@ -1,0 +1,7 @@
+$ gcloud storage cat gs://$BUCKET/batch/out/*/prediction.results-* | head -3
+
+{"instance": [8.0, 307.0, 130.0, 3504.0, 12.0, 70, 1], "prediction": 16.430630284495543}
+{"instance": [8.0, 350.0, 165.0, 3693.0, 11.5, 70, 1], "prediction": 13.965738016923567}
+{"instance": [8.0, 318.0, 150.0, 3436.0, 11.0, 70, 1], "prediction": 16.52619825786601}
+
+392 predictions written

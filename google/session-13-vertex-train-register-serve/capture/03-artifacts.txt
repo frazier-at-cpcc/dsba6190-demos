@@ -1,0 +1,8 @@
+$ gcloud storage ls -l gs://$BUCKET/models/*/model/
+
+gs://qc-fuel-33351/models/boosted/model/:
+    182117  2026-09-27T18:26:50Z  gs://qc-fuel-33351/models/boosted/model/model.joblib
+
+gs://qc-fuel-33351/models/ridge/model/:
+      2209  2026-09-27T18:27:50Z  gs://qc-fuel-33351/models/ridge/model/model.joblib
+TOTAL: 2 objects, 184326 bytes (180.01kiB)

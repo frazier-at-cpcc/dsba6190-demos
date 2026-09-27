@@ -1,0 +1,3 @@
+$ the one property that changes
+
+SalesValidated         truncateTable          'false' -> 'true'

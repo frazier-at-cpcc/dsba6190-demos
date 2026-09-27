@@ -1,0 +1,18 @@
+$ docker build --no-cache app   (first build)
+
+#1 DONE 0.0s
+#2 DONE 0.0s
+#3 DONE 0.0s
+#4 [1/6] FROM docker.io/library/python:3.12-slim
+#4 DONE 0.0s
+#5 [2/6] WORKDIR /app
+#6 DONE 0.0s
+#7 [3/6] COPY requirements.txt .
+#7 DONE 0.1s
+#8 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#8 DONE 4.8s
+#9 [5/6] COPY main.py VERSION ./
+#9 DONE 0.1s
+#10 [6/6] RUN useradd --uid 10001 --no-create-home app
+#10 DONE 0.4s
+#11 DONE 0.2s

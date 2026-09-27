@@ -1,0 +1,11 @@
+$ gcloud ai models describe $MODEL_ID   (container and artifact)
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+artifactUri: gs://qc-fuel-33351/models/ridge/model
+containerSpec:
+  imageUri: us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-6:latest
+displayName: qc-fuel-33351
+versionAliases:
+- ridge
+- default
+versionId: '1'

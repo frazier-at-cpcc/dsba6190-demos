@@ -1,0 +1,6 @@
+$ gcloud compute firewall-rules list --filter network=$NET   (none: only the implied rules)
+
+
+To show all fields of the firewall, please show in JSON format: --format=json
+To show all fields in table format, please see the examples in --help.
+

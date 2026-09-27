@@ -1,0 +1,6 @@
+$ gh pr checks 2 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline
+
+stages 1 to 3 · validate, plan, policy	fail	18s	https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/actions/runs/34538239994/job/103074720795	
+CodeRabbit	pass	0		Review skipped: manual review required for this OSS repository
+
+[exit 1]

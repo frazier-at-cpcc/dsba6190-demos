@@ -1,0 +1,108 @@
+$ terraform apply   (e2-micro, environment prod)
+
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["test"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-test-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.trips_vm.google_compute_instance.vm will be created
+  + resource "google_compute_instance" "vm" {
+      + allow_stopping_for_update = true
+      + can_ip_forward            = false
+      + cpu_platform              = (known after apply)
+      + current_status            = (known after apply)
+      + deletion_protection       = true
+      + effective_labels          = {
+          + "cost-center" = "dsba6190"
+          + "environment" = "prod"
+          + "owner"       = "data-platform"
+        }
+      + guest_accelerator         = (known after apply)
+      + id                        = (known after apply)
+      + instance_id               = (known after apply)
+      + label_fingerprint         = (known after apply)
+      + labels                    = {
+          + "cost-center" = "dsba6190"
+          + "environment" = "prod"
+          + "owner"       = "data-platform"
+        }
+      + machine_type              = "e2-micro"
+      + metadata_fingerprint      = (known after apply)
+      + min_cpu_platform          = (known after apply)
+      + name                      = "dsba6190-trips-vm-26095"
+      + project                   = "YOUR_PROJECT_ID"
+      + self_link                 = (known after apply)
+      + tags                      = [
+          + "prod",
+          + "web",
+        ]
+      + tags_fingerprint          = (known after apply)
+      + terraform_labels          = {
+          + "cost-center" = "dsba6190"
+          + "environment" = "prod"
+          + "owner"       = "data-platform"
+        }
+      + zone                      = "us-east1-b"
+
+      + boot_disk {
+          + auto_delete                = true
+          + device_name                = (known after apply)
+          + disk_encryption_key_sha256 = (known after apply)
+          + kms_key_self_link          = (known after apply)
+          + mode                       = "READ_WRITE"
+          + source                     = (known after apply)
+
+          + initialize_params {
+              + image                  = "debian-cloud/debian-12"
+              + labels                 = (known after apply)
+              + provisioned_iops       = (known after apply)
+              + provisioned_throughput = (known after apply)
+              + size                   = (known after apply)
+              + type                   = (known after apply)
+            }
+        }
+
+      + network_interface {
+          + internal_ipv6_prefix_length = (known after apply)
+          + ipv6_access_type            = (known after apply)
+          + ipv6_address                = (known after apply)
+          + name                        = (known after apply)
+          + network                     = "default"
+          + network_ip                  = (known after apply)
+          + stack_type                  = (known after apply)
+          + subnetwork                  = (known after apply)
+          + subnetwork_project          = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + vm      = {
+      + deletion_protection = true
+      + machine_type        = "e2-micro"
+      + name                = "dsba6190-trips-vm-26095"
+    }
+module.trips_vm.google_compute_instance.vm: Creating...
+module.trips_vm.google_compute_instance.vm: Still creating... [10s elapsed]
+module.trips_vm.google_compute_instance.vm: Creation complete after 13s [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+buckets = {
+  "dev" = "gs://dsba6190-dev-raw-26095"
+  "prod" = "gs://dsba6190-prod-raw-26095"
+  "test" = "gs://dsba6190-test-raw-26095"
+}
+vm = {
+  "deletion_protection" = true
+  "machine_type" = "e2-micro"
+  "name" = "dsba6190-trips-vm-26095"
+}

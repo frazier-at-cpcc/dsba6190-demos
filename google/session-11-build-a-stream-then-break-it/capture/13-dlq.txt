@@ -1,0 +1,23 @@
+$ gcloud pubsub subscriptions pull dlq --auto-ack
+
+---
+message:
+  attributes:
+    error: "ValueError: could not convert string to float: '$3.49'"
+    sale_id: S-BAD-1790524181
+  data: !!binary |
+    eyJzdG9yZV9pZCI6ICJDTFQtMDIyIiwgImxhbmUiOiA5LCAidG90YWwiOiAiJDMuNDkifQ==
+---
+message:
+  attributes:
+    error: "ValueError: could not convert string to float: '$3.49'"
+    sale_id: S-BAD-1790524181
+  data: !!binary |
+    eyJzdG9yZV9pZCI6ICJDTFQtMDIyIiwgImxhbmUiOiA5LCAidG90YWwiOiAiJDMuNDkifQ==
+---
+message:
+  attributes:
+    error: "ValueError: could not convert string to float: '$3.49'"
+    sale_id: S-BAD-1790524181
+  data: !!binary |
+    eyJzdG9yZV9pZCI6ICJDTFQtMDIyIiwgImxhbmUiOiA5LCAidG90YWwiOiAiJDMuNDkifQ==

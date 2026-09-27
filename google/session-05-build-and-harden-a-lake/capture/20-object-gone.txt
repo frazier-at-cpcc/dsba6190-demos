@@ -1,0 +1,3 @@
+$ gcloud storage ls  (it is gone)
+
+gs://dsba6190-lake-65111/raw/readings/readings.csv

@@ -1,0 +1,6 @@
+$ gcloud artifacts repositories delete $REPO --quiet
+
+Delete request issued for: [qc-fare-20854]
+Waiting for operation [projects/YOUR_PROJECT_ID/locations/us-central1/operations/ac524b37-8bc8-40b4-b0af-634809611b99] to complete...
+......done.
+Deleted repository [qc-fare-20854].

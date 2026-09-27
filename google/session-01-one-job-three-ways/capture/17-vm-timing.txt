@@ -1,0 +1,3 @@
+$ gcloud storage cat gs://$BUCKET/out/vm/timing.txt
+
+platform=vm host=qc-nightly-vm-24113 cpus=2 seconds=7

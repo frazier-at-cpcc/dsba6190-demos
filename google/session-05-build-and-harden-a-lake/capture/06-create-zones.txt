@@ -1,0 +1,7 @@
+$ gcloud storage ls  (five prefixes, zero directories)
+
+gs://dsba6190-lake-65111/archive/
+gs://dsba6190-lake-65111/curated/
+gs://dsba6190-lake-65111/quarantine/
+gs://dsba6190-lake-65111/raw/
+gs://dsba6190-lake-65111/validated/

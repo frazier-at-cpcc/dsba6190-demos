@@ -1,0 +1,43 @@
+$ bash -c gh issue list --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --label drift --state open --json number,title,url --jq '.[] | "#\(.number) \(.title)\n\(.url)"'; n=$(gh issue list --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --label drift --state open --json number --jq '.[0].number'); gh issue view $n --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --json body --jq .body | head -40
+
+#4 Drift detected: reality differs from main
+https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/issues/4
+A scheduled `terraform plan -detailed-exitcode` on 2026-09-10T22:37:20Z returned 2.
+Reality differs from what main declares. Decide which side wins, then either apply or import.
+
+```hcl
+google_storage_bucket.lake: Refreshing state... [id=YOUR_PROJECT_ID-cicd-lake]
+google_storage_bucket.scratch: Refreshing state... [id=YOUR_PROJECT_ID-cicd-scratch]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.scratch will be updated in-place
+  ~ resource "google_storage_bucket" "scratch" {
+      ~ effective_labels            = {
+          ~ "env"         = "prod-by-accident" -> "dev"
+            # (3 unchanged elements hidden)
+        }
+        id                          = "YOUR_PROJECT_ID-cicd-scratch"
+      ~ labels                      = {
+          ~ "env"         = "prod-by-accident" -> "dev"
+            # (3 unchanged elements hidden)
+        }
+        name                        = "YOUR_PROJECT_ID-cicd-scratch"
+      ~ terraform_labels            = {
+          ~ "env"         = "prod-by-accident" -> "dev"
+            # (3 unchanged elements hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+```
+
+Run: https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/actions/runs/34538332452
+

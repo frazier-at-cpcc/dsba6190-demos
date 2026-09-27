@@ -1,0 +1,4 @@
+$ terraform state rm google_storage_bucket.legacy
+
+Removed google_storage_bucket.legacy
+Successfully removed 1 resource instance(s).

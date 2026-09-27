@@ -1,0 +1,6 @@
+$ gcloud storage buckets describe gs://$SCRATCH
+
+default_storage_class: STANDARD
+location: US-EAST1
+location_type: region
+name: qc-scratch-24113

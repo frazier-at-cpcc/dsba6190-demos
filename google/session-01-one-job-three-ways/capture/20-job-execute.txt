@@ -1,0 +1,6 @@
+$ time gcloud run jobs execute $JOB --wait
+
+gcloud run jobs executions describe qc-nightly-24113-m2r52
+
+Or visit https://console.cloud.google.com/run/jobs/executions/details/us-east1/qc-nightly-24113-m2r52?project=PROJECT_NUMBER
+wall 39 s

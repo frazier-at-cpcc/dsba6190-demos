@@ -1,0 +1,7 @@
+$ kubectl get pods   (settled)
+
+NAME                        READY   STATUS        RESTARTS   AGE
+fare-api-79d59fbdd9-9xqpv   1/1     Terminating   0          2m12s
+fare-api-79d59fbdd9-hcr59   1/1     Running       0          4s
+fare-api-79d59fbdd9-jn57k   1/1     Running       0          2m12s
+fare-api-79d59fbdd9-nxtgw   1/1     Running       0          2m12s

@@ -1,0 +1,47 @@
+$ terraform apply -refresh-only
+
+random_password.db_admin: Refreshing state... [id=none]
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+google_storage_bucket.legacy: Refreshing state... [id=dsba6190-legacy-46421]
+google_storage_bucket.annex: Refreshing state... [id=dsba6190-annex-46421]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the
+last "terraform apply" which may have affected this plan:
+
+  # google_storage_bucket.raw has changed
+  ~ resource "google_storage_bucket" "raw" {
+      ~ effective_labels            = {
+          ~ "owner"       = "data-platform" -> "someone-at-2am"
+            # (1 unchanged element hidden)
+        }
+        id                          = "dsba6190-raw-46421"
+      ~ labels                      = {
+          ~ "owner"       = "data-platform" -> "someone-at-2am"
+            # (1 unchanged element hidden)
+        }
+        name                        = "dsba6190-raw-46421"
+      ~ terraform_labels            = {
+          ~ "owner"       = "data-platform" -> "someone-at-2am"
+            # (1 unchanged element hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+
+This is a refresh-only plan, so Terraform will not take any actions to undo
+these. If you were expecting these changes then you can apply this plan to
+record the updated values in the Terraform state without changing any remote
+objects.
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+db_admin_password = <sensitive>
+raw_bucket = "gs://dsba6190-raw-46421"

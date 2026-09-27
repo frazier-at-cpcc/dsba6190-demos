@@ -1,0 +1,6 @@
+$ bq ls --row_access_policies $DS.trips_lake
+
+     Id      Filter Predicate                                     Grantees                                      Creation Time    Last Modified Time  
+ ---------- ------------------ ------------------------------------------------------------------------------ ----------------- -------------------- 
+  all_rows   TRUE               user:instructor@example.edu                                         24 Sep 13:58:50   24 Sep 13:58:50     
+  vendor_2   vendor_id = '2'    serviceAccount:dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com   24 Sep 13:58:42   24 Sep 13:58:42     

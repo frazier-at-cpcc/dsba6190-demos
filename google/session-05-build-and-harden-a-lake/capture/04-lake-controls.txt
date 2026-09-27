@@ -1,0 +1,13 @@
+$ gcloud storage buckets describe  (the governed bucket)
+
+default_storage_class: STANDARD
+labels:
+  course: dsba6190
+  environment: demo
+  owner: data-platform
+  zone: lake
+location: US-EAST1
+name: dsba6190-lake-65111
+public_access_prevention: enforced
+uniform_bucket_level_access: true
+versioning_enabled: true

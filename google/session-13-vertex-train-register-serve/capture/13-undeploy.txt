@@ -1,0 +1,3 @@
+$ gcloud ai endpoints undeploy-model $ENDPOINT_ID --deployed-model-id <id>
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]

@@ -1,0 +1,67 @@
+$ terraform apply -var vm_environment=dev   (protection off, through Terraform)
+
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+module.lake["test"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-test-raw-26095]
+module.trips_vm.google_compute_instance.vm: Refreshing state... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.trips_vm.google_compute_instance.vm will be updated in-place
+  ~ resource "google_compute_instance" "vm" {
+      ~ deletion_protection       = true -> false
+      ~ effective_labels          = {
+          ~ "environment" = "prod" -> "dev"
+            # (2 unchanged elements hidden)
+        }
+        id                        = "projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095"
+      ~ labels                    = {
+          ~ "environment" = "prod" -> "dev"
+            # (2 unchanged elements hidden)
+        }
+        name                      = "dsba6190-trips-vm-26095"
+      ~ tags                      = [
+          - "prod",
+            "web",
+          + "dev",
+        ]
+      ~ terraform_labels          = {
+          ~ "environment" = "prod" -> "dev"
+            # (2 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Changes to Outputs:
+  ~ vm      = {
+      ~ deletion_protection = true -> false
+        name                = "dsba6190-trips-vm-26095"
+        # (1 unchanged attribute hidden)
+    }
+module.trips_vm.google_compute_instance.vm: Modifying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+module.trips_vm.google_compute_instance.vm: Still modifying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 10s elapsed]
+module.trips_vm.google_compute_instance.vm: Still modifying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 20s elapsed]
+module.trips_vm.google_compute_instance.vm: Modifications complete after 23s [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+buckets = {
+  "dev" = "gs://dsba6190-dev-raw-26095"
+  "prod" = "gs://dsba6190-prod-raw-26095"
+  "test" = "gs://dsba6190-test-raw-26095"
+}
+vm = {
+  "deletion_protection" = false
+  "machine_type" = "e2-micro"
+  "name" = "dsba6190-trips-vm-26095"
+}

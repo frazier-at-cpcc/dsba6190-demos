@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/deployment-goodprobe.yaml   (the same load, the probe on /ready)
+
+deployment.apps/fare-api configured

@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/deployment-noprobe.yaml   (25 s model load, no readiness probe)
+
+deployment.apps/fare-api configured

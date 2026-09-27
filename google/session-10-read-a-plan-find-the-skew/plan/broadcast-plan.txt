@@ -1,0 +1,76 @@
+== Physical Plan ==
+* HashAggregate (12)
++- Exchange (11)
+   +- * HashAggregate (10)
+      +- * Project (9)
+         +- * BroadcastHashJoin Inner BuildRight (8)
+            :- * Filter (3)
+            :  +- * ColumnarToRow (2)
+            :     +- Scan parquet  (1)
+            +- BroadcastExchange (7)
+               +- * Filter (6)
+                  +- * ColumnarToRow (5)
+                     +- Scan parquet  (4)
+
+
+(1) Scan parquet 
+Output [3]: [account_id#1, pickup_date#2, fare#3]
+Batched: true
+Location: InMemoryFileIndex [gs://qc-billing/data/trips]
+PushedFilters: [IsNotNull(account_id)]
+ReadSchema: struct<account_id:string,pickup_date:date,fare:double>
+
+(2) ColumnarToRow [codegen id : 2]
+Input [3]: [account_id#1, pickup_date#2, fare#3]
+
+(3) Filter [codegen id : 2]
+Input [3]: [account_id#1, pickup_date#2, fare#3]
+Condition : isnotnull(account_id#1)
+
+(4) Scan parquet 
+Output [2]: [account_id#8, tier#9]
+Batched: true
+Location: InMemoryFileIndex [gs://qc-billing/data/accounts]
+PushedFilters: [IsNotNull(account_id)]
+ReadSchema: struct<account_id:string,tier:string>
+
+(5) ColumnarToRow [codegen id : 1]
+Input [2]: [account_id#8, tier#9]
+
+(6) Filter [codegen id : 1]
+Input [2]: [account_id#8, tier#9]
+Condition : isnotnull(account_id#8)
+
+(7) BroadcastExchange
+Input [2]: [account_id#8, tier#9]
+Arguments: HashedRelationBroadcastMode(List(input[0, string, false]),false), [plan_id=58]
+
+(8) BroadcastHashJoin [codegen id : 2]
+Left keys [1]: [account_id#1]
+Right keys [1]: [account_id#8]
+Join type: Inner
+Join condition: None
+
+(9) Project [codegen id : 2]
+Output [3]: [fare#3, tier#9, date_trunc(month, cast(pickup_date#2 as timestamp), Some(Etc/UTC)) AS _groupingexpression#33]
+Input [5]: [account_id#1, pickup_date#2, fare#3, account_id#8, tier#9]
+
+(10) HashAggregate [codegen id : 2]
+Input [3]: [fare#3, tier#9, _groupingexpression#33]
+Keys [2]: [tier#9, _groupingexpression#33]
+Functions [2]: [partial_count(1), partial_sum(fare#3)]
+Aggregate Attributes [2]: [count#34L, sum#35]
+Results [4]: [tier#9, _groupingexpression#33, count#36L, sum#37]
+
+(11) Exchange
+Input [4]: [tier#9, _groupingexpression#33, count#36L, sum#37]
+Arguments: hashpartitioning(tier#9, _groupingexpression#33, 200), ENSURE_REQUIREMENTS, [plan_id=64]
+
+(12) HashAggregate [codegen id : 3]
+Input [4]: [tier#9, _groupingexpression#33, count#36L, sum#37]
+Keys [2]: [tier#9, _groupingexpression#33]
+Functions [2]: [count(1), sum(fare#3)]
+Aggregate Attributes [2]: [count(1)#25L, sum(fare#3)#27]
+Results [4]: [tier#9, _groupingexpression#33 AS month#19, count(1)#25L AS trips#26L, round(sum(fare#3)#27, 2) AS revenue#28]
+
+

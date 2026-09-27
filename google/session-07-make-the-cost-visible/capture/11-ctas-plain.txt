@@ -1,0 +1,5 @@
+$ q "CREATE TABLE $DS.trips_2022 AS SELECT <11 columns> FROM `$TAXI` WHERE <2022 only>"
+
+Created YOUR_PROJECT_ID.dsba6190_wh_72583.trips_2022
+
+processed 3.49 GB · billed 3574.0 MB · slot time 229.5 s · cache false

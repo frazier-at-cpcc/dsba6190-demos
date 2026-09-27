@@ -1,0 +1,7 @@
+$ as_analyst: gcloud compute instances list
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+WARNING: Some requests did not succeed.
+ - Required 'compute.instances.list' permission for 'projects/YOUR_PROJECT_ID'
+
+Listed 0 items.

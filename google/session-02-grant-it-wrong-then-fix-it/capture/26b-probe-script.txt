@@ -1,0 +1,8 @@
+$ cat probe.sh
+
+# Run on the private VM: can it reach Google APIs, and can it reach the internet?
+hostname
+for u in https://storage.googleapis.com https://bigquery.googleapis.com https://example.com; do
+  printf '%-36s ' "$u"
+  code=$(curl -s -m 8 -o /dev/null -w '%{http_code}' "$u") && echo "$code" || echo 'no route (timed out)'
+done

@@ -1,0 +1,4 @@
+$ gcloud dataflow jobs drain crown-baseline; gcloud dataflow jobs cancel crown-lateness
+
+Started draining job [2026-09-27_08_36_21-6670199671874764037]
+Cancelled job [2026-09-27_08_36_21-9100196608710720044]

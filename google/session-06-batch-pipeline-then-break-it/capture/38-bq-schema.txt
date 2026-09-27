@@ -1,0 +1,34 @@
+$ bq show  (the column type already in BigQuery)
+
+[
+  {
+    "mode": "NULLABLE",
+    "name": "txn_id",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_id",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "txn_ts",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "sku",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "qty",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "amount",
+    "type": "FLOAT"
+  }
+]

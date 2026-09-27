@@ -1,0 +1,7 @@
+$ the directive that is gone, and what it did
+
+removed from the recipe
+  - set-type :amount double
+
+the column the sink is now asked to write
+  amount ['string', 'null']

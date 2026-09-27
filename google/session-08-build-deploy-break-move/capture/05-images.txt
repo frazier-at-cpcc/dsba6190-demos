@@ -1,0 +1,8 @@
+$ gcloud artifacts docker images list $REGION-docker.pkg.dev/$PROJECT/$REPO --include-tags
+
+Listing items under project YOUR_PROJECT_ID, location us-central1, repository qc-fare-20854.
+
+IMAGE     TAGS  CREATE_TIME
+fare-api  v1    15:01
+fare-api        14:55
+fare-api  v2    14:55

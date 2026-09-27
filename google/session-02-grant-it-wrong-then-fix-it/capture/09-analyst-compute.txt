@@ -1,0 +1,8 @@
+$ as_analyst: gcloud compute instances list   (and every other service)
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+NAME                                             ZONE           MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP    EXTERNAL_IP  STATUS
+crown-baseline-25549-09270914-b7it-harness-lt63  us-central1-a  e2-standard-2               10.128.15.219               RUNNING
+crown-dedup-25549-09270914-60po-harness-rmp3     us-central1-a  e2-standard-2               10.128.15.220               RUNNING
+crown-lateness-25549-09270914-zkjf-harness-3ltm  us-central1-a  e2-standard-2               10.128.15.221               RUNNING
+dsba6190-trips-vm-26095                          us-east1-b     e2-micro                    10.142.0.6                  RUNNING

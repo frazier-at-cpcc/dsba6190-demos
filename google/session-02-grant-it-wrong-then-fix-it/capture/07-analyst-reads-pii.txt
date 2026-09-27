@@ -1,0 +1,10 @@
+$ as_analyst: read card numbers
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
++-----------+---------------------------------+------------------+
+| member_id |              email              |   card_number    |
++-----------+---------------------------------+------------------+
+| M-004147  | aaliyah.chen4147@example.com    | 6011324513228699 |
+| M-000681  | aaliyah.johnson681@example.com  | 6011200877688670 |
+| M-001575  | aaliyah.johnson1575@example.com | 6011793767851939 |
++-----------+---------------------------------+------------------+

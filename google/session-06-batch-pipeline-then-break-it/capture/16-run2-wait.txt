@@ -1,0 +1,10 @@
+$ python3 cdap.py wait  (run 2, the malformed day)
+
+      0s  PENDING
+    251s  STARTING
+    392s  RUNNING
+    581s  COMPLETED
+
+run      488d0371-ad61-11f1-a057-9ebe96f6d8d9
+status   COMPLETED
+duration 571s

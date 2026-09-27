@@ -1,0 +1,6 @@
+$ gcloud ai custom-jobs describe <ridge> <boosted>
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+qc-fuel-ridge-33351	JOB_STATE_SUCCEEDED	18:22:40	18:28:20	e2-standard-4	
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+qc-fuel-boosted-33351	JOB_STATE_SUCCEEDED	18:22:41	18:27:01	e2-standard-4	

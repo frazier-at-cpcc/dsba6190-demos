@@ -1,0 +1,5 @@
+$ fuel cost per 20-mile trip at $3.20 a gallon
+
+vehicle 1:  13.7 mpg  fuel for 20 miles $ 4.67
+vehicle 2:  25.7 mpg  fuel for 20 miles $ 2.49
+vehicle 3:  27.9 mpg  fuel for 20 miles $ 2.29

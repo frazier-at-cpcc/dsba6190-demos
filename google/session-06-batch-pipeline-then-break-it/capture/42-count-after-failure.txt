@@ -1,0 +1,7 @@
+$ bq query  (and the table the failed run was writing into)
+
++-------------+
+| rows_loaded |
++-------------+
+|       20001 |
++-------------+

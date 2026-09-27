@@ -1,0 +1,5 @@
+.work/
+.venv/
+.capture-run.log
+__pycache__/
+*.egg-info/

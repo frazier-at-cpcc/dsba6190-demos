@@ -1,0 +1,7 @@
+$ kubectl rollout history deployment/fare-api
+
+deployment.apps/fare-api 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+

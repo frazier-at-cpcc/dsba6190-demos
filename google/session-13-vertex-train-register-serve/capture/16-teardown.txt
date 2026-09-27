@@ -1,0 +1,5 @@
+$ delete the endpoint, the model and the bucket
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+......

@@ -1,0 +1,3 @@
+$ bq query --dry_run 'SELECT pickup_datetime, passenger_count, fare_amount FROM `$TAXI`'
+
+Query successfully validated. Assuming the tables are not modified, running this query will process 1150274528 bytes of data.

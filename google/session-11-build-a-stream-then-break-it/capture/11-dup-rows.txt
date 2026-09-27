@@ -1,0 +1,8 @@
+$ bq query: CLT-007 since the retry, baseline against dedup
+
++----------+-------+---------+
+|   job    | sales | revenue |
++----------+-------+---------+
+| baseline |     2 |   176.8 |
+| dedup    |     1 |    88.4 |
++----------+-------+---------+

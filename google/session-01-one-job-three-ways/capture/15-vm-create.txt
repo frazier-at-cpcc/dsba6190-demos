@@ -1,0 +1,5 @@
+$ gcloud compute instances create $VM --machine-type e2-standard-2 --metadata startup-script=...
+
+Created [https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/qc-nightly-vm-24113].
+NAME                 ZONE        MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+qc-nightly-vm-24113  us-east1-b  e2-standard-2               10.142.0.4   34.138.204.230  RUNNING

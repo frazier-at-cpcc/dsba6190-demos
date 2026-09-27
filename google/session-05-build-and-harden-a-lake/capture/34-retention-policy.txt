@@ -1,0 +1,6 @@
+$ gcloud storage buckets describe --format='yaml(retention_policy)'
+
+name: dsba6190-vault-65111
+retention_policy:
+  effectiveTime: '2026-09-10T18:33:09.035000+00:00'
+  retentionPeriod: '3600'

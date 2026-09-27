@@ -1,0 +1,3 @@
+$ gcloud org-policies list --project
+
+Listed 0 items.

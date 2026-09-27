@@ -1,0 +1,25 @@
+$ terraform apply     (killed with SIGKILL after 25 seconds)
+
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+random_password.db_admin: Refreshing state... [id=none]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # time_sleep.slow_apply will be replaced, as requested
+-/+ resource "time_sleep" "slow_apply" {
+      ~ id              = "2026-09-10T13:23:44Z" -> (known after apply)
+        # (2 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+time_sleep.slow_apply: Destroying... [id=2026-09-10T13:23:44Z]
+time_sleep.slow_apply: Destruction complete after 0s
+time_sleep.slow_apply: Creating...
+time_sleep.slow_apply: Still creating... [10s elapsed]
+time_sleep.slow_apply: Still creating... [20s elapsed]

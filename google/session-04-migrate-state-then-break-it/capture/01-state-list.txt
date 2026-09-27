@@ -1,0 +1,5 @@
+$ terraform state list
+
+google_pubsub_topic.events
+google_storage_bucket.raw
+random_password.db_admin

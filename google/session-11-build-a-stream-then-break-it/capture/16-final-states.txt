@@ -1,0 +1,6 @@
+$ gcloud dataflow jobs list --filter crown   (final states)
+
+NAME                  STATE
+crown-dedup-23287     Running
+crown-baseline-23287  Drained
+crown-lateness-23287  Cancelled

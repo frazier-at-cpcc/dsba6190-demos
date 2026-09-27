@@ -1,0 +1,81 @@
+$ terraform apply
+
+module.dev_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+module.prod_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.dev_lake.google_storage_bucket.raw will be updated in-place
+  ~ resource "google_storage_bucket" "raw" {
+      ~ effective_labels            = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        id                          = "dsba6190-dev-raw-26095"
+      ~ labels                      = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        name                        = "dsba6190-dev-raw-26095"
+      ~ terraform_labels            = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.prod_lake.google_storage_bucket.raw will be updated in-place
+  ~ resource "google_storage_bucket" "raw" {
+      ~ effective_labels            = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        id                          = "dsba6190-prod-raw-26095"
+      ~ labels                      = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        name                        = "dsba6190-prod-raw-26095"
+      ~ terraform_labels            = {
+          + "team"                = "fleet-dashboards"
+            # (4 unchanged elements hidden)
+        }
+        # (12 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+
+Changes to Outputs:
+  + dev_labels  = {
+      + cost-center         = "dsba6190"
+      + data-classification = "internal"
+      + environment         = "dev"
+      + owner               = "data-platform"
+      + team                = "fleet-dashboards"
+    }
+module.prod_lake.google_storage_bucket.raw: Modifying... [id=dsba6190-prod-raw-26095]
+module.dev_lake.google_storage_bucket.raw: Modifying... [id=dsba6190-dev-raw-26095]
+module.prod_lake.google_storage_bucket.raw: Modifications complete after 1s [id=dsba6190-prod-raw-26095]
+module.dev_lake.google_storage_bucket.raw: Modifications complete after 1s [id=dsba6190-dev-raw-26095]
+
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.
+
+Outputs:
+
+dev_bucket = "gs://dsba6190-dev-raw-26095"
+dev_labels = {
+  "cost-center" = "dsba6190"
+  "data-classification" = "internal"
+  "environment" = "dev"
+  "owner" = "data-platform"
+  "team" = "fleet-dashboards"
+}
+prod_bucket = "gs://dsba6190-prod-raw-26095"

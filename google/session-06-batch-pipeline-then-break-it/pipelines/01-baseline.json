@@ -1,0 +1,116 @@
+{
+  "name": "pos-01-baseline",
+  "description": "Point of sale, raw to validated. GCS source, Wrangler transform, BigQuery sink.",
+  "artifact": {
+    "name": "cdap-data-pipeline",
+    "version": "6.11.1",
+    "scope": "SYSTEM"
+  },
+  "config": {
+    "resources": {
+      "memoryMB": 2048,
+      "virtualCores": 1
+    },
+    "driverResources": {
+      "memoryMB": 2048,
+      "virtualCores": 1
+    },
+    "connections": [
+      {
+        "from": "PointOfSaleRaw",
+        "to": "Wrangler"
+      },
+      {
+        "from": "Wrangler",
+        "to": "SalesValidated"
+      }
+    ],
+    "comments": [],
+    "postActions": [],
+    "properties": {},
+    "processTimingEnabled": true,
+    "stageLoggingEnabled": true,
+    "engine": "spark",
+    "numOfRecordsPreview": 100,
+    "maxConcurrentRuns": 1,
+    "stages": [
+      {
+        "name": "PointOfSaleRaw",
+        "plugin": {
+          "name": "GCSFile",
+          "type": "batchsource",
+          "label": "PointOfSaleRaw",
+          "artifact": {
+            "name": "google-cloud",
+            "version": "0.24.1",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "project": "PROJECT_ID",
+            "format": "text",
+            "path": "gs://BUCKET_NAME/raw/pos/pos-2026-09-24.csv",
+            "referenceName": "pos_raw",
+            "serviceAccountType": "filePath",
+            "serviceFilePath": "auto-detect",
+            "schema": "{\"type\": \"record\", \"name\": \"textfile\", \"fields\": [{\"name\": \"offset\", \"type\": \"long\"}, {\"name\": \"body\", \"type\": \"string\"}]}",
+            "copyHeader": "false",
+            "enableQuotedValues": "false",
+            "recursive": "false",
+            "filenameOnly": "false"
+          }
+        },
+        "outputSchema": "{\"type\": \"record\", \"name\": \"textfile\", \"fields\": [{\"name\": \"offset\", \"type\": \"long\"}, {\"name\": \"body\", \"type\": \"string\"}]}"
+      },
+      {
+        "name": "Wrangler",
+        "plugin": {
+          "name": "Wrangler",
+          "type": "transform",
+          "label": "Wrangler",
+          "artifact": {
+            "name": "wrangler-transform",
+            "version": "4.11.1",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "field": "*",
+            "precondition": "false",
+            "directives": "parse-as-csv :body ',' true\ndrop :body\ndrop :offset\nrename body_1 txn_id\nrename body_2 store_id\nrename body_3 txn_ts\nrename body_4 sku\nrename body_5 qty\nrename body_6 amount\nset-type :qty integer\nset-type :amount double\nparse-as-datetime :txn_ts 'yyyy-MM-dd HH:mm:ss'\ndatetime-to-timestamp :txn_ts",
+            "on-error": "skip-error",
+            "schema": "{\"type\": \"record\", \"name\": \"pos\", \"fields\": [{\"name\": \"txn_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"store_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"txn_ts\", \"type\": [{\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}, \"null\"]}, {\"name\": \"sku\", \"type\": [\"string\", \"null\"]}, {\"name\": \"qty\", \"type\": [\"int\", \"null\"]}, {\"name\": \"amount\", \"type\": [\"double\", \"null\"]}]}",
+            "workspaceId": "pos"
+          }
+        },
+        "outputSchema": "{\"type\": \"record\", \"name\": \"pos\", \"fields\": [{\"name\": \"txn_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"store_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"txn_ts\", \"type\": [{\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}, \"null\"]}, {\"name\": \"sku\", \"type\": [\"string\", \"null\"]}, {\"name\": \"qty\", \"type\": [\"int\", \"null\"]}, {\"name\": \"amount\", \"type\": [\"double\", \"null\"]}]}"
+      },
+      {
+        "name": "SalesValidated",
+        "plugin": {
+          "name": "BigQueryTable",
+          "type": "batchsink",
+          "label": "SalesValidated",
+          "artifact": {
+            "name": "google-cloud",
+            "version": "0.24.1",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "project": "PROJECT_ID",
+            "dataset": "DATASET_NAME",
+            "table": "sales_validated",
+            "referenceName": "bq_sales_validated",
+            "serviceAccountType": "filePath",
+            "serviceFilePath": "auto-detect",
+            "operation": "insert",
+            "truncateTable": "false",
+            "allowSchemaRelaxation": "false",
+            "location": "us-central1",
+            "createPartitionedTable": "false",
+            "schema": "{\"type\": \"record\", \"name\": \"pos\", \"fields\": [{\"name\": \"txn_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"store_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"txn_ts\", \"type\": [{\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}, \"null\"]}, {\"name\": \"sku\", \"type\": [\"string\", \"null\"]}, {\"name\": \"qty\", \"type\": [\"int\", \"null\"]}, {\"name\": \"amount\", \"type\": [\"double\", \"null\"]}]}"
+          }
+        },
+        "outputSchema": "{\"type\": \"record\", \"name\": \"pos\", \"fields\": [{\"name\": \"txn_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"store_id\", \"type\": [\"string\", \"null\"]}, {\"name\": \"txn_ts\", \"type\": [{\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}, \"null\"]}, {\"name\": \"sku\", \"type\": [\"string\", \"null\"]}, {\"name\": \"qty\", \"type\": [\"int\", \"null\"]}, {\"name\": \"amount\", \"type\": [\"double\", \"null\"]}]}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+$ kubectl rollout undo deployment/fare-api
+
+deployment.apps/fare-api rolled back

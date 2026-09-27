@@ -1,0 +1,5 @@
+$ gcloud storage cp
+
+Copying file://_regulated.csv to gs://dsba6190-secure-65111/raw/regulated.csv
+  
+.....

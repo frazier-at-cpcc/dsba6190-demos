@@ -1,0 +1,4 @@
+$ gcloud storage cat  (the rows that did not make it, and why)
+
+{"offset":1131128,"body":"T-0900001,CLT-007,not-a-date,SKU-01042,2,18.50","errMsg":"Value not-a-date for column txn_ts is not in expected format yyyy-MM-dd HH:mm:ss (ecode: 2, directive: parse-as-datetime)","errCode":2,"errStage":"Wrangler"}
+{"offset":1131175,"body":"T-0900002,CLT-013,2026-09-24 11:04:22,SKU-01077,1,N/A","errMsg":"Error encountered while executing 'set-type' : Column 'amount' cannot be converted to a 'double'.","errCode":0,"errStage":"Wrangler"}

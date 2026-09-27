@@ -1,0 +1,7 @@
+$ gcloud storage ls -r  (the key is one string with slashes in it)
+
+gs://dsba6190-lake-65111/raw/:
+gs://dsba6190-lake-65111/raw/_ZONE
+
+gs://dsba6190-lake-65111/raw/readings/:
+gs://dsba6190-lake-65111/raw/readings/readings.csv

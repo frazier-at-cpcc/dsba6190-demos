@@ -1,0 +1,42 @@
+$ row counts and total revenue per variant
+
+
+Waiting on bqjob_rb4f7264d09fbe51_000001a0e3a4c171_1 ... (0s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_rb4f7264d09fbe51_000001a0e3a4c171_1 ... (1s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_rb4f7264d09fbe51_000001a0e3a4c171_1 ... (2s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_rb4f7264d09fbe51_000001a0e3a4c171_1 ... (3s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_rb4f7264d09fbe51_000001a0e3a4c171_1 ... (3s) Current status: DONE   
+baseline,48,1.14017810626E9
+
+Waiting on bqjob_re05423c22cf26d5_000001a0e3a4e21b_1 ... (0s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_re05423c22cf26d5_000001a0e3a4e21b_1 ... (1s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_re05423c22cf26d5_000001a0e3a4e21b_1 ... (2s) Current status: RUNNING
+                                                                                     
+Waiting on bqjob_re05423c22cf26d5_000001a0e3a4e21b_1 ... (2s) Current status: DONE   
+broadcast,48,1.14017810626E9
+
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (0s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (1s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (2s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (3s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (4s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r7a5b8b2da4755fc5_000001a0e3a4ff1c_1 ... (4s) Current status: DONE   
+salted,48,1.14017810626E9
+
+Waiting on bqjob_r56c23ee48a25f579_000001a0e3a5248d_1 ... (0s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r56c23ee48a25f579_000001a0e3a5248d_1 ... (1s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r56c23ee48a25f579_000001a0e3a5248d_1 ... (1s) Current status: DONE   
+aqe,48,1.14017810626E9

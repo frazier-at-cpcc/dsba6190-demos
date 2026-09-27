@@ -1,0 +1,4 @@
+$ gcloud iam service-accounts get-iam-policy  (who may act as it)
+
+ROLE                          MEMBERS
+roles/iam.serviceAccountUser  serviceAccount:service-PROJECT_NUMBER@gcp-sa-datafusion.iam.gserviceaccount.com

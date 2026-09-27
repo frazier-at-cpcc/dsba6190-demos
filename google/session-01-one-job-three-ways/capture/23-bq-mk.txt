@@ -1,0 +1,3 @@
+$ bq mk --dataset $DATASET
+
+Dataset 'YOUR_PROJECT_ID:qc_nightly_24113' successfully created.

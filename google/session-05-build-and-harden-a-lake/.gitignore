@@ -1,0 +1,11 @@
+.work/
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate*
+.runbook.html
+sample/data/
+_*.csv
+_*.json
+_*.yaml
+_*.txt
+.vscode/

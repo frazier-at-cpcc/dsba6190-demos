@@ -1,0 +1,14 @@
+$ gcloud storage buckets remove-iam-policy-binding allUsers
+
+bindings:
+- members:
+  - projectEditor:YOUR_PROJECT_ID
+  - projectOwner:YOUR_PROJECT_ID
+  role: roles/storage.legacyBucketOwner
+- members:
+  - projectViewer:YOUR_PROJECT_ID
+  role: roles/storage.legacyBucketReader
+etag: CAM=
+kind: storage#policy
+resourceId: projects/_/buckets/dsba6190-staging-65111
+version: 1

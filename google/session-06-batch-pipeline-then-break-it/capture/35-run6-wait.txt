@@ -1,0 +1,10 @@
+$ python3 cdap.py wait  (run 6, the same pipeline again)
+
+      0s  PENDING
+    172s  STARTING
+    282s  RUNNING
+    423s  FAILED
+
+run      46a84ba5-ad66-11f1-8a8a-922120e72055
+status   FAILED
+duration 400s

@@ -1,0 +1,4 @@
+$ gcloud projects describe $PROJECT   (name, ID, number)
+
+NAME                PROJECT_ID            PROJECT_NUMBER  LIFECYCLE_STATE
+UNC Charlotte Demo  YOUR_PROJECT_ID  PROJECT_NUMBER    ACTIVE

@@ -1,0 +1,130 @@
+$ cp stages/07-foreach/main.tf.test main.tf && terraform apply   (the module call removed)
+
+module.lake["test"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-test-raw-26095]
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+module.trips_vm.google_compute_instance.vm: Refreshing state... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.trips_vm.google_compute_instance.vm will be destroyed
+  # (because google_compute_instance.vm is not in configuration)
+  - resource "google_compute_instance" "vm" {
+      - allow_stopping_for_update = true -> null
+      - can_ip_forward            = false -> null
+      - cpu_platform              = "Intel Broadwell" -> null
+      - current_status            = "RUNNING" -> null
+      - deletion_protection       = false -> null
+      - effective_labels          = {
+          - "cost-center" = "dsba6190"
+          - "environment" = "dev"
+          - "owner"       = "data-platform"
+        } -> null
+      - enable_display            = false -> null
+      - guest_accelerator         = [] -> null
+      - id                        = "projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095" -> null
+      - instance_id               = "6429637500504177707" -> null
+      - label_fingerprint         = "EyWGidF5msk=" -> null
+      - labels                    = {
+          - "cost-center" = "dsba6190"
+          - "environment" = "dev"
+          - "owner"       = "data-platform"
+        } -> null
+      - machine_type              = "e2-micro" -> null
+      - metadata                  = {} -> null
+      - metadata_fingerprint      = "9K6DnnwhIbc=" -> null
+      - name                      = "dsba6190-trips-vm-26095" -> null
+      - project                   = "YOUR_PROJECT_ID" -> null
+      - resource_policies         = [] -> null
+      - self_link                 = "https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095" -> null
+      - tags                      = [
+          - "dev",
+          - "web",
+        ] -> null
+      - tags_fingerprint          = "XaeQnaHMn9Y=" -> null
+      - terraform_labels          = {
+          - "cost-center" = "dsba6190"
+          - "environment" = "dev"
+          - "owner"       = "data-platform"
+        } -> null
+      - zone                      = "us-east1-b" -> null
+
+      - boot_disk {
+          - auto_delete = true -> null
+          - device_name = "persistent-disk-0" -> null
+          - mode        = "READ_WRITE" -> null
+          - source      = "https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/zones/us-east1-b/disks/dsba6190-trips-vm-26095" -> null
+
+          - initialize_params {
+              - enable_confidential_compute = false -> null
+              - image                       = "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-12-bookworm-v20260921" -> null
+              - labels                      = {} -> null
+              - provisioned_iops            = 0 -> null
+              - provisioned_throughput      = 0 -> null
+              - resource_manager_tags       = {} -> null
+              - size                        = 10 -> null
+              - type                        = "pd-standard" -> null
+            }
+        }
+
+      - network_interface {
+          - internal_ipv6_prefix_length = 0 -> null
+          - name                        = "nic0" -> null
+          - network                     = "https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/global/networks/default" -> null
+          - network_ip                  = "10.142.0.6" -> null
+          - queue_count                 = 0 -> null
+          - stack_type                  = "IPV4_ONLY" -> null
+          - subnetwork                  = "https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/regions/us-east1/subnetworks/default" -> null
+          - subnetwork_project          = "YOUR_PROJECT_ID" -> null
+        }
+
+      - scheduling {
+          - automatic_restart   = true -> null
+          - min_node_cpus       = 0 -> null
+          - on_host_maintenance = "MIGRATE" -> null
+          - preemptible         = false -> null
+          - provisioning_model  = "STANDARD" -> null
+        }
+
+      - shielded_instance_config {
+          - enable_integrity_monitoring = true -> null
+          - enable_secure_boot          = false -> null
+          - enable_vtpm                 = true -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  - vm      = {
+      - deletion_protection = false
+      - machine_type        = "e2-micro"
+      - name                = "dsba6190-trips-vm-26095"
+    } -> null
+module.trips_vm.google_compute_instance.vm: Destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 10s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 20s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 30s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 40s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 50s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m0s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m10s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m20s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m30s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m40s elapsed]
+module.trips_vm.google_compute_instance.vm: Still destroying... [id=projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/dsba6190-trips-vm-26095, 1m50s elapsed]
+module.trips_vm.google_compute_instance.vm: Destruction complete after 1m54s
+
+Apply complete! Resources: 0 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+buckets = {
+  "dev" = "gs://dsba6190-dev-raw-26095"
+  "prod" = "gs://dsba6190-prod-raw-26095"
+  "test" = "gs://dsba6190-test-raw-26095"
+}

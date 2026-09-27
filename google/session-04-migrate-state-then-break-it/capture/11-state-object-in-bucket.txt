@@ -1,0 +1,8 @@
+$ gcloud storage ls -r
+
+gs://dsba6190-tfstate-46421/:
+
+gs://dsba6190-tfstate-46421/envs/:
+
+gs://dsba6190-tfstate-46421/envs/dev/:
+gs://dsba6190-tfstate-46421/envs/dev/default.tfstate

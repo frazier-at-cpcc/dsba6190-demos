@@ -1,0 +1,15 @@
+$ bash -c gh pr view 2 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --comments | sed -n '/Terraform plan for/,/Full plan output/p' | head -40
+
+## Terraform plan for `dba0ecf`
+
+**Stage 2 · plan:** Plan: 1 to add, 0 to change, 0 to destroy.
+
+**Stage 3 · policy:** FAILED. This pull request cannot be merged until the plan satisfies policy.
+
+```
+FAIL - tfplan.json - main - google_storage_bucket_iam_member.public grants allUsers. Public access to a bucket is not permitted.
+
+4 tests, 3 passed, 0 warnings, 1 failure, 0 exceptions
+```
+
+<details><summary>Full plan output</summary>

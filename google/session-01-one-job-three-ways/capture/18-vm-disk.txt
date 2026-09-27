@@ -1,0 +1,4 @@
+$ gcloud compute disks list --filter=name=$VM   (the disk is still there)
+
+NAME                 SIZE_GB  TYPE         STATUS  ATTACHED
+qc-nightly-vm-24113  10       pd-standard  READY   1

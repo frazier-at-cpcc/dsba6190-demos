@@ -1,0 +1,16 @@
+$ gcloud builds submit build-live --tag $IMAGE_BASE:v1
+
+Already have image (with digest): gcr.io/cloud-builders/gcb-internal
+Step 1/9 : FROM python:3.12-slim
+Step 2/9 : WORKDIR /app
+Step 3/9 : COPY requirements.txt .
+Step 4/9 : RUN pip install --no-cache-dir -r requirements.txt
+Step 5/9 : COPY main.py VERSION ./
+Step 6/9 : RUN useradd --uid 10001 --no-create-home app
+Step 7/9 : USER 10001
+Step 8/9 : ENV PORT=8080
+Step 9/9 : CMD exec gunicorn --bind :$PORT --workers 1 --threads 4 --timeout 30 main:app
+v1: digest: sha256:4a87e4bdd585e0aefe71c3f33252a8a3f7fc2a946b95d0a31049f1eebc296c4a size: 2200
+DONE
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                              IMAGES                                                                     STATUS
+67db6bb2-288b-49b4-9ca1-00701571db8c  2026-09-27T15:01:37+00:00  19S       gs://YOUR_PROJECT_ID_cloudbuild/source/1790521296.451188-58de47b6eca4405384cf6c9b183bbe64.tgz  us-central1-docker.pkg.dev/YOUR_PROJECT_ID/qc-fare-20854/fare-api:v1  SUCCESS

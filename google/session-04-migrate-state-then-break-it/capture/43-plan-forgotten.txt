@@ -1,0 +1,12 @@
+$ terraform plan   (after removing legacy.tf)
+
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+random_password.db_admin: Refreshing state... [id=none]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+google_storage_bucket.annex: Refreshing state... [id=dsba6190-annex-46421]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.

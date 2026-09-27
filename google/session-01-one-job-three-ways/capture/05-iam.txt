@@ -1,0 +1,24 @@
+$ gcloud projects get-iam-policy $PROJECT   (roles granted here)
+
+ROLE
+roles/artifactregistry.serviceAgent
+roles/bigquery.jobUser
+roles/cloudbuild.builds.builder
+roles/cloudbuild.serviceAgent
+roles/compute.instanceGroupManagerServiceAgent
+roles/compute.serviceAgent
+roles/container.defaultNodeServiceAgent
+roles/container.serviceAgent
+roles/containeranalysis.ServiceAgent
+roles/containerregistry.ServiceAgent
+roles/containerscanning.ServiceAgent
+roles/dataflow.serviceAgent
+roles/datafusion.serviceAgent
+roles/dataproc.serviceAgent
+roles/editor
+roles/file.serviceAgent
+roles/networkconnectivity.serviceAgent
+roles/owner
+roles/pubsub.serviceAgent
+roles/run.serviceAgent
+roles/storage.admin

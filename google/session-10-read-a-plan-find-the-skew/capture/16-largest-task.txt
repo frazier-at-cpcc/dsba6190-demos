@@ -1,0 +1,17 @@
+$ python3 stages.py --largest <baseline, salted, aqe event logs>
+
+baseline
+stage  largest task reads      records  seconds
+    5            206.2 MB   18,058,073     16.9
+    9             80.9 MB   18,058,073     16.1
+
+salted
+stage  largest task reads      records  seconds
+    5              7.8 MB      626,918      1.2
+    9              3.7 MB      621,784      1.2
+
+aqe
+stage  largest task reads      records  seconds
+    7            206.2 MB   18,058,073     20.0
+   16             80.9 MB   18,058,073     15.2
+

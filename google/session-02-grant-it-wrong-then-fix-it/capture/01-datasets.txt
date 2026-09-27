@@ -1,0 +1,5 @@
+$ bq ls
+
+  crown_curated_26041  
+  crown_raw_26041      
+  crown_stream_25549   

@@ -1,0 +1,93 @@
+# Stage 6 of the pipeline. The only stage that runs on a timer.
+#
+#   6. drift detection                 scheduled plan; alert on a diff
+#
+# A plan with -detailed-exitcode returns 0 for no changes, 1 for an error,
+# and 2 for a non-empty diff. Exit code 2 opens a GitHub issue, or comments
+# on the open one. Exit code 0 closes it. The plan takes no lock, so it never
+# blocks an apply that happens to be running.
+
+name: drift
+
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+env:
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "0"
+
+jobs:
+  detect:
+    name: "stage 6 · scheduled plan"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.TF_SERVICE_ACCOUNT }}
+
+      - uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: 1.5.7
+          terraform_wrapper: false
+
+      - name: init
+        run: >
+          terraform init -no-color
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="prefix=${{ vars.TF_STATE_PREFIX }}"
+
+      - name: plan with -detailed-exitcode
+        id: plan
+        run: |
+          set +e
+          terraform plan -no-color -lock=false -detailed-exitcode > plan.txt 2>&1
+          code=$?
+          set -e
+          cat plan.txt
+          echo "exitcode=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "1" ]; then
+            echo "The plan itself failed. That is an error, not drift."
+            exit 1
+          fi
+
+      - name: Drift found. Open or update the issue
+        if: steps.plan.outputs.exitcode == '2'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          stamp=$(date -u +%FT%TZ)
+          {
+            echo "A scheduled \`terraform plan -detailed-exitcode\` on ${stamp} returned 2."
+            echo "Reality differs from what main declares. Decide which side wins, then either apply or import."
+            echo
+            echo '```hcl'
+            head -c 60000 plan.txt
+            echo '```'
+            echo
+            echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > body.md
+          existing=$(gh issue list --label drift --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file body.md
+          else
+            gh issue create --title "Drift detected: reality differs from main" --label drift --body-file body.md
+          fi
+
+      - name: No drift. Close any open drift issue
+        if: steps.plan.outputs.exitcode == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --label drift --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "A scheduled plan on $(date -u +%FT%TZ) found no drift."
+          done

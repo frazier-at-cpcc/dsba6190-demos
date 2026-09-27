@@ -1,0 +1,10 @@
+$ gcloud projects add-iam-policy-binding $PROJECT --member $ANALYST --role roles/editor
+
+Updated IAM policy for project [YOUR_PROJECT_ID].
+- members:
+  - deleted:serviceAccount:cs-analyst-25186@YOUR_PROJECT_ID.iam.gserviceaccount.com?uid=101128774025311819374
+  - serviceAccount:PROJECT_NUMBER-compute@developer.gserviceaccount.com
+  - serviceAccount:PROJECT_NUMBER@cloudservices.gserviceaccount.com
+  - serviceAccount:cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com
+  role: roles/editor
+- members:

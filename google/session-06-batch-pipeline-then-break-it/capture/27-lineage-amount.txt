@@ -1,0 +1,38 @@
+$ python3 cdap.py field-ops  (the operations that produced one column)
+
+{
+  "incoming": [
+    {
+      "programs": [
+        {
+          "program": {
+            "application": "pos-02-quarantine",
+            "version": "a795d213-ad62-11f1-b694-922120e72055",
+            "type": "Workflow",
+            "program": "DataPipelineWorkflow",
+            "namespace": "default",
+            "entity": "PROGRAM"
+          },
+          "lastExecutedTimeInSeconds": 1789077487
+        }
+      ],
+      "operations": []
+    },
+    {
+      "programs": [
+        {
+          "program": {
+            "application": "pos-01-baseline",
+            "version": "23fd3b21-ad60-11f1-9437-922120e72055",
+            "type": "Workflow",
+            "program": "DataPipelineWorkflow",
+            "namespace": "default",
+            "entity": "PROGRAM"
+          },
+          "lastExecutedTimeInSeconds": 1789076876
+        }
+      ],
+      "operations": []
+    }
+  ]
+}

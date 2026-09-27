@@ -1,0 +1,8 @@
+$ as_analyst: read card numbers
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+BigQuery error in query operation: Error processing job 'basic-
+carrier-262420:bqjob_r76430c01369826d0_000001a0e3b24c62_1': Access Denied: Table
+YOUR_PROJECT_ID:crown_raw_26041.loyalty_members: User does not have
+permission to query table YOUR_PROJECT_ID:crown_raw_26041.loyalty_members,
+or perhaps it does not exist.

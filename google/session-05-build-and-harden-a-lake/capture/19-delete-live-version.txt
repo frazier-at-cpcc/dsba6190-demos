@@ -1,0 +1,6 @@
+$ gcloud storage rm  (delete the live version)
+
+Removing objects:
+  
+Removing gs://dsba6190-lake-65111/raw/readings/_manifest.json...
+...

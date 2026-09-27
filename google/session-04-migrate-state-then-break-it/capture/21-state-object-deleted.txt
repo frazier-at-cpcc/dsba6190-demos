@@ -1,0 +1,6 @@
+$ gcloud storage rm  (the state object)
+
+Removing objects:
+  
+Removing gs://dsba6190-tfstate-46421/envs/dev/default.tfstate...
+.....

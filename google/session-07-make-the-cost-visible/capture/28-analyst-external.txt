@@ -1,0 +1,12 @@
+$ as_analyst q "SELECT COUNT(*) FROM trips_ext"
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+BigQuery error in query operation: Error processing job 'basic-
+carrier-262420:dsba6190_1790272700_3235': Access Denied: BigQuery BigQuery:
+Permission denied while globbing file pattern. dsba6190-analyst@basic-
+carrier-262420.iam.gserviceaccount.com does not have storage.objects.list access
+to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on
+resource '//storage.googleapis.com/projects/_/buckets/dsba6190-trips-72583' (or
+it may not exist). Please make sure
+gs://dsba6190-trips-72583/trips/2022-01/*.parquet is accessible via appropriate
+IAM roles, e.g. Storage Object Viewer or Storage Object Creator.

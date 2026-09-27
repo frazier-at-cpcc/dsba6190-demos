@@ -1,0 +1,5 @@
+$ gh pr view 1 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --json number,title,url,headRefName --jq "#\(.number) \(.title)\n\(.url)\nbranch \(.headRefName)"
+
+#1 Label every bucket with its cost center
+https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/pull/1
+branch label-cost-center-1833

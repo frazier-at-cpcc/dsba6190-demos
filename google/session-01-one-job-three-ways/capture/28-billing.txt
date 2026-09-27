@@ -1,0 +1,4 @@
+$ gcloud billing projects describe $PROJECT
+
+billingAccountName: billingAccounts/BILLING_ACCOUNT
+billingEnabled: true

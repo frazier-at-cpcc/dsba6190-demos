@@ -1,0 +1,130 @@
+$ terraform apply  (two external tables)
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_bigquery_dataset.lake will be created
+  + resource "google_bigquery_dataset" "lake" {
+      + creation_time              = (known after apply)
+      + dataset_id                 = "dsba6190_lake_65111"
+      + default_collation          = (known after apply)
+      + delete_contents_on_destroy = true
+      + description                = "Session 5 live demo. External tables over the lake bucket."
+      + effective_labels           = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+        }
+      + etag                       = (known after apply)
+      + id                         = (known after apply)
+      + is_case_insensitive        = (known after apply)
+      + labels                     = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+        }
+      + last_modified_time         = (known after apply)
+      + location                   = "US"
+      + max_time_travel_hours      = (known after apply)
+      + project                    = "YOUR_PROJECT_ID"
+      + self_link                  = (known after apply)
+      + storage_billing_model      = (known after apply)
+      + terraform_labels           = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+        }
+    }
+
+  # google_bigquery_table.readings_csv will be created
+  + resource "google_bigquery_table" "readings_csv" {
+      + allow_resource_tags_on_deletion = false
+      + creation_time                   = (known after apply)
+      + dataset_id                      = "dsba6190_lake_65111"
+      + deletion_protection             = false
+      + effective_labels                = (known after apply)
+      + etag                            = (known after apply)
+      + expiration_time                 = (known after apply)
+      + id                              = (known after apply)
+      + last_modified_time              = (known after apply)
+      + location                        = (known after apply)
+      + num_bytes                       = (known after apply)
+      + num_long_term_bytes             = (known after apply)
+      + num_rows                        = (known after apply)
+      + project                         = "YOUR_PROJECT_ID"
+      + schema                          = (known after apply)
+      + self_link                       = (known after apply)
+      + table_id                        = "readings_csv"
+      + terraform_labels                = (known after apply)
+      + type                            = (known after apply)
+
+      + external_data_configuration {
+          + autodetect    = true
+          + compression   = "NONE"
+          + schema        = (known after apply)
+          + source_format = "CSV"
+          + source_uris   = [
+              + "gs://dsba6190-lake-65111/raw/readings/readings.csv",
+            ]
+
+          + csv_options {
+              + allow_jagged_rows     = false
+              + allow_quoted_newlines = false
+              + encoding              = "UTF-8"
+              + field_delimiter       = ","
+              + quote                 = "\""
+              + skip_leading_rows     = 1
+            }
+        }
+    }
+
+  # google_bigquery_table.readings_parquet will be created
+  + resource "google_bigquery_table" "readings_parquet" {
+      + allow_resource_tags_on_deletion = false
+      + creation_time                   = (known after apply)
+      + dataset_id                      = "dsba6190_lake_65111"
+      + deletion_protection             = false
+      + effective_labels                = (known after apply)
+      + etag                            = (known after apply)
+      + expiration_time                 = (known after apply)
+      + id                              = (known after apply)
+      + last_modified_time              = (known after apply)
+      + location                        = (known after apply)
+      + num_bytes                       = (known after apply)
+      + num_long_term_bytes             = (known after apply)
+      + num_rows                        = (known after apply)
+      + project                         = "YOUR_PROJECT_ID"
+      + schema                          = (known after apply)
+      + self_link                       = (known after apply)
+      + table_id                        = "readings_parquet"
+      + terraform_labels                = (known after apply)
+      + type                            = (known after apply)
+
+      + external_data_configuration {
+          + autodetect    = true
+          + compression   = "NONE"
+          + schema        = (known after apply)
+          + source_format = "PARQUET"
+          + source_uris   = [
+              + "gs://dsba6190-lake-65111/curated/readings/readings.parquet",
+            ]
+        }
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+google_bigquery_dataset.lake: Creating...
+google_bigquery_dataset.lake: Creation complete after 1s [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_bigquery_table.readings_parquet: Creating...
+google_bigquery_table.readings_csv: Creating...
+google_bigquery_table.readings_parquet: Creation complete after 1s [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.readings_csv: Creation complete after 1s [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lake_bucket = "gs://dsba6190-lake-65111"
+staging_bucket = "gs://dsba6190-staging-65111"

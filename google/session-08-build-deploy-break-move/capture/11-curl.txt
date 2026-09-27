@@ -1,0 +1,6 @@
+$ curl http://$IP/quote?pickup=132&dropoff=236
+
+
+{"fare":24.25,"model":"v1","ms":150,"pod":"fare-api-79d59fbdd9-nxtgw"}
+
+

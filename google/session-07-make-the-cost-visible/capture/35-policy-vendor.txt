@@ -1,0 +1,4 @@
+$ q "CREATE ROW ACCESS POLICY vendor_2 ON trips_lake GRANT TO ('serviceAccount:$ANALYST') FILTER USING (vendor_id = '2')"
+
+Created row access policy vendor_2 on table YOUR_PROJECT_ID.dsba6190_wh_72583.trips_lake
+processed 0.00 GB · billed 0.0 MB · slot time 0.0 s · cache false

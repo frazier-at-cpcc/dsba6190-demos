@@ -1,0 +1,7 @@
+$ as_analyst: bq rm -f -t $CURATED.store_sales
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+BigQuery error in rm operation: Access Denied: Table basic-
+carrier-262420:crown_curated_26041.store_sales: Permission
+bigquery.tables.delete denied on table basic-
+carrier-262420:crown_curated_26041.store_sales (or it may not exist).

@@ -1,0 +1,5 @@
+$ gcloud compute networks subnets create $SUBNET --range 10.20.0.0/24   (no Private Google Access)
+
+Created [https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/regions/us-east1/subnetworks/crown-east-26041].
+NAME              REGION    NETWORK          RANGE         STACK_TYPE  IPV6_ACCESS_TYPE  INTERNAL_IPV6_PREFIX  EXTERNAL_IPV6_PREFIX
+crown-east-26041  us-east1  crown-net-26041  10.20.0.0/24  IPV4_ONLY

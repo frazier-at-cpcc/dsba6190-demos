@@ -1,0 +1,5 @@
+$ verify: active jobs, topics
+
+JOB_ID                                    NAME               TYPE       CREATION_TIME        STATE       REGION
+2026-09-27_08_36_21-17257879442485026917  crown-dedup-23287  Streaming  2026-09-27 15:36:22  Cancelling  us-central1
+Listed 0 items.

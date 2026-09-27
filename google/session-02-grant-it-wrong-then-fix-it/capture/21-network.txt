@@ -1,0 +1,13 @@
+$ gcloud compute networks create $NET --subnet-mode custom
+
+Created [https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/global/networks/crown-net-26041].
+NAME             SUBNET_MODE  BGP_ROUTING_MODE  IPV4_RANGE  GATEWAY_IPV4  INTERNAL_IPV6_RANGE
+crown-net-26041  CUSTOM       REGIONAL
+
+Instances on this network will not be reachable until firewall rules
+are created. As an example, you can allow all internal traffic between
+instances as well as SSH, RDP, and ICMP by running:
+
+$ gcloud compute firewall-rules create <FIREWALL_NAME> --network crown-net-26041 --allow tcp,udp,icmp --source-ranges <IP_RANGE>
+$ gcloud compute firewall-rules create <FIREWALL_NAME> --network crown-net-26041 --allow tcp:22,tcp:3389,icmp
+

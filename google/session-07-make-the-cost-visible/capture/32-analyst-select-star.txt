@@ -1,0 +1,9 @@
+$ as_analyst q "SELECT * FROM trips_lake LIMIT 3"
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com].
+BigQuery error in query operation: Error processing job 'basic-
+carrier-262420:dsba6190_1790272710_839': Access Denied: BigQuery BigQuery: User
+has neither fine-grained reader nor masked get permission to get data protected
+by policy tag "dsba6190-72583 : trip_location" on columns basic-
+carrier-262420.dsba6190_wh_72583.trips_lake.dropoff_location_id, basic-
+carrier-262420.dsba6190_wh_72583.trips_lake.pickup_location_id.

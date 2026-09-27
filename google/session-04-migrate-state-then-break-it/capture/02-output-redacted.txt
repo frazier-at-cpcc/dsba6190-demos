@@ -1,0 +1,4 @@
+$ terraform output
+
+db_admin_password = <sensitive>
+raw_bucket = "gs://dsba6190-raw-46421"

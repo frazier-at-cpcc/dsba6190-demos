@@ -1,0 +1,18 @@
+$ terraform state show random_password.db_admin
+
+# random_password.db_admin:
+resource "random_password" "db_admin" {
+    bcrypt_hash = (sensitive value)
+    id          = "none"
+    length      = 24
+    lower       = true
+    min_lower   = 0
+    min_numeric = 0
+    min_special = 0
+    min_upper   = 0
+    number      = true
+    numeric     = true
+    result      = (sensitive value)
+    special     = true
+    upper       = true
+}

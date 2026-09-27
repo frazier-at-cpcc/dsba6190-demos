@@ -1,0 +1,16 @@
+$ gcloud storage ls --all-versions
+
+       230  2026-09-10T13:21:35Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046495830588  metageneration=1
+       253  2026-09-10T13:21:36Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046496947318  metageneration=1
+       243  2026-09-10T13:21:47Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046507405133  metageneration=1
+       244  2026-09-10T13:22:12Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046532656217  metageneration=1
+       244  2026-09-10T13:23:45Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046625517165  metageneration=1
+       243  2026-09-10T13:24:12Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046652197878  metageneration=1
+       244  2026-09-10T13:24:14Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046654835194  metageneration=1
+       230  2026-09-10T13:24:19Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046659989746  metageneration=1
+       243  2026-09-10T13:24:20Z  gs://dsba6190-tfstate-46421/envs/dev/default.tflock#1789046660514098  metageneration=1
+       180  2026-09-10T13:21:36Z  gs://dsba6190-tfstate-46421/envs/dev/default.tfstate#1789046496243242  metageneration=1
+      4599  2026-09-10T13:21:37Z  gs://dsba6190-tfstate-46421/envs/dev/default.tfstate#1789046497778916  metageneration=1
+      5111  2026-09-10T13:23:44Z  gs://dsba6190-tfstate-46421/envs/dev/default.tfstate#1789046624708965  metageneration=1
+       180  2026-09-10T13:24:20Z  gs://dsba6190-tfstate-46421/envs/dev/default.tfstate#1789046660262563  metageneration=1
+TOTAL: 13 objects, 12244 bytes (11.96kiB)

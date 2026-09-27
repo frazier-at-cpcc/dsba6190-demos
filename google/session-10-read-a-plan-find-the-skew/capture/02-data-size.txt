@@ -1,0 +1,4 @@
+$ gcloud storage du -s $BASE/data/trips $BASE/data/accounts
+
+242555519    gs://qc-billing/data/trips
+27972        gs://qc-billing/data/accounts

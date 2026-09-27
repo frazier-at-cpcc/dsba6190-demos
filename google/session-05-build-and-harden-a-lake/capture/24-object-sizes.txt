@@ -1,0 +1,6 @@
+$ gcloud storage ls -l  (the same 200,000 rows, twice)
+
+  12348336  2026-09-10T18:32:27Z  gs://dsba6190-lake-65111/raw/readings/readings.csv
+TOTAL: 1 objects, 12348336 bytes (11.78MiB)
+   2680274  2026-09-10T18:32:46Z  gs://dsba6190-lake-65111/curated/readings/readings.parquet
+TOTAL: 1 objects, 2680274 bytes (2.56MiB)

@@ -1,0 +1,3 @@
+$ gcloud organizations list
+
+Listed 0 items.

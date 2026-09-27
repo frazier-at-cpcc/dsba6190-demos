@@ -1,0 +1,66 @@
+$ terraform apply  (the hive-partitioned external table)
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_storage_bucket.vault: Refreshing state... [id=dsba6190-vault-65111]
+google_storage_bucket.secure: Refreshing state... [id=dsba6190-secure-65111]
+google_bigquery_dataset.lake: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+google_bigquery_table.readings_parquet: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.readings_csv: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_bigquery_table.events will be created
+  + resource "google_bigquery_table" "events" {
+      + allow_resource_tags_on_deletion = false
+      + creation_time                   = (known after apply)
+      + dataset_id                      = "dsba6190_lake_65111"
+      + deletion_protection             = false
+      + effective_labels                = (known after apply)
+      + etag                            = (known after apply)
+      + expiration_time                 = (known after apply)
+      + id                              = (known after apply)
+      + last_modified_time              = (known after apply)
+      + location                        = (known after apply)
+      + num_bytes                       = (known after apply)
+      + num_long_term_bytes             = (known after apply)
+      + num_rows                        = (known after apply)
+      + project                         = "YOUR_PROJECT_ID"
+      + schema                          = (known after apply)
+      + self_link                       = (known after apply)
+      + table_id                        = "events"
+      + terraform_labels                = (known after apply)
+      + type                            = (known after apply)
+
+      + external_data_configuration {
+          + autodetect    = true
+          + compression   = "NONE"
+          + schema        = (known after apply)
+          + source_format = "PARQUET"
+          + source_uris   = [
+              + "gs://dsba6190-lake-65111/curated/events/*",
+            ]
+
+          + hive_partitioning_options {
+              + mode              = "AUTO"
+              + source_uri_prefix = "gs://dsba6190-lake-65111/curated/events/"
+            }
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+google_bigquery_table.events: Creating...
+google_bigquery_table.events: Creation complete after 1s [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/events]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lake_bucket = "gs://dsba6190-lake-65111"
+secure_bucket = "gs://dsba6190-secure-65111"
+staging_bucket = "gs://dsba6190-staging-65111"
+vault_bucket = "gs://dsba6190-vault-65111"

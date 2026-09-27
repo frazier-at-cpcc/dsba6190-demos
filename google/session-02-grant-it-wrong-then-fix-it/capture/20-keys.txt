@@ -1,0 +1,4 @@
+$ gcloud iam service-accounts keys list --iam-account $ANALYST   (no key ever left Google)
+
+KEY_ID                                    KEY_TYPE        CREATED_AT
+e86cc1ce7150ef65bc1bde300b0d5ce4f9fb898d  SYSTEM_MANAGED  2026-09-27

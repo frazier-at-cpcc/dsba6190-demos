@@ -1,0 +1,3 @@
+$ gcloud storage buckets create
+
+Creating gs://dsba6190-tfstate-46421/...

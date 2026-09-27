@@ -1,0 +1,3 @@
+$ dry "... FROM `$WILD` WHERE _TABLE_SUFFIX = '2022'"
+
+This query will process 1.07 GB when run.   (1150274528 bytes)

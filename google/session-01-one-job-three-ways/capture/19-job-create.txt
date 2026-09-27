@@ -1,0 +1,9 @@
+$ gcloud run jobs create $JOB --image google-cloud-cli:slim --command bash --args=-c,<the same script>
+
+Creating Cloud Run job [[1mqc-nightly-24113[m] in project [[1mYOUR_PROJECT_ID[m] region [[1mus-east1[m]
+Creating job...
+Done.
+Job [[1mqc-nightly-24113[m] has successfully been created.
+
+To execute this job, use:
+gcloud run jobs execute qc-nightly-24113

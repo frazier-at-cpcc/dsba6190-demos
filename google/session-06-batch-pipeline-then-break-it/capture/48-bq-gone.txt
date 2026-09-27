@@ -1,0 +1,5 @@
+$ bq ls  (the demo dataset is gone)
+
+    datasetId     
+ ---------------- 
+  analytics_demo  

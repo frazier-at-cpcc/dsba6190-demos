@@ -1,0 +1,4 @@
+$ curl -X POST .../batchPredictionJobs -d @batch.json   (392 vehicles, the boosted version)
+
+projects/PROJECT_NUMBER/locations/us-central1/batchPredictionJobs/3803742205500194816
+JOB_STATE_PENDING

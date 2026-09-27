@@ -1,0 +1,6 @@
+$ python3 cdap.py deploy  (02-quarantine)
+
+Deployed  pos-02-quarantine
+  artifact   cdap-data-pipeline 6.11.1
+  stages     5
+  edges      4

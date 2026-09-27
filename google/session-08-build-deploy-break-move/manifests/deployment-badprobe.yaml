@@ -1,0 +1,31 @@
+# Step 7b. A readiness probe on the wrong path. The rollout stalls and the old pods keep serving.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fare-api
+  labels: {app: fare-api, company: queen-city-trip-analytics}
+spec:
+  replicas: 3
+  selector: {matchLabels: {app: fare-api}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  template:
+    metadata:
+      labels: {app: fare-api}
+    spec:
+      containers:
+      - name: fare-api
+        image: IMAGE_BASE:v2
+        ports: [{containerPort: 8080}]
+        lifecycle:
+          preStop:
+            exec: {command: ["sleep", "10"]}
+        env: [{name: STARTUP_SECONDS, value: "25"}]
+        resources:
+          requests: {cpu: 100m, memory: 96Mi}
+          limits: {cpu: "1", memory: 256Mi}
+        readinessProbe:
+          httpGet: {path: /readyz, port: 8080}
+          periodSeconds: 2
+          failureThreshold: 2

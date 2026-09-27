@@ -1,0 +1,19 @@
+# Step 8. The same image with a 100m CPU limit. Nothing fails; every quote is slow.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fare-api-throttled
+  labels: {app: fare-api-throttled, company: queen-city-trip-analytics}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: fare-api-throttled}}
+  template:
+    metadata:
+      labels: {app: fare-api-throttled}
+    spec:
+      containers:
+      - name: fare-api
+        image: IMAGE_BASE:v2
+        resources:
+          requests: {cpu: 100m, memory: 128Mi}
+          limits: {cpu: 100m, memory: 256Mi}

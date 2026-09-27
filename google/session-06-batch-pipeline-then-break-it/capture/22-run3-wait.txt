@@ -1,0 +1,10 @@
+$ python3 cdap.py wait  (run 3, with the branch)
+
+      0s  PENDING
+    204s  STARTING
+    361s  RUNNING
+    534s  COMPLETED
+
+run      b4965f74-ad62-11f1-926a-922120e72055
+status   COMPLETED
+duration 533s

@@ -1,0 +1,68 @@
+$ terraform apply  (the CMEK bucket)
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_storage_bucket.vault: Refreshing state... [id=dsba6190-vault-65111]
+google_bigquery_dataset.lake: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+google_bigquery_table.readings_parquet: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.readings_csv: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.secure will be created
+  + resource "google_storage_bucket" "secure" {
+      + effective_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "regulated"
+        }
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + labels                      = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "regulated"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-secure-65111"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "regulated"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + encryption {
+          + default_kms_key_name = "projects/YOUR_PROJECT_ID/locations/us-east1/keyRings/dsba6190-demo/cryptoKeys/lake-cmek"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + secure_bucket  = (known after apply)
+google_storage_bucket.secure: Creating...
+google_storage_bucket.secure: Creation complete after 1s [id=dsba6190-secure-65111]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lake_bucket = "gs://dsba6190-lake-65111"
+secure_bucket = "gs://dsba6190-secure-65111"
+staging_bucket = "gs://dsba6190-staging-65111"
+vault_bucket = "gs://dsba6190-vault-65111"

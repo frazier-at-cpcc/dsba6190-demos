@@ -1,0 +1,8 @@
+$ curl $URL/quote
+
+{"fare":24.5,"model":"v2","ms":152,"pod":"localhost","surge":1.0}
+  0.879599s
+{"fare":24.5,"model":"v2","ms":145,"pod":"localhost","surge":1.0}
+  0.296717s
+{"fare":24.5,"model":"v2","ms":148,"pod":"localhost","surge":1.0}
+  0.288319s

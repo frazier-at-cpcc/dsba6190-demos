@@ -1,0 +1,4 @@
+$ kubectl apply -f manifests/deployment-v1.yaml -f manifests/service.yaml
+
+deployment.apps/fare-api created
+service/fare-api created

@@ -1,0 +1,5 @@
+$ count the permissions in three roles
+
+roles/editor                 12135 permissions
+roles/bigquery.dataViewer       23 permissions
+roles/bigquery.jobUser          10 permissions

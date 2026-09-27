@@ -1,0 +1,5 @@
+$ gcloud ai models upload --parent-model $MODEL_ID --version-aliases=boosted (the boosted artifact)
+
+Using endpoint [https://us-central1-aiplatform.googleapis.com/]
+Waiting for operation [5305194306108129280]...
+....................done.

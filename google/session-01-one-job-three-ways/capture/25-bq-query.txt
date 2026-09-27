@@ -1,0 +1,19 @@
+$ q "SELECT pickup_zone, COUNT(*) trips, SUM(fare_usd) revenue FROM trips GROUP BY 1"
+
++-----------------+--------+-------------+
+|   pickup_zone   | trips  | revenue_usd |
++-----------------+--------+-------------+
+| Airport         | 180274 |  4882936.69 |
+| Ballantyne      | 139369 |  1916173.62 |
+| Camp North End  |  59880 |   665714.03 |
+| Dilworth        | 120382 |   1316513.4 |
+| Elizabeth       |  79938 |   859403.49 |
+| Myers Park      |  60352 |   702290.91 |
+| NoDa            | 159629 |  1833756.29 |
+| Plaza Midwood   | 139927 |  1557865.16 |
+| South End       | 320384 |  3618928.43 |
+| SouthPark       | 159914 |  2003291.34 |
+| University City | 139781 |  1801643.81 |
+| Uptown          | 440170 |  5200966.59 |
++-----------------+--------+-------------+
+processed 0.05 GB · billed 51.0 MB · slot time 0.1 s · cache false

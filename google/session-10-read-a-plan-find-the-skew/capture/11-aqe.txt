@@ -1,0 +1,4 @@
+$ batch aqe   (AQE and skew join on, broadcast off)
+
+aqe: 48 result rows
+wall clock 169 s

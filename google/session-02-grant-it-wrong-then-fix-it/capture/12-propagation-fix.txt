@@ -1,0 +1,3 @@
+$ wait until the raw table is refused
+
+took effect after 132 s

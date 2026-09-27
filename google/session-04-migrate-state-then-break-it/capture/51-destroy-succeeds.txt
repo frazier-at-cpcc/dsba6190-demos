@@ -1,0 +1,146 @@
+$ terraform destroy
+
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+random_password.db_admin: Refreshing state... [id=none]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.annex: Refreshing state... [id=dsba6190-annex-46421]
+google_storage_bucket.landing: Refreshing state... [id=dsba6190-raw-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # google_pubsub_topic.events will be destroyed
+  - resource "google_pubsub_topic" "events" {
+      - effective_labels = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - id               = "projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421" -> null
+      - labels           = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - name             = "dsba6190-events-46421" -> null
+      - project          = "YOUR_PROJECT_ID" -> null
+      - terraform_labels = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+    }
+
+  # google_storage_bucket.annex will be destroyed
+  - resource "google_storage_bucket" "annex" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-annex-46421" -> null
+      - labels                      = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - location                    = "US-WEST1" -> null
+      - name                        = "dsba6190-annex-46421" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-annex-46421" -> null
+      - storage_class               = "COLDLINE" -> null
+      - terraform_labels            = {
+          - "environment" = "prod"
+          - "owner"       = "unknown"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-annex-46421" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T13:20:27.492Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # google_storage_bucket.landing will be destroyed
+  - resource "google_storage_bucket" "landing" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = true -> null
+      - id                          = "dsba6190-raw-46421" -> null
+      - labels                      = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-raw-46421" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-raw-46421" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-raw-46421" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T13:21:26.924Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+  # random_password.db_admin will be destroyed
+  - resource "random_password" "db_admin" {
+      - bcrypt_hash = (sensitive value) -> null
+      - id          = "none" -> null
+      - length      = 24 -> null
+      - lower       = true -> null
+      - min_lower   = 0 -> null
+      - min_numeric = 0 -> null
+      - min_special = 0 -> null
+      - min_upper   = 0 -> null
+      - number      = true -> null
+      - numeric     = true -> null
+      - result      = (sensitive value) -> null
+      - special     = true -> null
+      - upper       = true -> null
+    }
+
+  # time_sleep.slow_apply will be destroyed
+  - resource "time_sleep" "slow_apply" {
+      - create_duration = "90s" -> null
+      - id              = "2026-09-10T13:23:44Z" -> null
+      - triggers        = {
+          - "suffix" = "46421"
+        } -> null
+    }
+
+Plan: 0 to add, 0 to change, 5 to destroy.
+
+Changes to Outputs:
+  - db_admin_password = (sensitive value) -> null
+  - landing_bucket    = "gs://dsba6190-raw-46421" -> null
+time_sleep.slow_apply: Destroying... [id=2026-09-10T13:23:44Z]
+random_password.db_admin: Destroying... [id=none]
+time_sleep.slow_apply: Destruction complete after 0s
+random_password.db_admin: Destruction complete after 0s
+google_pubsub_topic.events: Destroying... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.annex: Destroying... [id=dsba6190-annex-46421]
+google_storage_bucket.landing: Destroying... [id=dsba6190-raw-46421]
+google_pubsub_topic.events: Destruction complete after 1s
+google_storage_bucket.landing: Destruction complete after 1s
+google_storage_bucket.annex: Destruction complete after 1s
+
+Destroy complete! Resources: 5 destroyed.

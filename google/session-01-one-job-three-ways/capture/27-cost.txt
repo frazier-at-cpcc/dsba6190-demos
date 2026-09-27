@@ -1,0 +1,8 @@
+$ list price of each run, from measured time and bytes
+
+platform                 measured                     list price
+Compute Engine           104 s of e2-standard-2          0.00194
+Cloud Run job            29 s of 2 vCPU, 2 GiB           0.00116
+BigQuery on-demand       51 MB billed                    0.00030
+
+The stopped VM disk still bills: 10 GB standard persistent disk = $0.40 a month

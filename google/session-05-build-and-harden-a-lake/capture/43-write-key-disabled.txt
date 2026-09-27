@@ -1,0 +1,11 @@
+$ gcloud storage cp  (write, key disabled)
+
+Copying file://_regulated.csv to gs://dsba6190-secure-65111/raw/second.csv
+  
+ERROR: HTTPError 400: Cloud KMS key is disabled, destroyed, or scheduled to be destroyed.
+- '@type': type.googleapis.com/google.rpc.PreconditionFailure
+  violations:
+  - description: ''
+    subject: ''
+    type: KEY_DISABLED
+....

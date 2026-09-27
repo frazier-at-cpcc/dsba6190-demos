@@ -1,0 +1,4 @@
+$ gcloud compute instances describe $VM --format='table(name,machineType.basename(),status,deletionProtection)'
+
+NAME                     MACHINE_TYPE  STATUS   DELETION_PROTECTION
+dsba6190-trips-vm-26095  e2-micro      RUNNING  True

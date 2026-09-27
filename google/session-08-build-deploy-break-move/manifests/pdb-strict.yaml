@@ -1,0 +1,8 @@
+# Step 9. A budget equal to the replica count. No voluntary eviction is ever allowed.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fare-api
+spec:
+  minAvailable: 3
+  selector: {matchLabels: {app: fare-api}}

@@ -1,0 +1,4 @@
+$ gcloud storage rm -r $BASE; bq rm -r -f -d $DATASET
+
+......
+Listed 0 items.

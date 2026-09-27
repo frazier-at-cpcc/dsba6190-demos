@@ -1,0 +1,3 @@
+$ as_analyst: bq rm -f -t $RAW.members_backup
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].

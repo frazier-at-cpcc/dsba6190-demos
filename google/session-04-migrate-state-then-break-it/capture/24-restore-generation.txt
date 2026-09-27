@@ -1,0 +1,5 @@
+$ gcloud storage cp  (restore a generation)
+
+Copying gs://dsba6190-tfstate-46421/envs/dev/default.tfstate#1789046624708965 to gs://dsba6190-tfstate-46421/envs/dev/default.tfstate
+  
+......

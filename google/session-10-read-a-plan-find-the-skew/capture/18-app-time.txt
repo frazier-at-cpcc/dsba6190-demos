@@ -1,0 +1,6 @@
+$ python3 stages.py --app-time <each event log>
+
+baseline   application ran 111.9 s
+broadcast  application ran 72.7 s
+salted     application ran 78.9 s
+aqe        application ran 80.7 s

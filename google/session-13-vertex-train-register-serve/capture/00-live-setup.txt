@@ -1,0 +1,19 @@
+
+[1;32m>>> APIs, bucket and data[0m
+
+[1;32m>>> The trainer package[0m
+
+[1;32m>>> Two training jobs, in parallel[0m
+  ridge: JOB_STATE_SUCCEEDED
+  boosted: JOB_STATE_SUCCEEDED
+
+[1;32m>>> Register the ridge model, create an endpoint, deploy[0m
+  model models/4289863912779677696, endpoint endpoints/474131953885380608; deploying (about 10 minutes)
+
+  Staged in 27 min 42 s. The ridge model is deployed and billing.
+
+      source ./session-13-vertex-train-register-serve/.work/env.sh
+
+  Endpoint  endpoints/474131953885380608   (one n1-standard-2 node, billing until undeployed)
+  Model     models/4289863912779677696 (alias ridge); the boosted artifact waits for step 7
+  Teardown  step 10 undeploys; step 11 deletes the endpoint, the model and gs://qc-fuel-33351

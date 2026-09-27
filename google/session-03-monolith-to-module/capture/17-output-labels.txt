@@ -1,0 +1,9 @@
+$ terraform output dev_labels
+
+{
+  "cost-center" = "dsba6190"
+  "data-classification" = "internal"
+  "environment" = "dev"
+  "owner" = "data-platform"
+  "team" = "fleet-dashboards"
+}

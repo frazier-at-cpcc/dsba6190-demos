@@ -1,0 +1,4 @@
+$ gcloud storage ls -l gs://$BUCKET/raw/
+
+ 135535057  2026-09-27T15:49:44Z  gs://qc-nightly-24113/raw/trips-2026-08-19.csv
+TOTAL: 1 objects, 135535057 bytes (129.26MiB)

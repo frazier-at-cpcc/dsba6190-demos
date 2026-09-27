@@ -1,0 +1,3 @@
+$ gcloud beta data-fusion instances list  (the only line that matters)
+
+Listed 0 items.

@@ -1,0 +1,3 @@
+$ python registers.py $TOPIC burst 200
+
+published 200 sales rung at 15:41:33Z

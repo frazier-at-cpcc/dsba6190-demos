@@ -1,0 +1,6 @@
+$ gcloud org-policies describe --effective
+
+name: projects/PROJECT_NUMBER/policies/storage.publicAccessPrevention
+spec:
+  rules:
+  - enforce: false

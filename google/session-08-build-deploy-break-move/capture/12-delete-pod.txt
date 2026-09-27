@@ -1,0 +1,3 @@
+$ kubectl delete pod fare-api-79d59fbdd9-9xqpv
+
+pod "fare-api-79d59fbdd9-9xqpv" deleted

@@ -1,0 +1,8 @@
+$ gcloud storage cat  (read, key disabled)
+
+ERROR: (gcloud.storage.cat) HTTPError 400: Cloud KMS key is disabled, destroyed, or scheduled to be destroyed.
+- '@type': type.googleapis.com/google.rpc.PreconditionFailure
+  violations:
+  - description: ''
+    subject: ''
+    type: KEY_DISABLED

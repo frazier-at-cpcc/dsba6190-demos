@@ -1,0 +1,5 @@
+$ kubectl exec deploy/fare-api -- python -c <one quote>   (CPU limit 1)
+
+154 ms
+150 ms
+152 ms

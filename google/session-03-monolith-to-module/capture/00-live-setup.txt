@@ -1,0 +1,30 @@
+
+  Staged for the live demo. Nothing exists in the project yet.
+
+  Working directory   ./session-03-monolith-to-module/.work
+  Project             YOUR_PROJECT_ID
+  Suffix              26095
+  Monolith bucket     dsba6190-raw-26095
+  Module buckets      dsba6190-{dev,test,prod}-raw-26095
+  VM                  dsba6190-trips-vm-26095
+
+  Staged edits:
+    main.tf.nearline        step 4, storage class changed
+    main.tf.renamed         step 5, bucket renamed
+    main.tf.module          step 7, root calling the module twice
+    stages/05-validate      step 8, validation and enforced labels
+    stages/06-protect       step 9, prevent_destroy and force_destroy
+    stages/07-foreach       step 10, environments from one map
+    stages/08-vm            step 11, the Lab 3 VM as a module
+    trips-2026-09-02.csv    step 9, the object that makes prod worth guarding
+
+  Verify now, while there is time to fix it:
+
+      cd ./session-03-monolith-to-module/.work && terraform plan
+
+  Expect: Plan: 1 to add, 0 to change, 0 to destroy.
+
+  Tear down after class (step 13 does this):
+
+      cd ./session-03-monolith-to-module/.work && gcloud storage rm "gs://dsba6190-prod-raw-26095/**"; terraform destroy -auto-approve
+

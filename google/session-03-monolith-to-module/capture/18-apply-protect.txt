@@ -1,0 +1,50 @@
+$ cp -R stages/06-protect/. . && terraform apply
+
+module.dev_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+module.prod_lake.google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.dev_lake.google_storage_bucket.raw will be updated in-place
+  ~ resource "google_storage_bucket" "raw" {
+      ~ force_destroy               = true -> false
+        id                          = "dsba6190-dev-raw-26095"
+        name                        = "dsba6190-dev-raw-26095"
+        # (14 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.prod_lake.google_storage_bucket.raw will be updated in-place
+  ~ resource "google_storage_bucket" "raw" {
+      ~ force_destroy               = true -> false
+        id                          = "dsba6190-prod-raw-26095"
+        name                        = "dsba6190-prod-raw-26095"
+        # (14 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+module.prod_lake.google_storage_bucket.raw: Modifying... [id=dsba6190-prod-raw-26095]
+module.dev_lake.google_storage_bucket.raw: Modifying... [id=dsba6190-dev-raw-26095]
+module.prod_lake.google_storage_bucket.raw: Modifications complete after 0s [id=dsba6190-prod-raw-26095]
+module.dev_lake.google_storage_bucket.raw: Modifications complete after 0s [id=dsba6190-dev-raw-26095]
+
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.
+
+Outputs:
+
+dev_bucket = "gs://dsba6190-dev-raw-26095"
+dev_labels = {
+  "cost-center" = "dsba6190"
+  "data-classification" = "internal"
+  "environment" = "dev"
+  "owner" = "data-platform"
+  "team" = "fleet-dashboards"
+}
+prod_bucket = "gs://dsba6190-prod-raw-26095"

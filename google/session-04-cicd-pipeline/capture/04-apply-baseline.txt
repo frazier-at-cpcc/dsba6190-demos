@@ -1,0 +1,27 @@
+$ gh run view 34538055036 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --log --job 103074225941
+
+terraform apply -no-color tfplan
+shell: /usr/bin/bash -e {0}
+env:
+  TF_IN_AUTOMATION: true
+  TF_INPUT: 0
+  CONFTEST_VERSION: 0.69.0
+  CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/dsba6190-infrastructure-pipeline/dsba6190-infrastructure-pipeline/gha-creds-e992d151c51509fb.json
+  GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/dsba6190-infrastructure-pipeline/dsba6190-infrastructure-pipeline/gha-creds-e992d151c51509fb.json
+  GOOGLE_GHA_CREDS_PATH: /home/runner/work/dsba6190-infrastructure-pipeline/dsba6190-infrastructure-pipeline/gha-creds-e992d151c51509fb.json
+  CLOUDSDK_CORE_PROJECT: YOUR_PROJECT_ID
+  CLOUDSDK_PROJECT: YOUR_PROJECT_ID
+  GCLOUD_PROJECT: YOUR_PROJECT_ID
+  GCP_PROJECT: YOUR_PROJECT_ID
+  GOOGLE_CLOUD_PROJECT: YOUR_PROJECT_ID
+google_storage_bucket.lake: Creating...
+google_storage_bucket.scratch: Creating...
+google_storage_bucket.lake: Creation complete after 1s [id=YOUR_PROJECT_ID-cicd-lake]
+google_storage_bucket.scratch: Creation complete after 2s [id=YOUR_PROJECT_ID-cicd-scratch]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lake_bucket = "YOUR_PROJECT_ID-cicd-lake"
+scratch_bucket = "YOUR_PROJECT_ID-cicd-scratch"

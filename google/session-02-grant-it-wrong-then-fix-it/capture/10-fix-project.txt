@@ -1,0 +1,6 @@
+$ remove Editor; grant jobUser on the project
+
+Updated IAM policy for project [YOUR_PROJECT_ID].
+removed roles/editor
+Updated IAM policy for project [YOUR_PROJECT_ID].
+granted roles/bigquery.jobUser on the project

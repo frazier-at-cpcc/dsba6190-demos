@@ -1,0 +1,8 @@
+$ q "SELECT COUNT(*) AS trips FROM `$TAXI`"
+
++----------+
+|  trips   |
++----------+
+| 36256539 |
++----------+
+processed 0.00 GB · billed 0.0 MB · slot time 1.1 s · cache false

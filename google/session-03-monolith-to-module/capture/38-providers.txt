@@ -1,0 +1,13 @@
+$ terraform providers
+
+
+Providers required by configuration:
+.
+├── provider[registry.terraform.io/hashicorp/google] ~> 5.0
+└── module.lake
+    └── provider[registry.terraform.io/hashicorp/google]
+
+Providers required by state:
+
+    provider[registry.terraform.io/hashicorp/google]
+

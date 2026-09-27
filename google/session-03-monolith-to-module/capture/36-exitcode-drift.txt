@@ -1,0 +1,7 @@
+$ terraform plan -detailed-exitcode; echo "exit code $?"
+
+          ~ "owner"               = "someone-at-2am" -> "data-platform"
+          ~ "owner"               = "someone-at-2am" -> "data-platform"
+          ~ "owner"               = "someone-at-2am" -> "data-platform"
+Plan: 0 to add, 1 to change, 0 to destroy.
+exit code 2

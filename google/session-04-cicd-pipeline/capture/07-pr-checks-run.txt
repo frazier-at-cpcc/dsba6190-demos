@@ -1,0 +1,9 @@
+
+✓ label-cost-center-1833 pull-request frazier-at-cpcc/dsba6190-infrastructure-pipeline#1 · 34538135454
+Triggered via pull_request less than a minute ago
+
+JOBS
+✓ stages 1 to 3 · validate, plan, policy in 12s (ID 103074395958)
+
+For more information about the job, try: gh run view --job=103074395958
+View this run on GitHub: https://github.com/frazier-at-cpcc/dsba6190-infrastructure-pipeline/actions/runs/34538135454

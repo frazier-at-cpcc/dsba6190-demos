@@ -1,0 +1,6 @@
+$ q "CREATE ROW ACCESS POLICY vendor_2 ON trips_ext ..."   (the plain external table)
+
+BigQuery error in query operation: Error processing job 'basic-
+carrier-262420:dsba6190_1790272739_7028': Row access policies are only supported
+on BigQuery tables, BigLake external tables, and BigQuery tables for Apache
+Iceberg

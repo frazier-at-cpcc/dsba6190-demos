@@ -1,0 +1,4 @@
+$ bq show   (both copies: rows, bytes, partitioning, clustering)
+
+{"table":"trips_2022","numRows":"36255983","numBytes":"3746596329","partitioning":null,"clustering":null}
+{"table":"trips_2022_part","numRows":"36255983","numBytes":"3746596329","partitioning":"DAY","clustering":["pickup_location_id"]}

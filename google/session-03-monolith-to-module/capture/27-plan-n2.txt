@@ -1,0 +1,19 @@
+$ cp -R stages/08-vm/. . && terraform init && terraform plan -var machine_type=n2-standard-32
+
+module.lake["test"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-test-raw-26095]
+module.lake["dev"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-dev-raw-26095]
+module.lake["prod"].google_storage_bucket.raw: Refreshing state... [id=dsba6190-prod-raw-26095]
+
+Planning failed. Terraform encountered an error while generating this plan.
+
+
+Error: Invalid value for variable
+
+  on main.tf line 78, in module "trips_vm":
+  78:   machine_type = var.machine_type
+    ├────────────────
+    │ var.machine_type is "n2-standard-32"
+
+machine_type must be e2-micro, e2-small, or e2-medium.
+
+This was checked by the validation rule at modules/vm/variables.tf:28,3-13.

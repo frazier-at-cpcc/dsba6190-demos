@@ -1,0 +1,5 @@
+$ gcloud beta data-fusion instances describe --format="value(state)"
+
+RUNNING
+
+Wall clock from create to RUNNING: 920 seconds (15 min 20 s)

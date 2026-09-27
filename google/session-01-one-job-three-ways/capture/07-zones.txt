@@ -1,0 +1,6 @@
+$ gcloud compute zones list --filter=region:us-east1
+
+NAME        STATUS
+us-east1-b  UP
+us-east1-c  UP
+us-east1-d  UP

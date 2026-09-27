@@ -1,0 +1,6 @@
+$ python3 cdap.py deploy  (01-baseline)
+
+Deployed  pos-01-baseline
+  artifact   cdap-data-pipeline 6.11.1
+  stages     3
+  edges      2

@@ -1,0 +1,8 @@
+$ bq show -j dsba6190-65111-csv
+
+Job YOUR_PROJECT_ID:dsba6190-65111-csv
+
+  Job Type    State      Start Time         Duration                 User Email               Bytes Processed   Bytes Billed   Billing Tier   Labels  
+ ---------- --------- ----------------- ---------------- ----------------------------------- ----------------- -------------- -------------- -------- 
+  query      SUCCESS   10 Sep 14:32:53   0:00:02.138000   instructor@example.edu   12348283          12582912       1                      
+

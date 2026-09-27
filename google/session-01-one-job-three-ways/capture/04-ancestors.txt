@@ -1,0 +1,4 @@
+$ gcloud projects get-ancestors $PROJECT
+
+ID                    TYPE
+YOUR_PROJECT_ID  project

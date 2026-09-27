@@ -1,0 +1,2 @@
+external IP after 42 s
+answering after a further 73 s

@@ -1,0 +1,17 @@
+$ cat backend.tf
+
+# Step 3. The backend block.
+#
+# A backend block cannot use variables, so this file is a template and
+# live-setup.sh substitutes dsba6190-tfstate-46421 before class. That constraint is
+# the lecture's watch-for, not an accident of this demo: the alternative in a
+# real repository is partial configuration plus `-backend-config`.
+#
+# The bucket must already exist when `terraform init` runs. Creating it is
+# step 2 for exactly that reason.
+terraform {
+  backend "gcs" {
+    bucket = "dsba6190-tfstate-46421"
+    prefix = "envs/dev"
+  }
+}

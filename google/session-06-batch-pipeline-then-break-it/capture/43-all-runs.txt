@@ -1,0 +1,13 @@
+$ every run this hour, in one list
+
+pos-01-baseline
+  488d0371-ad61-11f1-a057-9ebe96f6d8d9  COMPLETED   571s
+  3240f6e2-ad60-11f1-a362-922120e72055  COMPLETED   454s
+pos-02-quarantine
+  f8de45c2-ad63-11f1-99d6-9ebe96f6d8d9  FAILED      383s
+  b4965f74-ad62-11f1-926a-922120e72055  COMPLETED   533s
+pos-03-idempotent
+  46a84ba5-ad66-11f1-8a8a-922120e72055  FAILED      400s
+  f2402164-ad64-11f1-bcdf-9ebe96f6d8d9  FAILED      563s
+pos-04-drift
+  56338616-ad67-11f1-92c0-9ebe96f6d8d9  FAILED      361s

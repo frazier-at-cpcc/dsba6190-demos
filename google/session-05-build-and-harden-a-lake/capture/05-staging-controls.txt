@@ -1,0 +1,7 @@
+$ gcloud storage buckets describe  (the one nobody governed)
+
+default_storage_class: STANDARD
+location: US-EAST1
+name: dsba6190-staging-65111
+public_access_prevention: inherited
+uniform_bucket_level_access: false

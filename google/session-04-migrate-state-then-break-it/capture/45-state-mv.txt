@@ -1,0 +1,4 @@
+$ terraform state mv
+
+Move "google_storage_bucket.raw" to "google_storage_bucket.landing"
+Successfully moved 1 object(s).

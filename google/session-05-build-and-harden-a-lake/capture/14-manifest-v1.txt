@@ -1,0 +1,5 @@
+$ gcloud storage cp  (the manifest the nightly run wrote)
+
+Copying file://_manifest.json to gs://dsba6190-lake-65111/raw/readings/_manifest.json
+  
+....

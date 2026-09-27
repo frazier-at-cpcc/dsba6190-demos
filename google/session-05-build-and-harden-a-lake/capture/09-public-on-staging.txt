@@ -1,0 +1,17 @@
+$ gcloud storage buckets add-iam-policy-binding allUsers  (ungoverned)
+
+bindings:
+- members:
+  - projectEditor:YOUR_PROJECT_ID
+  - projectOwner:YOUR_PROJECT_ID
+  role: roles/storage.legacyBucketOwner
+- members:
+  - projectViewer:YOUR_PROJECT_ID
+  role: roles/storage.legacyBucketReader
+- members:
+  - allUsers
+  role: roles/storage.objectViewer
+etag: CAI=
+kind: storage#policy
+resourceId: projects/_/buckets/dsba6190-staging-65111
+version: 1

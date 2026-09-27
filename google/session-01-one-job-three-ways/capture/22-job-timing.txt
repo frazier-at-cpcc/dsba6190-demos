@@ -1,0 +1,3 @@
+$ gcloud storage cat gs://$BUCKET/out/cloud-run/timing.txt
+
+platform=cloud-run host=localhost cpus=6 seconds=3

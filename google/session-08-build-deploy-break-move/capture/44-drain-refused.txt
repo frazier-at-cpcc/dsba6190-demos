@@ -1,0 +1,8 @@
+$ kubectl drain gke-qc-fare-20854-default-pool-addfde80-lxh2 --pod-selector=app=fare-api --timeout=40s
+
+There are pending pods in node "gke-qc-fare-20854-default-pool-addfde80-lxh2" when an error occurred: error when evicting pods/"fare-api-6459bcf94b-7glc5" -n "default": global timeout reached: 40s
+pod/fare-api-6459bcf94b-7glc5
+error: unable to drain node "gke-qc-fare-20854-default-pool-addfde80-lxh2" due to error: error when evicting pods/"fare-api-6459bcf94b-7glc5" -n "default": global timeout reached: 40s, continuing command...
+There are pending nodes to be drained:
+ gke-qc-fare-20854-default-pool-addfde80-lxh2
+error when evicting pods/"fare-api-6459bcf94b-7glc5" -n "default": global timeout reached: 40s

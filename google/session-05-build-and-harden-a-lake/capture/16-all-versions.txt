@@ -1,0 +1,6 @@
+$ gcloud storage ls --all-versions --long
+
+        71  2026-09-10T18:32:35Z  gs://dsba6190-lake-65111/raw/readings/_manifest.json#1789065155335817  metageneration=1
+        77  2026-09-10T18:32:37Z  gs://dsba6190-lake-65111/raw/readings/_manifest.json#1789065157288197  metageneration=1
+  12348336  2026-09-10T18:32:27Z  gs://dsba6190-lake-65111/raw/readings/readings.csv#1789065147093001  metageneration=1
+TOTAL: 3 objects, 12348484 bytes (11.78MiB)

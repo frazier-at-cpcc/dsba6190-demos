@@ -1,0 +1,12 @@
+$ terraform import google_storage_bucket.legacy
+
+google_storage_bucket.legacy: Importing from ID "YOUR_PROJECT_ID/dsba6190-legacy-46421"...
+google_storage_bucket.legacy: Import prepared!
+  Prepared google_storage_bucket for import
+google_storage_bucket.legacy: Refreshing state... [id=YOUR_PROJECT_ID/dsba6190-legacy-46421]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+

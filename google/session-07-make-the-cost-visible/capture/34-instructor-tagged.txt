@@ -1,0 +1,10 @@
+$ q "SELECT pickup_location_id, COUNT(*) FROM trips_lake GROUP BY 1 LIMIT 3"   (instructor)
+
++--------------------+--------+
+| pickup_location_id | trips  |
++--------------------+--------+
+| 237                | 121628 |
+| 236                | 120812 |
+| 132                | 103485 |
++--------------------+--------+
+processed 0.01 GB · billed 12.0 MB · slot time 0.5 s · cache false

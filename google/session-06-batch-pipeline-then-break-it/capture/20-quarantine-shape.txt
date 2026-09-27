@@ -1,0 +1,11 @@
+$ the branch, as two extra stages and two extra edges
+
+added stages
+  QuarantineCollector    errortransform   ErrorCollector
+  QuarantineSink         batchsink        GCS
+
+added edges
+  Wrangler               -> QuarantineCollector
+  QuarantineCollector    -> QuarantineSink
+
+Wrangler on-error   skip-error  ->  send-to-error-port

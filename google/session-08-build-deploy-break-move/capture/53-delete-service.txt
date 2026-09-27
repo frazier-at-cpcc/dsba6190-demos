@@ -1,0 +1,3 @@
+$ kubectl delete service fare-api   (first, to release the load balancer)
+
+service "fare-api" deleted

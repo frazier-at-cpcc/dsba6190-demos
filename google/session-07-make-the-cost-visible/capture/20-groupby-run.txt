@@ -1,0 +1,12 @@
+$ q "SELECT pickup_location_id, COUNT(*) AS trips FROM trips_2022 GROUP BY 1 ORDER BY trips DESC LIMIT 5"
+
++--------------------+---------+
+| pickup_location_id |  trips  |
++--------------------+---------+
+| 132                | 1743202 |
+| 237                | 1696325 |
+| 236                | 1508793 |
+| 161                | 1449456 |
+| 186                | 1183748 |
++--------------------+---------+
+processed 0.16 GB · billed 167.0 MB · slot time 2.2 s · cache false

@@ -1,0 +1,22 @@
+$ terraform plan   (second terminal)
+
+
+Error: Error acquiring the state lock
+
+Error message: writing "gs://dsba6190-tfstate-46421/envs/dev/default.tflock"
+failed: googleapi: Error 412: At least one of the pre-conditions you
+specified did not hold., conditionNotMet
+Lock Info:
+  ID:        1789046532656217
+  Path:      gs://dsba6190-tfstate-46421/envs/dev/default.tflock
+  Operation: OperationTypeApply
+  Who:       instructor@laptop.local
+  Version:   1.5.7
+  Created:   2026-09-10 13:22:12.550084 +0000 UTC
+  Info:      
+
+
+Terraform acquires a state lock to protect the state from being written
+by multiple users at the same time. Please resolve the issue above and try
+again. For most commands, you can disable locking with the "-lock=false"
+flag, but this is not recommended.

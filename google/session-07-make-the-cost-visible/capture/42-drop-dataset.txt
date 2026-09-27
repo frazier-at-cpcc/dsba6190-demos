@@ -1,0 +1,2 @@
+$ bq rm -r -f -d $DATASET
+

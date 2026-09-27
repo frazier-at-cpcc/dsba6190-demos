@@ -1,0 +1,6 @@
+$ kubectl get pods -o wide   (the evicted pod rescheduled elsewhere)
+
+POD                         READY   NODE
+fare-api-6459bcf94b-5phbz   true    gke-qc-fare-20854-default-pool-addfde80-gkc9
+fare-api-6459bcf94b-bml4h   true    gke-qc-fare-20854-default-pool-addfde80-gkc9
+fare-api-6459bcf94b-hl2xk   true    gke-qc-fare-20854-default-pool-addfde80-gkc9

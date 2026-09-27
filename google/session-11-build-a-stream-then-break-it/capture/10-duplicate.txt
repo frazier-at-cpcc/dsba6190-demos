@@ -1,0 +1,3 @@
+$ python registers.py $TOPIC duplicate   (a register retry)
+
+published sale S-DUP-1790524027 twice: message ids 22066449219660541 and 22066374354237061

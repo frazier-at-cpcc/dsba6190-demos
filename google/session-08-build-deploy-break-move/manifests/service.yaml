@@ -1,0 +1,10 @@
+# Step 3. One stable address in front of a changing set of pods.
+apiVersion: v1
+kind: Service
+metadata:
+  name: fare-api
+  labels: {app: fare-api, company: queen-city-trip-analytics}
+spec:
+  type: LoadBalancer
+  selector: {app: fare-api}
+  ports: [{port: 80, targetPort: 8080}]

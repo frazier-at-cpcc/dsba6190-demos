@@ -1,0 +1,5 @@
+$ gcloud storage cp  (restore it again)
+
+Copying gs://dsba6190-lake-65111/raw/readings/_manifest.json#1789065155335817 to gs://dsba6190-lake-65111/raw/readings/_manifest.json
+  
+....

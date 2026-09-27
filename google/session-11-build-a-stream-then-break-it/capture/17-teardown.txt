@@ -1,0 +1,12 @@
+$ cancel the last job; delete subscriptions, topics, dataset, bucket
+
+Cancelled job [2026-09-27_08_36_21-17257879442485026917]
+Deleted subscription [projects/YOUR_PROJECT_ID/subscriptions/baseline-23287].
+Deleted subscription [projects/YOUR_PROJECT_ID/subscriptions/lateness-23287].
+Deleted subscription [projects/YOUR_PROJECT_ID/subscriptions/dedup-23287].
+Deleted subscription [projects/YOUR_PROJECT_ID/subscriptions/dlq-23287].
+Deleted subscription [projects/YOUR_PROJECT_ID/subscriptions/hello-23287].
+Deleted topic [projects/YOUR_PROJECT_ID/topics/register-events-23287].
+Deleted topic [projects/YOUR_PROJECT_ID/topics/register-dlq-23287].
+Deleted topic [projects/YOUR_PROJECT_ID/topics/hello-23287].
+.......

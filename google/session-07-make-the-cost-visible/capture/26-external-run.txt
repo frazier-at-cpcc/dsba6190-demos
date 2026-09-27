@@ -1,0 +1,13 @@
+$ q "SELECT payment_type, COUNT(*) AS trips, ROUND(AVG(tip_amount), 2) AS avg_tip FROM trips_ext GROUP BY 1"
+
++--------------+---------+---------+
+| payment_type |  trips  | avg_tip |
++--------------+---------+---------+
+| 1            | 1874860 |    3.02 |
+| 2            |  495154 |       0 |
+| 0            |   71503 |    2.95 |
+| 3            |   11709 |   -0.01 |
+| 4            |   10673 |    0.06 |
+| 5            |       1 |       0 |
++--------------+---------+---------+
+processed 0.04 GB · billed 45.0 MB · slot time 1.6 s · cache false

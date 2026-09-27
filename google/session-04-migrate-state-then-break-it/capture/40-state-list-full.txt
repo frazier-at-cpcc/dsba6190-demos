@@ -1,0 +1,8 @@
+$ terraform state list
+
+google_pubsub_topic.events
+google_storage_bucket.annex
+google_storage_bucket.legacy
+google_storage_bucket.raw
+random_password.db_admin
+time_sleep.slow_apply

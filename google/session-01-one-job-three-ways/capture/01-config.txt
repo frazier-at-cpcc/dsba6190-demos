@@ -1,0 +1,8 @@
+$ gcloud config list
+
+[core]
+account = instructor@example.edu
+disable_usage_reporting = False
+project = YOUR_PROJECT_ID
+
+Your active configuration is: [default]

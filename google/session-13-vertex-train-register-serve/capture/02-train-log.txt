@@ -1,0 +1,4 @@
+$ gcloud logging read <the training log line with the test error>
+
+	model=ridge rows=392 test_mae_mpg=2.52
+	model=boosted rows=392 test_mae_mpg=2.08

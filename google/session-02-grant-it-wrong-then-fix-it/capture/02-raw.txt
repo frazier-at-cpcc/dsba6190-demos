@@ -1,0 +1,10 @@
+$ q "SELECT * FROM crown_raw.loyalty_members LIMIT 3"   (what an analyst never needs)
+
++-----------+-----------------+---------------------------------+------------------+------------+
+| member_id |    full_name    |              email              |   card_number    | home_store |
++-----------+-----------------+---------------------------------+------------------+------------+
+| M-004147  | Aaliyah Chen    | aaliyah.chen4147@example.com    | 6011324513228699 | CLT-001    |
+| M-000681  | Aaliyah Johnson | aaliyah.johnson681@example.com  | 6011200877688670 | CLT-001    |
+| M-001575  | Aaliyah Johnson | aaliyah.johnson1575@example.com | 6011793767851939 | CLT-001    |
++-----------+-----------------+---------------------------------+------------------+------------+
+processed 0.00 GB · billed 10.0 MB · slot time 0.0 s · cache false

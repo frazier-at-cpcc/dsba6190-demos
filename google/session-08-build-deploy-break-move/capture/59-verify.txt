@@ -1,0 +1,7 @@
+$ verify: clusters, Cloud Run services, forwarding rules, repositories
+
+Listed 0 items.
+Listed 0 items.
+Listing items under project YOUR_PROJECT_ID, location us-central1.
+
+Listed 0 items.

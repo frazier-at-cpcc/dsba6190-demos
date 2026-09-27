@@ -1,0 +1,16 @@
+$ gcloud storage cp -r sample/events gs://dsba6190-lake-65111/curated/
+
+Copying file://sample/events/dt=2026-09-15/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-15/part-000.parquet
+Copying file://sample/events/dt=2026-09-12/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-12/part-000.parquet
+  
+Copying file://sample/events/dt=2026-09-13/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-13/part-000.parquet
+Copying file://sample/events/dt=2026-09-14/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-14/part-000.parquet
+Copying file://sample/events/dt=2026-09-09/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-09/part-000.parquet
+Copying file://sample/events/dt=2026-09-08/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-08/part-000.parquet
+Copying file://sample/events/dt=2026-09-11/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-11/part-000.parquet
+Copying file://sample/events/dt=2026-09-16/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-16/part-000.parquet
+Copying file://sample/events/dt=2026-09-17/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-17/part-000.parquet
+Copying file://sample/events/dt=2026-09-10/part-000.parquet to gs://dsba6190-lake-65111/curated/events/dt=2026-09-10/part-000.parquet
+.......
+
+Average throughput: 21.4MiB/s

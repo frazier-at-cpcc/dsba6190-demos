@@ -1,0 +1,4 @@
+$ gcloud run jobs executions list --job $JOB
+
+EXECUTION               SUCCEEDED_COUNT  START_TIME  COMPLETION_TIME
+qc-nightly-24113-m2r52  1                15:52:04    15:52:32

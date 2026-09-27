@@ -1,0 +1,3 @@
+$ git log --oneline -1
+
+7c39ab2 The pipeline, stages 1 to 6

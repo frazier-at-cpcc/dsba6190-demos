@@ -1,0 +1,4 @@
+$ curl https://storage.googleapis.com/dsba6190-staging-65111/qc.csv
+
+plant,serial,defect
+charlotte,SN-88213,hairline crack

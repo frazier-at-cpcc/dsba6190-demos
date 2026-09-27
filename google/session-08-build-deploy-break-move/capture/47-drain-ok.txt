@@ -1,0 +1,6 @@
+$ kubectl drain gke-qc-fare-20854-default-pool-addfde80-lxh2 --pod-selector=app=fare-api --timeout=120s
+
+node/gke-qc-fare-20854-default-pool-addfde80-lxh2 already cordoned
+evicting pod default/fare-api-6459bcf94b-7glc5
+pod/fare-api-6459bcf94b-7glc5 evicted
+node/gke-qc-fare-20854-default-pool-addfde80-lxh2 drained

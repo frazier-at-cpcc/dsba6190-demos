@@ -1,0 +1,7 @@
+$ gcloud storage buckets describe gs://YOUR_PROJECT_ID-cicd-scratch --format=yaml(labels)
+
+labels:
+  cost-center: dsba6190
+  env: dev
+  managed-by: terraform
+  owner: dsba6190

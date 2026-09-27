@@ -1,0 +1,5 @@
+$ gcloud compute instances delete $VM --zone $ZONE
+
+ERROR: (gcloud.compute.instances.delete) Could not fetch resource:
+ - Invalid resource usage: 'Resource cannot be deleted if it's protected against deletion.'.
+

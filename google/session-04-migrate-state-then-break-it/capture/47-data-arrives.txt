@@ -1,0 +1,5 @@
+$ gcloud storage cp  (data arrives out of band)
+
+Copying file://./session-04-migrate-state-then-break-it/.work/report.csv to gs://dsba6190-raw-46421/report.csv
+  
+......

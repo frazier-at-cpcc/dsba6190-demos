@@ -1,0 +1,7 @@
+$ gcloud storage buckets update gs://$SCRATCH --location us   (location is fixed)
+
+ERROR: (gcloud.storage.buckets.update) unrecognized arguments:
+  --location (did you mean '--project'?)
+  us
+  To search the help text of gcloud commands, run:
+  gcloud help -- SEARCH_TERMS

@@ -1,0 +1,5 @@
+$ bq ls $RAW   (the backup is gone)
+
+      tableId       Type    Labels   Time Partitioning   Clustered Fields  
+ ----------------- ------- -------- ------------------- ------------------ 
+  loyalty_members   TABLE                                                  

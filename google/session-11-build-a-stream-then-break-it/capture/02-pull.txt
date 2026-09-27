@@ -1,0 +1,6 @@
+$ gcloud pubsub subscriptions pull hello --auto-ack --limit 3
+
+DATA                STORE_ID  MESSAGE_ID
+b'register test 3'  CLT-003   21275702398950733
+b'register test 1'  CLT-001   21274643676181478
+b'register test 2'  CLT-002   21275728857067390

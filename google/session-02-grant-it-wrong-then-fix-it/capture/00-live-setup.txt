@@ -1,0 +1,11 @@
+
+[1;32m>>> APIs[0m
+wrote 1120 store-days and 5,000 members to ./session-02-grant-it-wrong-then-fix-it/.work/sample
+
+[1;32m>>> Two datasets: curated and raw[0m
+
+[1;32m>>> The analyst, as a service account, and permission to act as it[0m
+  impersonation ready
+
+[1;32m>>> Staged in 126 s[0m
+  source ./session-02-grant-it-wrong-then-fix-it/.work/env.sh

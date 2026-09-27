@@ -1,0 +1,3 @@
+$ kubectl scale deployment fare-api --replicas=6
+
+deployment.apps/fare-api scaled

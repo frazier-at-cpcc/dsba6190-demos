@@ -1,0 +1,3 @@
+$ time gcloud ai endpoints predict $ENDPOINT_ID --json-request request.json
+
+[13.70540020767342, 25.72558817634198, 27.89073869807162]

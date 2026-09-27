@@ -1,0 +1,7 @@
+$ bq show $CURATED   (the dataset's own access list)
+
+{"role":"WRITER","specialGroup":"projectWriters"}
+{"role":"OWNER","specialGroup":"projectOwners"}
+{"role":"OWNER","userByEmail":"instructor@example.edu"}
+{"role":"READER","specialGroup":"projectReaders"}
+{"role":"READER","userByEmail":"cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com"}

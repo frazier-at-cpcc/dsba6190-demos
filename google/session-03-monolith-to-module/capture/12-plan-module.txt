@@ -1,0 +1,82 @@
+$ terraform plan
+
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.dev_lake.google_storage_bucket.raw will be created
+  + resource "google_storage_bucket" "raw" {
+      + effective_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "dev"
+          + "owner"               = "data-platform"
+        }
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + labels                      = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "dev"
+          + "owner"               = "data-platform"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-dev-raw-26095"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "dev"
+          + "owner"               = "data-platform"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+    }
+
+  # module.prod_lake.google_storage_bucket.raw will be created
+  + resource "google_storage_bucket" "raw" {
+      + effective_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "prod"
+          + "owner"               = "data-platform"
+        }
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + labels                      = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "prod"
+          + "owner"               = "data-platform"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-prod-raw-26095"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "NEARLINE"
+      + terraform_labels            = {
+          + "cost-center"         = "dsba6190"
+          + "data-classification" = "internal"
+          + "environment"         = "prod"
+          + "owner"               = "data-platform"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + dev_bucket  = (known after apply)
+  + prod_bucket = (known after apply)

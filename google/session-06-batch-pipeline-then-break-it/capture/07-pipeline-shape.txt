@@ -1,0 +1,13 @@
+$ the pipeline as the Studio stores it
+
+pipeline  pos-01-baseline
+artifact  cdap-data-pipeline 6.11.1
+
+stages
+  PointOfSaleRaw         batchsource      GCSFile
+  Wrangler               transform        Wrangler
+  SalesValidated         batchsink        BigQueryTable
+
+connections
+  PointOfSaleRaw         -> Wrangler
+  Wrangler               -> SalesValidated

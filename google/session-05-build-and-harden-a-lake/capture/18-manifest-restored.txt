@@ -1,0 +1,3 @@
+$ gcloud storage cat
+
+{"rows": 200000, "written_by": "nightly-ingest", "status": "complete"}

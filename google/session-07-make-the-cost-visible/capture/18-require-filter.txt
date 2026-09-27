@@ -1,0 +1,5 @@
+$ q "ALTER TABLE trips_2022_part SET OPTIONS (require_partition_filter = TRUE)"
+
+Altered YOUR_PROJECT_ID.dsba6190_wh_72583.trips_2022_part
+
+processed 0.00 GB · billed 0.0 MB · slot time 0.0 s · cache false

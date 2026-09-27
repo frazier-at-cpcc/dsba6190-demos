@@ -1,0 +1,4 @@
+$ gh run view 34538170674 --repo frazier-at-cpcc/dsba6190-infrastructure-pipeline --json jobs --jq .jobs[] | "\(.name): \(.status) \(.conclusion // "pending")"
+
+plan the merged commit: completed success
+stage 4 gate, then stage 5 apply: waiting 

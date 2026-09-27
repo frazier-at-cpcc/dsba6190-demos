@@ -1,0 +1,8 @@
+$ gcloud storage ls  (the quarantine prefix, which did not exist an hour ago)
+
+gs://dsba6190-pos-75439/quarantine/:
+
+gs://dsba6190-pos-75439/quarantine/pos/:
+gs://dsba6190-pos-75439/quarantine/pos/
+gs://dsba6190-pos-75439/quarantine/pos/_SUCCESS
+gs://dsba6190-pos-75439/quarantine/pos/part-r-00000

@@ -1,0 +1,8 @@
+$ bq show --format=prettyjson $TAXI   (numRows, numBytes)
+
+{
+  "numRows": "36256539",
+  "numBytes": "7487651196",
+  "numLongTermBytes": "7487651196",
+  "location": "US"
+}

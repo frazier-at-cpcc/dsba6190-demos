@@ -1,0 +1,52 @@
+$ terraform plan
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.lake will be created
+  + resource "google_storage_bucket" "lake" {
+      + effective_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "lake"
+        }
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + labels                      = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "lake"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-lake-65111"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "lake"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + versioning {
+          + enabled = true
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lake_bucket    = (known after apply)

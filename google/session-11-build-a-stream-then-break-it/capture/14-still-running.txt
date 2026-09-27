@@ -1,0 +1,6 @@
+$ gcloud dataflow jobs list   (all three still running)
+
+NAME                  STATE
+crown-dedup-23287     Running
+crown-lateness-23287  Running
+crown-baseline-23287  Running

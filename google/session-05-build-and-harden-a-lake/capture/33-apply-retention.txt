@@ -1,0 +1,67 @@
+$ terraform apply  (the bucket with a retention policy)
+
+google_storage_bucket.staging: Refreshing state... [id=dsba6190-staging-65111]
+google_bigquery_dataset.lake: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111]
+google_storage_bucket.lake: Refreshing state... [id=dsba6190-lake-65111]
+google_bigquery_table.readings_parquet: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_parquet]
+google_bigquery_table.readings_csv: Refreshing state... [id=projects/YOUR_PROJECT_ID/datasets/dsba6190_lake_65111/tables/readings_csv]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.vault will be created
+  + resource "google_storage_bucket" "vault" {
+      + effective_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "raw"
+        }
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + labels                      = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "raw"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-vault-65111"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = "enforced"
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "course"      = "dsba6190"
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+          + "zone"        = "raw"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + retention_policy {
+          + is_locked        = false
+          + retention_period = 3600
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + vault_bucket   = (known after apply)
+google_storage_bucket.vault: Creating...
+google_storage_bucket.vault: Creation complete after 1s [id=dsba6190-vault-65111]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lake_bucket = "gs://dsba6190-lake-65111"
+staging_bucket = "gs://dsba6190-staging-65111"
+vault_bucket = "gs://dsba6190-vault-65111"

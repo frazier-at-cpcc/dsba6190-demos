@@ -1,0 +1,4 @@
+$ gcloud dataproc batches submit pyspark billing.py -- generate $BASE 30000000
+
+generated 30,000,000 trips and 5,001 accounts under gs://qc-billing/data
+wall clock 152 s

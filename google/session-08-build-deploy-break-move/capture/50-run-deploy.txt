@@ -1,0 +1,10 @@
+$ time gcloud run deploy qc-fare-api --image $IMAGE_BASE:v2 --allow-unauthenticated
+
+Deploying container to Cloud Run service [[1mqc-fare-api[m] in project [[1mYOUR_PROJECT_ID[m] region [[1mus-central1[m]
+Deploying new service...
+Routing traffic.....done
+Done.
+Service [[1mqc-fare-api[m] revision [[1mqc-fare-api-00001-h42[m] has been deployed and is serving [1m100[m percent of traffic.
+Service URL: [1mhttps://qc-fare-api-PROJECT_NUMBER.us-central1.run.app[m
+
+wall clock 9 s

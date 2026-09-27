@@ -1,0 +1,10 @@
+$ python3 cdap.py wait  (run 1, the clean day)
+
+      0s  PENDING
+    189s  STARTING
+    299s  RUNNING
+    455s  COMPLETED
+
+run      3240f6e2-ad60-11f1-a362-922120e72055
+status   COMPLETED
+duration 454s

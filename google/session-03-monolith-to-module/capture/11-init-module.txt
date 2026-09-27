@@ -1,0 +1,10 @@
+$ cp main.tf.module main.tf && terraform init
+
+Initializing the backend...
+Initializing modules...
+- dev_lake in modules/data-lake
+- prod_lake in modules/data-lake
+Initializing provider plugins...
+- Reusing previous version of hashicorp/google from the dependency lock file
+- Using previously-installed hashicorp/google v5.45.2
+Terraform has been successfully initialized!

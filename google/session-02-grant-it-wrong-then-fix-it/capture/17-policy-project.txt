@@ -1,0 +1,4 @@
+$ gcloud projects get-iam-policy --filter=$ANALYST
+
+ROLE                    MEMBERS
+roles/bigquery.jobUser  serviceAccount:cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com

@@ -1,0 +1,14 @@
+$ cp main.tf.typo main.tf && terraform plan
+
+
+Error: Invalid value for variable
+
+  on main.tf line 42, in module "prod_lake":
+  42:   environment   = "production"   # the typo someone makes at 5 p.m.
+    ├────────────────
+    │ var.environment is "production"
+
+environment must be one of: dev, test, prod.
+
+This was checked by the validation rule at
+modules/data-lake/variables.tf:6,3-13.

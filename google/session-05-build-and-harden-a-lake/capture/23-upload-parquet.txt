@@ -1,0 +1,5 @@
+$ gcloud storage cp sample/readings.parquet gs://dsba6190-lake-65111/curated/readings/
+
+Copying file://sample/readings.parquet to gs://dsba6190-lake-65111/curated/readings/readings.parquet
+  
+.....

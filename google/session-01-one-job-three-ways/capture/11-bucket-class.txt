@@ -1,0 +1,6 @@
+$ gcloud storage buckets update gs://$SCRATCH --default-storage-class NEARLINE   (class is not)
+
+  
+Updating gs://qc-scratch-24113/...
+......
+NEARLINE

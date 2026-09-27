@@ -1,0 +1,3 @@
+$ wait until the grant takes effect
+
+took effect after 3 s

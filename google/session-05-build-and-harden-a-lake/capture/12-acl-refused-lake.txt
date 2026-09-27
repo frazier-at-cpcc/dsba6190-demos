@@ -1,0 +1,6 @@
+$ gcloud storage objects update --add-acl-grant  (governed)
+
+  
+Patching gs://dsba6190-lake-65111/raw/readings/readings.csv...
+ERROR: HTTPError 400: Cannot update access control for an object when uniform bucket-level access is enabled. Read more at https://cloud.google.com/storage/docs/uniform-bucket-level-access
+....

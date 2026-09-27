@@ -1,0 +1,27 @@
+$ python3 stages.py --final-plan <aqe event log>
+
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   Execute InsertIntoHadoopFsRelationCommand gs://qc-billing/out/aqe, false, Parquet, [path=gs://qc-bill
+   +- WriteFiles
+      +- *(6) HashAggregate(keys=[tier#9, _groupingexpression#47], functions=[count(1), sum(fare#3)], output=[
+         +- AQEShuffleRead coalesced
+            +- ShuffleQueryStage 2
+               +- Exchange hashpartitioning(tier#9, _groupingexpression#47, 200), ENSURE_REQUIREMENTS
+                  +- *(5) HashAggregate(keys=[tier#9, _groupingexpression#47], functions=[partial_count(1), pa
+                     +- *(5) Project [fare#3, tier#9, date_trunc(month, cast(pickup_date#2 as timestamp), Some
+                        +- *(5) SortMergeJoin [account_id#1], [account_id#8], Inner
+                           :- *(3) Sort [account_id#1 ASC NULLS FIRST], false, 0
+                           :  +- AQEShuffleRead coalesced
+                           :     +- ShuffleQueryStage 0
+                           :        +- Exchange hashpartitioning(account_id#1, 200), ENSURE_REQUIREMENTS
+                           :           +- *(1) Filter isnotnull(account_id#1)
+                           :              +- *(1) ColumnarToRow
+                           :                 +- FileScan parquet [account_id#1,pickup_date#2,fare#3]
+                           +- *(4) Sort [account_id#8 ASC NULLS FIRST], false, 0
+                              +- AQEShuffleRead coalesced
+                                 +- ShuffleQueryStage 1
+                                    +- Exchange hashpartitioning(account_id#8, 200), ENSURE_REQUIREMENTS
+                                       +- *(2) Filter isnotnull(account_id#8)
+                                          +- *(2) ColumnarToRow
+                                             +- FileScan parquet [account_id#8,tier#9]

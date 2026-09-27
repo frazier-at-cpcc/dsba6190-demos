@@ -1,0 +1,6 @@
+$ delete the VM, the job, the dataset and both buckets
+
+Deleted [https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/zones/us-east1-b/instances/qc-nightly-vm-24113].
+Deleted job [qc-nightly-24113].
+dataset removed
+.....................

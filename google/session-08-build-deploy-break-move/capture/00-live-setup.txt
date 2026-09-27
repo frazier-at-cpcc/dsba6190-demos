@@ -1,0 +1,36 @@
+
+[1;32m>>> APIs[0m
+
+[1;32m>>> The cluster, started now because it is the slow part[0m
+
+[1;32m>>> The repository and both images[0m
+
+[1;32m>>> Wait for the cluster[0m
+
+[1;32m>>> Pull both images onto every node, then remove the puller[0m
+
+[1;32m>>> The working directory[0m
+
+  Staged for the live demo in 7 min 12 s. Nothing is deployed.
+
+  Working directory   ./session-08-build-deploy-break-move/.work
+  Name suffix         20854
+  Cluster             qc-fare-20854   (us-central1-b, three e2-medium nodes, both images pulled)
+  Images              us-central1-docker.pkg.dev/YOUR_PROJECT_ID/qc-fare-20854/fare-api:v1
+                      us-central1-docker.pkg.dev/YOUR_PROJECT_ID/qc-fare-20854/fare-api:v2
+
+  Load the names into the shell you will teach from:
+
+      source ./session-08-build-deploy-break-move/.work/env.sh
+
+  NOT created. The hour creates each of these at its own step:
+    Deployment fare-api and Service fare-api   step 3
+    fare-api-oom, fare-api-throttled           step 8
+    PodDisruptionBudget fare-api               step 9
+    Cloud Run service qc-fare-api              step 10
+
+  Teardown is step 11, and it is also, in this order:
+    kubectl delete service fare-api
+    gcloud container clusters delete qc-fare-20854 --zone us-central1-b --project YOUR_PROJECT_ID --quiet
+    gcloud run services delete qc-fare-api --region us-central1 --project YOUR_PROJECT_ID --quiet
+    gcloud artifacts repositories delete qc-fare-20854 --location us-central1 --project YOUR_PROJECT_ID --quiet

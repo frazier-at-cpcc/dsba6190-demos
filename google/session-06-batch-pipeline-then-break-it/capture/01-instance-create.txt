@@ -1,0 +1,12 @@
+$ gcloud beta data-fusion instances create --edition=basic
+
+Create in progress for instance [projects/YOUR_PROJECT_ID/locations/us-central1/instances/dsba6190-demo-75439].
+done: false
+metadata:
+  '@type': type.googleapis.com/google.cloud.datafusion.v1beta1.OperationMetadata
+  apiVersion: v1beta1
+  createTime: '2026-09-10T21:24:17.239755860Z'
+  requestedCancellation: false
+  target: projects/YOUR_PROJECT_ID/locations/us-central1/instances/dsba6190-demo-75439
+  verb: create
+name: projects/YOUR_PROJECT_ID/locations/us-central1/operations/operation-1789075457162-65b279719bc14-fe62678f-45413ae5

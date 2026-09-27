@@ -1,0 +1,3 @@
+$ dry "SELECT pickup_location_id, COUNT(*) AS trips, ROUND(SUM(total_amount), 2) AS revenue FROM trips_2022_part <one week, JFK>"
+
+This query will process 0.02 GB when run.   (18983319 bytes)

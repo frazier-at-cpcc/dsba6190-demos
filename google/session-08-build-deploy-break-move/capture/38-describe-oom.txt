@@ -1,0 +1,9 @@
+$ kubectl describe pod -l app=fare-api-oom | grep -A6 'Last State'
+
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Sun, 27 Sep 2026 11:12:07 -0400
+      Finished:     Sun, 27 Sep 2026 11:12:08 -0400
+    Ready:          False
+    Restart Count:  3

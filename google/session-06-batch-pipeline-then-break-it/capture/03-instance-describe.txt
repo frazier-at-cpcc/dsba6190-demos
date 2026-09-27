@@ -1,0 +1,7 @@
+$ gcloud beta data-fusion instances describe
+
+apiEndpoint: https://INSTANCE.datafusion.googleusercontent.com/api
+name: projects/YOUR_PROJECT_ID/locations/us-central1/instances/dsba6190-demo-75439
+state: RUNNING
+type: BASIC
+version: 6.11.1

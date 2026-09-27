@@ -1,0 +1,5 @@
+$ gcloud storage cp sample/readings.csv gs://dsba6190-lake-65111/raw/readings/
+
+Copying file://sample/readings.csv to gs://dsba6190-lake-65111/raw/readings/readings.csv
+  
+.........

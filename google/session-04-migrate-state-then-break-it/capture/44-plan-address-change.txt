@@ -1,0 +1,84 @@
+$ terraform plan
+
+random_password.db_admin: Refreshing state... [id=none]
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+google_storage_bucket.annex: Refreshing state... [id=dsba6190-annex-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  - destroy
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.landing will be created
+  + resource "google_storage_bucket" "landing" {
+      + effective_labels            = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + force_destroy               = false
+      + id                          = (known after apply)
+      + labels                      = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-raw-46421"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+    }
+
+  # google_storage_bucket.raw will be destroyed
+  # (because google_storage_bucket.raw is not in configuration)
+  - resource "google_storage_bucket" "raw" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-raw-46421" -> null
+      - labels                      = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-raw-46421" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-raw-46421" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-raw-46421" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T13:21:26.924Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  + landing_bucket    = (known after apply)
+  - raw_bucket        = "gs://dsba6190-raw-46421" -> null

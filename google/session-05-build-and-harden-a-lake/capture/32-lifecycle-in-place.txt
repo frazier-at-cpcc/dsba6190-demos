@@ -1,0 +1,15 @@
+$ gcloud storage buckets describe --format='yaml(lifecycle)'
+
+lifecycle_config:
+  rule:
+  - action:
+      storageClass: NEARLINE
+      type: SetStorageClass
+    condition:
+      age: 30
+  - action:
+      storageClass: ARCHIVE
+      type: SetStorageClass
+    condition:
+      age: 365
+name: dsba6190-lake-65111

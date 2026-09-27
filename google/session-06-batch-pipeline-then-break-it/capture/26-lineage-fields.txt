@@ -1,0 +1,10 @@
+$ python3 cdap.py lineage  (fields the platform recorded for the sink)
+
+dataset  bq_sales_validated
+fields   6
+  {'name': 'txn_id', 'lineage': True}
+  {'name': 'sku', 'lineage': True}
+  {'name': 'amount', 'lineage': True}
+  {'name': 'store_id', 'lineage': True}
+  {'name': 'txn_ts', 'lineage': True}
+  {'name': 'qty', 'lineage': True}

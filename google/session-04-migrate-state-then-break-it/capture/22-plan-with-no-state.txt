@@ -1,0 +1,87 @@
+$ terraform plan
+
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_pubsub_topic.events will be created
+  + resource "google_pubsub_topic" "events" {
+      + effective_labels = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + id               = (known after apply)
+      + labels           = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + name             = "dsba6190-events-46421"
+      + project          = "YOUR_PROJECT_ID"
+      + terraform_labels = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+    }
+
+  # google_storage_bucket.raw will be created
+  + resource "google_storage_bucket" "raw" {
+      + effective_labels            = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + force_destroy               = false
+      + id                          = (known after apply)
+      + labels                      = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + location                    = "US-EAST1"
+      + name                        = "dsba6190-raw-46421"
+      + project                     = (known after apply)
+      + project_number              = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + rpo                         = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + terraform_labels            = {
+          + "environment" = "demo"
+          + "owner"       = "data-platform"
+        }
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+    }
+
+  # random_password.db_admin will be created
+  + resource "random_password" "db_admin" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 24
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = true
+      + upper       = true
+    }
+
+  # time_sleep.slow_apply will be created
+  + resource "time_sleep" "slow_apply" {
+      + create_duration = "90s"
+      + id              = (known after apply)
+      + triggers        = {
+          + "suffix" = "46421"
+        }
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + db_admin_password = (sensitive value)
+  + raw_bucket        = (known after apply)

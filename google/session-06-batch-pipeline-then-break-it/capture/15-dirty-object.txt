@@ -1,0 +1,4 @@
+$ gcloud storage ls  (the same object key, 158 bytes larger)
+
+   1131286  2026-09-10T21:47:53Z  gs://dsba6190-pos-75439/raw/pos/pos-2026-09-24.csv
+TOTAL: 1 objects, 1131286 bytes (1.08MiB)

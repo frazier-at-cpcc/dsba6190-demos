@@ -1,0 +1,3 @@
+$ kubectl apply -f manifests/deployment-oom.yaml   (holds 256 MiB, limit 64 MiB)
+
+deployment.apps/fare-api-oom created

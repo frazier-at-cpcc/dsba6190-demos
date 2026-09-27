@@ -1,0 +1,32 @@
+$ terraform plan
+
+random_password.db_admin: Refreshing state... [id=none]
+time_sleep.slow_apply: Refreshing state... [id=2026-09-10T13:23:44Z]
+google_pubsub_topic.events: Refreshing state... [id=projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421]
+google_storage_bucket.legacy: Refreshing state... [id=dsba6190-legacy-46421]
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.legacy will be updated in-place
+  ~ resource "google_storage_bucket" "legacy" {
+        id                          = "dsba6190-legacy-46421"
+      ~ labels                      = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        name                        = "dsba6190-legacy-46421"
+      ~ terraform_labels            = {
+          + "environment" = "prod"
+          + "owner"       = "unknown"
+        }
+        # (13 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

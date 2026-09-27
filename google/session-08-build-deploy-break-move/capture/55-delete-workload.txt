@@ -1,0 +1,4 @@
+$ kubectl delete deployment fare-api; kubectl delete pdb fare-api
+
+deployment.apps "fare-api" deleted
+poddisruptionbudget.policy "fare-api" deleted

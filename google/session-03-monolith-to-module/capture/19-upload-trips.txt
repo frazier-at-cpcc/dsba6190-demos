@@ -1,0 +1,5 @@
+$ gcloud storage cp trips-2026-09-02.csv gs://$PROD_BUCKET/raw/
+
+Copying file://trips-2026-09-02.csv to gs://dsba6190-prod-raw-26095/raw/trips-2026-09-02.csv
+  
+......

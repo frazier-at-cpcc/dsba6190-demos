@@ -1,0 +1,4 @@
+$ gcloud storage ls  (and the bucket)
+
+gs://YOUR_PROJECT_ID-tfstate-cicd/
+gs://bq-sink-bucket-8f15c397-d95c-4470-8192-8e8c69a2b6f7/

@@ -1,0 +1,6 @@
+.work/
+.work-b/
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate*
+.runbook.html

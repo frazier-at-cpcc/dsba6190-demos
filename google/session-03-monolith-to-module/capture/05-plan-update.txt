@@ -1,0 +1,21 @@
+$ cp main.tf.nearline main.tf && terraform plan
+
+google_storage_bucket.raw: Refreshing state... [id=dsba6190-raw-26095]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.raw will be updated in-place
+  ~ resource "google_storage_bucket" "raw" {
+        id                          = "dsba6190-raw-26095"
+        name                        = "dsba6190-raw-26095"
+      ~ storage_class               = "STANDARD" -> "NEARLINE"
+        # (14 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

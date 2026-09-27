@@ -1,0 +1,18 @@
+$ docker build app   (after a one-line change to main.py)
+
+#2 DONE 0.0s
+#3 DONE 0.0s
+#4 [1/6] FROM docker.io/library/python:3.12-slim
+#4 DONE 0.0s
+#5 DONE 0.0s
+#6 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#6 CACHED
+#7 [2/6] WORKDIR /app
+#7 CACHED
+#8 [3/6] COPY requirements.txt .
+#8 CACHED
+#9 [5/6] COPY main.py VERSION ./
+#9 CACHED
+#10 [6/6] RUN useradd --uid 10001 --no-create-home app
+#10 CACHED
+#11 DONE 0.0s

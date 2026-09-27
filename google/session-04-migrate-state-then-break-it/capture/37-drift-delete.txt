@@ -1,0 +1,3 @@
+$ gcloud pubsub topics delete
+
+Deleted topic [projects/YOUR_PROJECT_ID/topics/dsba6190-events-46421].

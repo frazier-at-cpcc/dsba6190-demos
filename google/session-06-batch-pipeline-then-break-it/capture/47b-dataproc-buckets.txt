@@ -1,0 +1,4 @@
+$ gcloud storage ls  (two buckets nobody asked for)
+
+gs://dataproc-staging-us-central1-PROJECT_NUMBER-tteodzcj/
+gs://dataproc-temp-us-central1-PROJECT_NUMBER-hdghzmrw/

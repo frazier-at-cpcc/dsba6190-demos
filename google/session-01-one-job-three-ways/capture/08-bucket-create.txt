@@ -1,0 +1,3 @@
+$ gcloud storage buckets create gs://$SCRATCH --location us-east1
+
+Creating gs://qc-scratch-24113/...

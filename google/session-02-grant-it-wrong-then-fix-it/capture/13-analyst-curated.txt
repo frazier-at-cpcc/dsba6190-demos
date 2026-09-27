@@ -1,0 +1,12 @@
+$ as_analyst: revenue by neighborhood from the curated dataset
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [cs-analyst-26041@YOUR_PROJECT_ID.iam.gserviceaccount.com].
++---------------+---------+-------------+
+| neighborhood  | baskets | revenue_usd |
++---------------+---------+-------------+
+| Uptown        |  113812 |     5180842 |
+| Dilworth      |  112894 |     5163830 |
+| SouthPark     |  112676 |     5158486 |
+| Elizabeth     |  110614 |     5067341 |
+| Plaza Midwood |  110643 |     5064859 |
++---------------+---------+-------------+

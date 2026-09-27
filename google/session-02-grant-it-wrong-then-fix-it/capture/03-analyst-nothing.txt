@@ -1,0 +1,3 @@
+$ as_analyst bq ls   (the analyst has no grant yet)
+
+datasets the analyst can see: 0

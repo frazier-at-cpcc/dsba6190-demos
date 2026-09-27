@@ -1,0 +1,73 @@
+$ terraform destroy -target=google_storage_bucket.landing
+
+google_storage_bucket.landing: Refreshing state... [id=dsba6190-raw-46421]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.landing will be destroyed
+  - resource "google_storage_bucket" "landing" {
+      - default_event_based_hold    = false -> null
+      - effective_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - enable_object_retention     = false -> null
+      - force_destroy               = false -> null
+      - id                          = "dsba6190-raw-46421" -> null
+      - labels                      = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - location                    = "US-EAST1" -> null
+      - name                        = "dsba6190-raw-46421" -> null
+      - project                     = "YOUR_PROJECT_ID" -> null
+      - project_number              = PROJECT_NUMBER -> null
+      - public_access_prevention    = "inherited" -> null
+      - requester_pays              = false -> null
+      - self_link                   = "https://www.googleapis.com/storage/v1/b/dsba6190-raw-46421" -> null
+      - storage_class               = "STANDARD" -> null
+      - terraform_labels            = {
+          - "environment" = "demo"
+          - "owner"       = "data-platform"
+        } -> null
+      - uniform_bucket_level_access = true -> null
+      - url                         = "gs://dsba6190-raw-46421" -> null
+
+      - soft_delete_policy {
+          - effective_time             = "2026-09-10T13:21:26.924Z" -> null
+          - retention_duration_seconds = 604800 -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+google_storage_bucket.landing: Destroying... [id=dsba6190-raw-46421]
+
+Warning: Resource targeting is in effect
+
+You are creating a plan with the -target option, which means that the result
+of this plan may not represent all of the changes requested by the current
+configuration.
+
+The -target option is not for routine use, and is provided only for
+exceptional situations such as recovering from errors or mistakes, or when
+Terraform specifically suggests to use it as part of an error message.
+
+Warning: Applied changes may be incomplete
+
+The plan was created with the -target option in effect, so some changes
+requested in the configuration may have been ignored and the output values
+may not be fully updated. Run the following command to verify that no other
+changes are pending:
+    terraform plan
+	
+Note that the -target option is not suitable for routine use, and is provided
+only for exceptional situations such as recovering from errors or mistakes,
+or when Terraform specifically suggests to use it as part of an error
+message.
+
+Error: Error trying to delete bucket dsba6190-raw-46421 containing objects without `force_destroy` set to true
+

@@ -1,0 +1,28 @@
+$ cat annex.tf
+
+# Step 8, the plannable form. The resource block and the import declaration
+# travel together, so the import appears in `terraform plan` and can be
+# reviewed on a pull request before it happens. `terraform import` on the
+# command line cannot be reviewed, because it has already run.
+#
+# Terraform 1.5 requires a literal id in an import block, so this file is a
+# template and live-setup.sh substitutes both placeholders before class. The
+# restriction is lifted in Terraform 1.6.
+resource "google_storage_bucket" "annex" {
+  name          = "dsba6190-annex-${var.name_suffix}"
+  location      = "US-WEST1"
+  storage_class = "COLDLINE"
+  force_destroy = false
+
+  uniform_bucket_level_access = true
+
+  labels = {
+    environment = "prod"
+    owner       = "unknown"
+  }
+}
+
+import {
+  to = google_storage_bucket.annex
+  id = "YOUR_PROJECT_ID/dsba6190-annex-46421"
+}

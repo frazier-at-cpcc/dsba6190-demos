@@ -1,0 +1,8 @@
+$ gcloud storage buckets describe
+
+default_storage_class: STANDARD
+location: US-EAST1
+name: dsba6190-tfstate-46421
+public_access_prevention: enforced
+uniform_bucket_level_access: true
+versioning_enabled: true

@@ -1,0 +1,8 @@
+$ q "SELECT COUNT(*), vendors FROM trips_lake"   (instructor)
+
++-------+---------+------------+
+| trips | vendors | vendor_ids |
++-------+---------+------------+
+|     0 |       0 | NULL       |
++-------+---------+------------+
+processed 0.00 GB · billed 0.0 MB · slot time 0.1 s · cache false

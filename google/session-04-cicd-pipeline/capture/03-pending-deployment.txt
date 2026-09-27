@@ -1,0 +1,3 @@
+$ gh api repos/frazier-at-cpcc/dsba6190-infrastructure-pipeline/actions/runs/34538055036/pending_deployments --jq .[] | {environment: .environment.name, current_user_can_approve, waiting_since: .wait_timer_started_at}
+
+{"current_user_can_approve":true,"environment":"production","waiting_since":null}

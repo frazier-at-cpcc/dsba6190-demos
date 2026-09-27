@@ -1,0 +1,3 @@
+$ python registers.py $TOPIC late   (CLT-031, Ballantyne, offline register)
+
+published one CLT-031 sale of $412.18 rung at 15:14:28Z, message id 22070542668169862

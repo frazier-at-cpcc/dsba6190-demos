@@ -1,0 +1,8 @@
+$ gcloud pubsub topics publish hello (three times)
+
+messageIds:
+- '21274643676181478'
+messageIds:
+- '21275728857067390'
+messageIds:
+- '21275702398950733'

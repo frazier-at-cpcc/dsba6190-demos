@@ -1,0 +1,17 @@
+$ terraform init -migrate-state
+
+
+Initializing the backend...
+
+Successfully configured the backend "gcs"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/time from the dependency lock file
+- Reusing previous version of hashicorp/google from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/time v0.14.1
+- Using previously-installed hashicorp/google v5.45.2
+- Using previously-installed hashicorp/random v3.9.0
+
+Terraform has been successfully initialized!

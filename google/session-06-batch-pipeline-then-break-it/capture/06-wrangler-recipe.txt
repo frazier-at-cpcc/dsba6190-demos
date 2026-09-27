@@ -1,0 +1,15 @@
+$ the recipe Wrangler accumulates, one directive per click
+
+parse-as-csv :body ',' true
+drop :body
+drop :offset
+rename body_1 txn_id
+rename body_2 store_id
+rename body_3 txn_ts
+rename body_4 sku
+rename body_5 qty
+rename body_6 amount
+set-type :qty integer
+set-type :amount double
+parse-as-datetime :txn_ts 'yyyy-MM-dd HH:mm:ss'
+datetime-to-timestamp :txn_ts

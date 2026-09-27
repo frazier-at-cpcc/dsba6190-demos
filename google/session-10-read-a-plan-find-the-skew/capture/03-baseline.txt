@@ -1,0 +1,4 @@
+$ batch baseline   (AQE off, broadcast off)
+
+baseline: 48 result rows
+wall clock 213 s

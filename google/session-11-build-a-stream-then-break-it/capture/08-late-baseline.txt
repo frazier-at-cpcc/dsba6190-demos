@@ -1,0 +1,2 @@
+$ bq query: CLT-031 in the window it was rung, baseline job
+

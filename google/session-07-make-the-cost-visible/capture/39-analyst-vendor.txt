@@ -1,0 +1,9 @@
+$ as_analyst q "SELECT COUNT(*), vendors FROM trips_lake"
+
+WARNING: This command is using service account impersonation. All API calls will be executed as [dsba6190-analyst@YOUR_PROJECT_ID.iam.gserviceaccount.com].
++---------+---------+------------+
+|  trips  | vendors | vendor_ids |
++---------+---------+------------+
+| 1716028 |       1 | 2          |
++---------+---------+------------+
+processed 0.00 GB · billed 0.0 MB · slot time 2.0 s · cache false

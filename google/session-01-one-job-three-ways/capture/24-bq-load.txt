@@ -1,0 +1,21 @@
+$ time bq load $DATASET.trips gs://$BUCKET/raw/trips-2026-08-19.csv
+
+
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (0s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (1s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (2s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (3s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (5s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (6s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (7s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (8s) Current status: RUNNING
+                                                                                      
+Waiting on bqjob_r2112561b2acde220_000001a0e391841a_1 ... (8s) Current status: DONE   
+wall 12 s

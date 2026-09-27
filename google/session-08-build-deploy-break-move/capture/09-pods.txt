@@ -1,0 +1,6 @@
+$ kubectl get pods -o wide
+
+POD                         READY   NODE                                           IP
+fare-api-79d59fbdd9-9xqpv   true    gke-qc-fare-20854-default-pool-addfde80-gkc9   10.64.2.5
+fare-api-79d59fbdd9-jn57k   true    gke-qc-fare-20854-default-pool-addfde80-gkc9   10.64.2.6
+fare-api-79d59fbdd9-nxtgw   true    gke-qc-fare-20854-default-pool-addfde80-lxh2   10.64.1.6

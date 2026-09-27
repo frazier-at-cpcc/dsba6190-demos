@@ -1,0 +1,4 @@
+$ python3 cdap.py stages  (in, out, and the difference)
+
+Wrangler               records in       20004
+Wrangler               records out      20001

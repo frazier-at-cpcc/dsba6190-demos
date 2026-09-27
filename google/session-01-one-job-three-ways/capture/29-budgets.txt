@@ -1,0 +1,17 @@
+$ gcloud billing budgets list
+
+---
+amount:
+  specifiedAmount:
+    currencyCode: USD
+    units: '50'
+displayName: DSBA 6190 demo project
+thresholdRules:
+- spendBasis: CURRENT_SPEND
+  thresholdPercent: 0.5
+- spendBasis: CURRENT_SPEND
+  thresholdPercent: 0.9
+- spendBasis: CURRENT_SPEND
+  thresholdPercent: 1.0
+- spendBasis: FORECASTED_SPEND
+  thresholdPercent: 1.0

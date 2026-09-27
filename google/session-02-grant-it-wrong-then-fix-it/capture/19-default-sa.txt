@@ -1,0 +1,5 @@
+$ the default Compute Engine service account's roles
+
+ROLE                           MEMBERS
+roles/datafusion.serviceAgent  serviceAccount:PROJECT_NUMBER-compute@developer.gserviceaccount.com
+roles/editor                   serviceAccount:PROJECT_NUMBER-compute@developer.gserviceaccount.com
