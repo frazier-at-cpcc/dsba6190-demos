@@ -7,7 +7,7 @@
 #   plan                     stages, slot time and shuffle bytes of the last q
 #
 # Every figure is printed in GB of 2^30 bytes, which is the unit the BigQuery
-# editor's estimator uses and the unit the deck quotes.
+# editor's estimator uses and the unit the walkthrough quotes.
 
 gb () { awk -v b="${1:-0}" 'BEGIN { printf "%.2f GB", b / 1073741824 }'; }
 mb () { awk -v b="${1:-0}" 'BEGIN { printf "%.1f MB", b / 1048576 }'; }

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Headless rehearsal of the Session 4 CI/CD demo. Do not run this in class.
+# Headless recorder of the Session 4 CI/CD demo. It stages, runs and deletes
+# the two buckets in one pass. To follow the steps yourself, prefer
+# prep.ipynb and demo.ipynb.
 #
 #   ./capture.sh <PROJECT_ID> <GITHUB_OWNER/REPO> [WORKDIR]
 #
@@ -12,7 +14,7 @@
 # It records real output to capture/NN-step.txt. Every wait is bounded, so
 # a wedged workflow fails the script rather than hanging it.
 #
-# Deliberate residue, so the demo can be re-run in class: the GitHub
+# Deliberate residue, so the demo can be run again: the GitHub
 # repository, the state bucket, the service account, and the federation.
 # The runbook's teardown section lists the commands that remove them.
 
@@ -76,7 +78,7 @@ teardown() {
   git checkout -q main 2>/dev/null
   git pull -q 2>/dev/null
   # prevent_destroy is doing its job. Removing it locally, and only locally,
-  # is the deliberate act the lecture says destruction should require.
+  # is the deliberate act that destruction should require.
   sed -i '' '/prevent_destroy = true/s/true/false/' main.tf
   terraform init -no-color -reconfigure \
     -backend-config="bucket=$STATE_BUCKET" -backend-config="prefix=$STATE_PREFIX" >/dev/null 2>&1

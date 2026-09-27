@@ -3,13 +3,13 @@
 # A retention policy sets a minimum age before an object may be deleted,
 # overwritten, or archived. It applies to every object in the bucket and it
 # applies to the person who wrote it. Step 8 attempts a delete and reads the
-# refusal; step 12 attempts a destroy and reads the same refusal from the other
-# side of the term.
+# refusal; step 12 attempts a destroy and reads the same refusal from
+# Terraform's side.
 #
-# One hour rather than the seven years on slide 22, for one reason: an hour
-# outlives the class and can be cleared afterwards. A locked policy could not
-# be cleared at all, which is the difference Bucket Lock makes and the reason
-# step 8 shows where the button is without pressing it.
+# One hour rather than the seven years the regulator requires, for one reason:
+# an hour outlives the demonstration and can be cleared afterwards. A locked
+# policy could not be cleared at all, which is the difference Bucket Lock makes
+# and the reason step 8 shows where the button is without pressing it.
 resource "google_storage_bucket" "vault" {
   name          = "dsba6190-vault-${var.name_suffix}"
   location      = upper(var.region)

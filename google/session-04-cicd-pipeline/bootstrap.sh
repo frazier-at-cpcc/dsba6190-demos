@@ -11,7 +11,7 @@
 #
 # GitHub side: creates the public repository if it is missing, sets the four
 # Actions variables the workflows read, creates the `production` environment
-# with the instructor as required reviewer, and creates the `drift` label.
+# with you as the required reviewer, and creates the `drift` label.
 # The repository is public because required reviewers on an environment need
 # a paid plan on a private repository, and the demo holds no secret.
 #
@@ -129,7 +129,7 @@ cat <<DONE
 
   Nothing here is billable beyond the state bucket, which holds kilobytes.
 
-  Next: ./capture.sh $PROJECT $REPO   to rehearse headlessly
-        ./live-setup.sh $PROJECT $REPO to stage the room
+  Next: ./capture.sh $PROJECT $REPO   to record a headless run
+        ./live-setup.sh $PROJECT $REPO to stage the walkthrough
 
 DONE

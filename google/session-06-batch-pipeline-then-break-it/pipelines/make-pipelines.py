@@ -18,8 +18,8 @@ point of building them as a sequence:
     03-idempotent  the same as 02, with BOTH sinks made safe to run twice: the
                    BigQuery sink truncates rather than appends, and the error
                    sink writes a run-scoped prefix rather than a fixed one.
-                   Fixing only the first is not enough, and the rehearsal on
-                   10 September proved it.
+                   Fixing only the first is not enough, and the recorded
+                   run on 10 September proved it.
     04-drift       the same as 03, with one directive removed, so the source's
                    amount column reaches a FLOAT64 column as a string. This one
                    is built to fail, and the failure is the teaching.
@@ -58,7 +58,7 @@ ERROR_SCHEMA = json.dumps({
 })
 
 # The Wrangler recipe, as the directive list Wrangler itself stores. Every line
-# below is a directive a student would produce by clicking a column header in
+# below is a directive a user would produce by clicking a column header in
 # the Wrangler UI, and the recipe is what those clicks accumulate into. Naming
 # the recipe as code is step 2 of the demonstration.
 RECIPE_LINES = [
@@ -164,13 +164,13 @@ def error_collector(a):
 def gcs_error_sink(a, project, bucket, run_scoped=False):
     # A Hadoop output committer refuses to write into a directory that already
     # exists, so a fixed path makes the sink fail on the second run rather than
-    # append to it. The rehearsal on 10 September hit exactly that:
+    # append to it. The recorded run on 10 September hit exactly that:
     #
     #   Stage 'QuarantineSink' encountered :
     #   org.apache.hadoop.mapred.FileAlreadyExistsException:
     #   Output directory gs://.../quarantine/pos already exists
     #
-    # The fix is the deterministic partition target the lecture already teaches.
+    # The fix is a deterministic partition target, applied to the error sink.
     # `logicalStartTime` is a CDAP macro evaluated per run, so each run writes
     # its own dated prefix and re-running overwrites nothing.
     path = f"gs://{bucket}/quarantine/pos"

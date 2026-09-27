@@ -12,9 +12,9 @@
 # Re-runnable. The suffix is derived per run so the global bucket namespace
 # does not collide with a previous capture.
 #
-# DO NOT RUN THIS IN CLASS. It uses -auto-approve, it kills a running apply on
-# purpose, and it tears the estate down when it exits. live-setup.sh is the
-# one to run before class.
+# It uses -auto-approve, it kills a running apply on purpose, and it tears
+# the estate down when it exits. To follow the steps yourself, prefer
+# prep.ipynb and demo.ipynb.
 
 set -euo pipefail
 

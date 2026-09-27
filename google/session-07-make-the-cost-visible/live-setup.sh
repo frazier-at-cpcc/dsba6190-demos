@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# Stage the Session 7 live demo: make the cost visible, make governance visible.
+# Stage the Session 7 demonstration: make the cost visible, make governance visible.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
-# Provisions everything the hour needs that cannot be created inside it, and
-# nothing the hour creates on screen. It makes one dataset, one bucket holding
+# Provisions everything the demonstration needs that its steps do not create,
+# and nothing the steps create themselves. It makes one dataset, one bucket holding
 # one month of taxi trips as Parquet, one BigQuery connection with read access
 # to that bucket, one policy-tag taxonomy, and the second principal the
 # governance steps query as. It creates no table. Steps 7, 9, 10 and 11 build
-# the tables, the tag attachment and the row policies in front of the room.
+# the tables, the tag attachment and the row policies step by step.
 #
-# Run it at T minus 45. The slow part is IAM propagation on the second
+# Run it before you start demo.ipynb. The slow part is IAM propagation on the second
 # principal, measured at about five minutes on 24 September 2026, and the
 # script blocks until that principal can actually run a query.
 #
@@ -139,18 +139,18 @@ ENVEOF
 
 cat <<DONE
 
-  Staged for the live demo. Nothing has been queried and no table exists.
+  Staged for the demonstration. Nothing has been queried and no table exists.
 
   Working directory   $WORK
   Project             $PROJECT
   Name suffix         $SUFFIX
   Second principal    ready $READY s after the grant
 
-  Load the names and the helpers into the shell you will teach from:
+  Load the names and the helpers into the shell you will run the steps from:
 
       source $WORK/env.sh
 
-  Created and waiting for the hour:
+  Created and waiting for the steps:
     dataset      $DATASET          (US, empty)
     bucket       gs://$BUCKET/trips/2022-01/   ($FILES Parquet files)
     connection   $PROJECT.$LOCATION.$CONNECTION
@@ -160,7 +160,7 @@ cat <<DONE
                  bigquery.jobUser on the project, dataViewer on the dataset,
                  no Cloud Storage access, no policy-tag access
 
-  NOT created. The hour creates each of these at its own step:
+  NOT created. The walkthrough creates each of these at its own step:
     trips_2022, trips_2022_part   step 7
     trips_ext                     step 9
     trips_lake, the tag on it     step 10

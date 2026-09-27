@@ -3,14 +3,14 @@
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
-# Provisions what the hour cannot wait for: the register-events topic with
+# Provisions what the steps cannot wait for: the register-events topic with
 # three subscriptions, the dead-letter topic and its subscription, a staging
 # bucket, a BigQuery dataset, and three Dataflow streaming jobs for Crown
 # Street Markets (baseline, allowed lateness, deduplication). It blocks until
 # all three jobs report Running and the baseline job has written its first
-# rows, using small warm-up bursts that the hour's queries filter out.
+# rows, using small warm-up bursts that the demonstration's queries filter out.
 #
-# Run it at T minus 30. On 27 September 2026 the jobs reached Running 111 s
+# Allow about seven minutes. On 27 September 2026 the jobs reached Running 111 s
 # after submission and wrote first rows at 250 s.
 # Applies. Never destroys. The teardown it prints is step 11.
 
@@ -73,7 +73,7 @@ echo "  jobs running $(( $(date +%s) - J0 )) s after submission"
 
 step "Warm up until the baseline table exists"
 # Workers start after the job reports Running. These five-sale bursts land in
-# windows before the hour's burst, so every query in the hour filters them out.
+# windows before the step 3 burst, so every query in demo.ipynb filters them out.
 until bq --project_id="$PROJECT" show "$PROJECT:$DATASET.sales_baseline" >/dev/null 2>&1; do
   (cd "$WORK/pipeline" && $PY registers.py "$T/$TOPIC" burst 5 >/dev/null); sleep 30
 done
@@ -109,11 +109,11 @@ cat <<DONE
                       ($REGION, one e2-standard-2 worker each, Streaming Engine, no external IPs)
   Dataset             $PROJECT:$DATASET
 
-  Load the names into the shell you will teach from:
+  Load the names into the shell you will run the steps from:
 
       source $WORK/env.sh
 
-  NOT created. The hour creates it at step 1:
+  NOT created. demo.ipynb creates it at step 1:
     Topic and subscription $SCRATCH
 
   The jobs bill every minute they run. Teardown is step 11, and it is also:

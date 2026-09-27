@@ -2,11 +2,11 @@
 #
 # Every object in Cloud Storage is already encrypted at rest. This bucket does
 # not add encryption. It changes who controls the key, and that is the whole
-# of what CMEK buys, as slide 19 says.
+# of what CMEK buys.
 #
 # The key itself is deliberately not in this configuration. live-setup.sh
 # creates the key ring, the key, and the Cloud Storage service agent's binding
-# on it before class, for two reasons. IAM propagation on a key takes longer
+# on it before step 1, for two reasons. IAM propagation on a key takes longer
 # than step 9 has, and a Cloud KMS key ring cannot be deleted once created, so
 # a resource Terraform destroys should not be one Terraform cannot remove.
 resource "google_storage_bucket" "secure" {

@@ -10,7 +10,8 @@
 # wrote to BigQuery, drains one job and cancels another, and tears everything
 # down through an exit trap. Cost: under a dollar for about forty minutes.
 #
-# DO NOT RUN THIS IN CLASS.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -76,7 +77,7 @@ run "gcloud pubsub subscriptions pull hello --auto-ack --limit 3" 02-pull.txt \
     gcloud pubsub subscriptions pull "$SCRATCH" --project "$PROJECT" --auto-ack --limit 3 \
       --format="table(message.data.decode(base64),message.attributes.store_id,message.messageId)"
 
-step "Step 2 · Three jobs, started before class"
+step "Step 2 · Three jobs, already running"
 until [ "$(gcloud dataflow jobs list --project "$PROJECT" --region "$REGION" --status=active --filter="name~crown-.*-$SUFFIX AND state=Running" --format='value(id)' | wc -l | tr -d ' ')" = "3" ]; do sleep 15; done
 run "gcloud dataflow jobs list --status=active" 03-jobs.txt \
     gcloud dataflow jobs list --project "$PROJECT" --region "$REGION" --status=active --filter="name~crown-.*-$SUFFIX" \

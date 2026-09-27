@@ -28,7 +28,7 @@ resource "google_storage_bucket" "lake" {
 }
 
 # Scratch holds nothing worth keeping. It exists so the pipeline has something
-# safe to change, rename, and replace in front of a room.
+# safe to change, rename, and replace during the walkthrough.
 resource "google_storage_bucket" "scratch" {
   name                        = "${var.project_id}-cicd-scratch"
   location                    = var.region

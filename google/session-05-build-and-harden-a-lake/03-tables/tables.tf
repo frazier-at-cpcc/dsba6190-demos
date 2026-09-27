@@ -1,6 +1,6 @@
 # Step 6. Two external tables over the same 200,000 readings, one CSV and one
-# Parquet, so the format argument is settled by a measurement rather than by a
-# slide.
+# Parquet, so the format argument is settled by a measurement rather than by
+# assertion.
 #
 # An external table reads the objects where they already sit. Nothing is copied
 # into BigQuery, so the numbers in step 6 are the bytes BigQuery read out of
@@ -41,7 +41,7 @@ resource "google_bigquery_table" "readings_parquet" {
   deletion_protection = false
 
   # Parquet carries its own schema, so there is nothing to detect and nothing
-  # to declare. That is one of the four columns on slide 15.
+  # to declare.
   external_data_configuration {
     autodetect    = true
     source_format = "PARQUET"

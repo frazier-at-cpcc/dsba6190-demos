@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 10 · Partition pruning, measured · slide 15 · 6 minutes
+# Step 10 · Partition pruning, measured
 #
 # Uploads 10 daily partitions under curated/events/dt=YYYY-MM-DD/, applies BigQuery
 # Hive-partitioned external table, and demonstrates 10x byte scan savings via partition pruning.
@@ -12,7 +12,7 @@ AUTO_APPROVE="${AUTO_APPROVE:---auto-approve}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 10 · Partition pruning, measured\033[0m"
-echo -e "\033[1;32m    Slide 15 · 6 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -51,7 +51,7 @@ bq --project_id="$PROJECT" show -j "$JOB_ALL"
 echo -e "\n\033[1;34m$ bq show -j $JOB_ONE\033[0m"
 bq --project_id="$PROJECT" show -j "$JOB_ONE"
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Compare Bytes Processed:"
+echo -e "\n\033[1;33m[Note]\033[0m Compare Bytes Processed:"
 echo "  - All partitions: 1,600,000 bytes (all 10 files scanned)"
 echo "  - dt = '2026-09-17': 160,000 bytes (exactly 1 file scanned = 10x savings)"
 echo "  dt is not a column in the parquet files; it was derived purely from the path prefix."

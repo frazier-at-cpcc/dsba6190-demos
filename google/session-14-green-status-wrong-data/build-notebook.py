@@ -5,9 +5,9 @@ Write the two Bash notebooks that drive the Session 14 demonstration.
     python3 build-notebook.py
 
     prep.ipynb   generate the store-sales files, create the bucket, backfill the table
-    demo.ipynb   the forty minutes, steps 1 to 8, teardown included
+    demo.ipynb   steps 1 to 8, teardown included
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md.
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md.
 """
 import json
 import pathlib
@@ -51,7 +51,7 @@ JOBS = "\\`region-us\\`.INFORMATION_SCHEMA.JOBS"
 MINE = "EXISTS (SELECT 1 FROM UNNEST(j.labels) AS r WHERE r.key = 'run' AND r.value = '$SUFFIX')"
 
 notebook("prep", [
-    md("# Session 14 · Before class"),
+    md("# Session 14 · Before you start"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     sh(f'q "SELECT COUNT(*) AS \\`rows\\`, COUNT(DISTINCT sale_date) AS nights, MAX(sale_date) AS newest FROM {T}"'),

@@ -4,13 +4,13 @@ Write the two Bash notebooks that drive the Session 7 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 45 to T minus 35: provision, verify, re-check the figures
-    demo.ipynb   the hour, steps 1 to 12, teardown included
+    prep.ipynb   before you start: provision and verify
+    demo.ipynb   steps 1 to 12, teardown included
 
 Both run on the Bash kernel, so every cell is the command exactly as it would
 be typed in a terminal and shell variables persist between cells. The
-notebooks carry step headings and commands only. What to say is in
-RUNBOOK.md and its PDF. Regenerate after editing the runbook.
+notebooks carry step headings and commands only. The walkthrough is in
+RUNBOOK.md.
 """
 
 import json
@@ -64,15 +64,15 @@ COUNT = """SELECT COUNT(*) AS trips, COUNT(DISTINCT vendor_id) AS vendors,
    FROM \\`$DS.trips_lake\\`"""
 
 notebook("prep", [
-    md("# Session 7 · Before class"),
-    md("## T minus 45 · Provision"),
+    md("# Session 7 · Before you start"),
+    md("## Provision"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
-    md("## T minus 38 · Verify"),
+    md("## Verify"),
     sh('as_analyst q "SELECT SESSION_USER() AS who"'),
     sh('bq --project_id="$PROJECT" --location=US show --connection "$CONNECTION" | head -3'),
     sh('gcloud storage ls "gs://$BUCKET/trips/2022-01/"'),
-    md("## T minus 35 · Re-verify the published figures"),
+    md("## Re-verify the published figures"),
 ])
 
 notebook("demo", [

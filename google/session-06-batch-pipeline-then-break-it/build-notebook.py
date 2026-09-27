@@ -4,14 +4,14 @@ Write the two Bash notebooks that drive the Session 6 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 60 to T minus 30: provision, verify, smoke run, clean up
-    demo.ipynb   the hour, steps 1 to 12, then the evening teardown
+    prep.ipynb   before you start: provision, verify, smoke run, clean up
+    demo.ipynb   steps 1 to 12, then the teardown
 
 Both run on the Bash kernel (`python3 -m pip install bash_kernel`, then
 `python3 -m bash_kernel.install`), so every cell is the command exactly as it
 would be typed in a terminal and shell variables persist between cells. The
-notebooks carry step headings and commands only. What to say is in RUNBOOK.md
-and its PDF. Regenerate after editing the runbook so the two stay in step.
+notebooks carry step headings and commands only. The walkthrough is in
+RUNBOOK.md. Regenerate after editing the runbook so the two stay in step.
 """
 
 import json
@@ -64,22 +64,22 @@ BQ = 'bq --project_id="$PROJECT" --quiet query --use_legacy_sql=false --nouse_ca
 
 # ---------------------------------------------------------------- prep.ipynb
 notebook("prep", [
-    md("# Session 6 · Before class"),
+    md("# Session 6 · Before you start"),
 
-    md("## T minus 60 · Provision"),
+    md("## Provision"),
     sh('./live-setup.sh YOUR_PROJECT_ID'),
     LOAD,
 
-    md("## T minus 44 · Verify the plugin artifacts"),
+    md("## Verify the plugin artifacts"),
     sh('python3 cdap.py artifacts --endpoint "$ENDPOINT"'),
 
-    md("## T minus 42 · Smoke run"),
+    md("## Smoke run"),
     sh('python3 cdap.py deploy --endpoint "$ENDPOINT" --app smoke \\\n'
        '  --file "$WORK/pipelines/01-baseline.json"'),
     sh('SMOKE=$(python3 cdap.py start --endpoint "$ENDPOINT" --app smoke)\n'
        'python3 cdap.py wait --endpoint "$ENDPOINT" --app smoke --run "$SMOKE"'),
 
-    md("## T minus 30 · Clean up the smoke run"),
+    md("## Clean up the smoke run"),
     sh('python3 cdap.py delete --endpoint "$ENDPOINT" --app smoke\n'
        'bq --project_id="${PROJECT:?}" rm -f -t "${DATASET:?}.sales_validated"\n'
        'gcloud dataproc clusters list --project "$PROJECT" --region us-central1'),
@@ -175,7 +175,7 @@ jq -r "$SHAPE" "$WORK/pipelines/01-baseline.json" | column -t -s $'\\t'"""),
        '  --project "${PROJECT:?}" --location us-central1 --quiet'),
     sh('gcloud beta data-fusion instances list --project "$PROJECT" --location us-central1'),
 
-    md("---\n# After class · Teardown"),
+    md("---\n# Teardown"),
     sh('gcloud dataproc clusters list --project "$PROJECT" --region us-central1'),
     sh('gcloud storage rm -r "gs://${BUCKET:?}"\n'
        'bq --project_id="${PROJECT:?}" rm -r -f -d "${DATASET:?}"'),

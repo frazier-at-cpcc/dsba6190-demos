@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture the Session 7 live demo: make the cost visible, make governance visible.
+# Capture the Session 7 demonstration: make the cost visible, make governance visible.
 #
 #   ./capture.sh <PROJECT_ID>
 #
@@ -16,9 +16,9 @@
 # dsba6190-analyst, and its three grants. A service account is free, and
 # recreating it costs five minutes of IAM propagation on the next run.
 #
-# DO NOT RUN THIS IN CLASS. It deletes the dataset, the connection, the
-# taxonomy and the bucket when it exits. live-setup.sh is the one to run
-# before class.
+# It stages, runs and deletes everything in one pass: the dataset, the
+# connection, the taxonomy and the bucket go when it exits. To follow the
+# steps yourself, prefer prep.ipynb and demo.ipynb.
 
 set -euo pipefail
 

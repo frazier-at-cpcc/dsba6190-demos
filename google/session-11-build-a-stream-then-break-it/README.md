@@ -1,51 +1,46 @@
-# Session 11 live demo · build a stream, then break it
+# Session 11 demonstration · Build a stream, then break it
 
-The hour-long streaming demonstration for Session 11, Streaming Architectures, taught Thursday 29
-October 2026. Crown Street Markets, the fictional 40-store Charlotte grocery chain from Session 6,
-streams its register sales from Pub/Sub through three Dataflow jobs into BigQuery, then sends them a
-late sale, a retried sale and a malformed record, and drains one job while cancelling another.
+This demonstration accompanies Session 11, Streaming. Crown Street Markets, the fictional 40-store
+Charlotte grocery chain from the Session 6 demonstration, streams its register sales from Pub/Sub
+through three Dataflow jobs into BigQuery. It then sends the jobs a late sale, a retried sale and a
+malformed record, and drains one job while cancelling another.
 
-Rehearsed and captured on 27 September 2026 against project `YOUR_PROJECT_ID`.
+Every command was run end to end on 27 September 2026, and `capture/` holds the real output of each
+one. Read `RUNBOOK.md` for the walkthrough. The three streaming jobs bill for every minute they run,
+so read its cost note before you start.
 
-## What the rehearsal changed
+## Key results
 
-- **All three jobs failed on the first launch** because the freshly enabled Dataflow API started
-  them before its service agent held its role. `capture.sh` and `live-setup.sh` now create the
-  service agent, grant `roles/dataflow.serviceAgent`, and wait 60 seconds.
-- **Workers take no external IP.** Every launch passes `--no_use_public_ips`, which avoids the
-  project's external IP address quota and requires Private Google Access on the subnet.
-  `live-setup.sh` warns when it is off.
-- **A job reports Running before it can write.** The jobs ran 111 seconds after submission and
-  wrote first rows at 250. `live-setup.sh` blocks on both, publishing small warm-up bursts until the
-  baseline table exists, and the deck's run sheet starts the jobs before class.
-- **The duplicate step now retries a sale, not a message.** The planned step deduplicated on the
-  Pub/Sub message ID, which two publishes never share. The register simulator publishes one
-  `sale_id` twice, and the dedup job reads with `id_label="sale_id"`.
-- **The late-sale query filters on the sale's own minute.** `capture.sh` filtered on windows older
-  than 20 minutes, which in class would also catch the step 3 burst. The notebook filters on a
-  two-minute band around the minute the sale was rung.
-- **One malformed record produced three dead letters,** one from each job, because the jobs share a
-  dead-letter topic. The deck says so rather than hiding it.
-
-## The numbers the deck argues from
-
-| Step | Figure | Capture |
+| Step | Result | Capture |
 |---|---|---|
-| 2 | Jobs Running 111 s after submission, first rows at 250 s | `03`, `03b` |
-| 3 | 200 sales and $18,298.80 in one window, in both jobs | `04`, `05` |
-| 5 | The CLT-031 sale of $412.18, rung 30 minutes earlier: no rows in the baseline job | `07`, `08` |
-| 6 | The same sale in the lateness job's 15:14 window, pane 2, a late firing | `09` |
-| 7 | One sale published twice: baseline 2 sales and $176.80, dedup 1 and $88.40 | `10`, `11` |
-| 8 | `"$3.49"` dead-lettered with its `ValueError`, three copies, no job stopped | `12`, `13`, `14` |
-| 10 | Baseline Drained and lateness Cancelled within four minutes | `15`, `16` |
-| 11 | Dedup still Cancelling 60 s after the cancel; no topics left | `17`, `18` |
+| 2 | The jobs reported Running 111 s after submission and wrote their first rows at 250 s | `03`, `03b` |
+| 3 | Both jobs counted 200 sales and $18,298.80 in one window | `04`, `05` |
+| 5 | The baseline job dropped the CLT-031 sale of $412.18, rung 30 minutes earlier, and reported no error | `07`, `08` |
+| 6 | The lateness job placed the same sale in its 15:14 window as pane 2, a late firing | `09` |
+| 7 | One sale published twice counted as 2 sales and $176.80 in the baseline job, and as 1 sale and $88.40 in the dedup job | `10`, `11` |
+| 8 | The `"$3.49"` record reached the dead-letter topic three times with its `ValueError`, and no job stopped | `12`, `13`, `14` |
+| 10 | The baseline job reached Drained and the lateness job reached Cancelled within four minutes | `15`, `16` |
+| 11 | The dedup job still reported Cancelling 60 s after the cancel, and no topic remained | `17`, `18` |
 
-## Layout
+## Known issues and fixes
+
+- All three jobs failed on the first launch. A freshly enabled Dataflow API started them before its
+  service agent held its role. `live-setup.sh` and `capture.sh` now grant
+  `roles/dataflow.serviceAgent` and wait 60 seconds before launching.
+- Workers run without external IP addresses, so the subnet needs Private Google Access.
+  `live-setup.sh` warns when it is off.
+- A job reports Running before it can write. `live-setup.sh` publishes small warm-up bursts until
+  the baseline table exists.
+- One malformed record produces three dead letters, one from each job, because the jobs share one
+  dead-letter topic.
+
+## Files
 
 | Path | What it is |
 |---|---|
-| `pipeline/register_stream.py`, `pipeline/registers.py` | The Beam pipeline in three variants, and the register simulator |
-| `live-setup.sh` | Creates the topics, launches the three jobs, waits for first rows. Applies; never destroys |
-| `capture.sh`, `capture/` | The recorder and 19 files of real output |
-| `RUNBOOK.md`, `Session-11-Live-Demo-Runbook.pdf` | The instructor document |
-| `prep.ipynb`, `demo.ipynb`, `build-notebook.py` | Bash notebooks, commands only |
+| `RUNBOOK.md` | The walkthrough, step by step, with the measured results |
+| `pipeline/register_stream.py` | The Beam pipeline, three variants selected by `--variant` |
+| `pipeline/registers.py` | The register simulator: `burst`, `late`, `duplicate`, `malformed` |
+| `live-setup.sh` | Creates the topics, launches the three jobs and waits for first rows. It creates resources and never deletes them |
+| `capture.sh`, `capture/` | The recorder and its 19 output files |
+| `prep.ipynb`, `demo.ipynb`, `build-notebook.py` | The Bash notebooks, commands only, and the script that writes them |

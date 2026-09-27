@@ -4,8 +4,8 @@
 # `dt` is not a column in any of these files. It is a directory name, and
 # `source_uri_prefix` is the line that tells BigQuery where the key-equals-value
 # pairs begin. Everything to the right of that prefix becomes a partitioning
-# column. That is the whole of slide 12's convention, and step 10 measures what
-# it buys.
+# column. That is the whole of the Hive partitioning convention, and step 10
+# measures what it buys.
 resource "google_bigquery_table" "events" {
   dataset_id          = google_bigquery_dataset.lake.dataset_id
   table_id            = "events"

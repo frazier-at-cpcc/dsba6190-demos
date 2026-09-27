@@ -4,12 +4,13 @@
 #   ./capture.sh <PROJECT_ID>
 #
 # Stages with live-setup.sh (two training jobs, one registered and deployed
-# model), then records the in-class steps: the finished jobs and their cost
+# model), then records the demonstration steps: the finished jobs and their cost
 # shape, a second model version with its lineage, online predictions, a batch
 # prediction job, the undeploy, and teardown. Everything is deleted through an
 # exit trap. Cost: roughly $1, most of it the deployed node and the batch job.
 #
-# DO NOT RUN THIS IN CLASS.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -94,7 +95,7 @@ echo "batch job $s after $(( $(date +%s) - B0 )) s" > "$OUT/11-batch-wait.txt"
 run "gcloud storage cat gs://\$BUCKET/batch/out/*/prediction.results-* | head -3" 12-batch-results.txt bash -c "
 gcloud storage cat 'gs://$BUCKET/batch/out/*/prediction.results-*' | head -3; echo; echo \"\$(gcloud storage cat 'gs://$BUCKET/batch/out/*/prediction.results-*' | wc -l | tr -d ' ') predictions written\""
 
-step "Step 10 · Undeploy, in front of the room"
+step "Step 10 · Undeploy the endpoint"
 DM=$(gcloud ai endpoints describe "$ENDPOINT_ID" --region "$REGION" --project "$PROJECT" --format="value(deployedModels[0].id)")
 run "gcloud ai endpoints undeploy-model \$ENDPOINT_ID --deployed-model-id <id>" 13-undeploy.txt \
     gcloud ai endpoints undeploy-model "$ENDPOINT_ID" --deployed-model-id "$DM" --region "$REGION" --project "$PROJECT" --quiet

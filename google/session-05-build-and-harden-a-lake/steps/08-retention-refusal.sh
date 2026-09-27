@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 8 · Retention, and a delete that fails · slides 14 and 24 · 5 minutes
+# Step 8 · Retention, and a delete that fails
 #
 # Provisions a vault bucket with a 3600-second retention policy, uploads an incident record,
 # and demonstrates the platform HTTP 403 refusal on attempted deletion.
@@ -12,7 +12,7 @@ AUTO_APPROVE="${AUTO_APPROVE:---auto-approve}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 8 · Retention, and a delete that fails\033[0m"
-echo -e "\033[1;32m    Slides 14 & 24 · 5 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -42,6 +42,6 @@ gcloud storage rm "gs://dsba6190-vault-$SUFFIX/raw/incident.csv" --project "$PRO
 DELETE_CODE=$?
 set -e
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Notice HTTP 403: Object is subject to bucket's retention policy and cannot be deleted or overwritten."
+echo -e "\n\033[1;33m[Note]\033[0m Notice HTTP 403: Object is subject to bucket's retention policy and cannot be deleted or overwritten."
 echo "Raw zone immutability is enforced by infrastructure, not documented by convention."
 echo -e "\n\033[1;32m>>> Step 8 complete.\033[0m"

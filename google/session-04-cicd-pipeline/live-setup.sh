@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Stage the Session 4 CI/CD demo. Run this BEFORE class, not during.
+# Stage the Session 4 CI/CD demo. Run this before demo.ipynb, not during it.
 #
 #   ./live-setup.sh <PROJECT_ID> <GITHUB_OWNER/REPO> [WORKDIR]
 #
 # Makes sure main on GitHub matches repo/, that the two buckets exist and
-# match main, and that three branches are ready to become pull requests in
-# front of the room:
+# match main, and that three branches are ready to become pull requests
+# during the walkthrough:
 #
 #   demo/label-cost-center    compliant. Stages 1 to 5, end to end.
 #   demo/make-scratch-public  rejected by policy rule 1.
 #   demo/move-scratch         rejected by policy rule 4, a replace.
 #
-# It applies the baseline with the instructor's own credentials so that the
-# room does not wait for a first apply. It does not open any pull request
-# and it does not destroy anything.
+# It applies the baseline with your own credentials so that you do not wait
+# for a first apply. It does not open any pull request and it does not
+# destroy anything.
 
 set -euo pipefail
 
@@ -31,15 +31,15 @@ git clone -q "https://github.com/$REPO.git" "$WORK"
 cd "$WORK"
 git checkout -q -B main
 # The provider lock file is written by the local init below. Kept out of every
-# commit so the room sees only the lines each pull request is about.
+# commit so each pull request shows only the lines it is about.
 printf 'env.sh\n.terraform.lock.hcl\n' >> "$WORK/.git/info/exclude"
 
 # main must equal repo/.
 find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 cp -R "$HERE/repo/." .
 
-# Baseline applied with the instructor's credentials, so the room starts
-# from two existing buckets and every plan in class is a change, not a create.
+# Baseline applied with your own credentials, so the walkthrough starts
+# from two existing buckets and every plan in it is a change, not a create.
 # Applied before main is pushed, so no runner plans against a state that is
 # about to change underneath it.
 terraform init -no-color -reconfigure \
@@ -58,7 +58,7 @@ gcloud storage buckets update "gs://$PROJECT-cicd-scratch" --update-labels env=d
 
 # The reset commit carries [skip ci]. An apply run for it would wait at the
 # production gate, and while it waits it holds the terraform-state
-# concurrency group, so every pull-request run in class would queue behind it.
+# concurrency group, so every pull-request run in the walkthrough would queue behind it.
 # The baseline is already applied above, so the run would have nothing to do.
 if ! git diff --quiet || [ -n "$(git status --porcelain)" ]; then
   git add -A
@@ -123,18 +123,18 @@ export SCRATCH_BUCKET="$PROJECT-cicd-scratch"
 export WORKDIR="$WORK"
 ENVEOF
 
-# The after-class teardown disables the scheduled drift workflow, because
+# The teardown disables the scheduled drift workflow, because
 # against destroyed buckets it would open an issue every morning.
 gh workflow enable drift --repo "$REPO" 2>/dev/null || true
 
-# Any drift issue left from a rehearsal would spoil step 6.
+# Any drift issue left from an earlier run would spoil step 6.
 for n in $(gh issue list --repo "$REPO" --label drift --state open --json number --jq '.[].number'); do
   gh issue close "$n" --repo "$REPO" --comment "Closed before class." >/dev/null
 done
 
 cat <<DONE
 
-  Staged for the live demo.
+  Staged for the walkthrough.
 
   Working directory   $WORK
   Repository          https://github.com/$REPO
@@ -154,6 +154,6 @@ cat <<DONE
 
   Verify now:  gh run list --repo $REPO --limit 3
 
-  Tear down after class: see RUNBOOK.md, section Teardown.
+  Tear down when you finish: see RUNBOOK.md, step 7, Teardown.
 
 DONE

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture the Session 10 demo: read a plan, find the skew.
+# Capture the Session 10 demonstration: read a plan, find the skew.
 #
 #   ./capture.sh <PROJECT_ID>
 #
@@ -11,7 +11,8 @@
 # aggregation then runs in BigQuery. Everything is deleted through an exit
 # trap. Cost: well under a dollar.
 #
-# DO NOT RUN THIS IN CLASS.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

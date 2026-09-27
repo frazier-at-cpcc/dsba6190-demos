@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 1 · Read the governed bucket before anything runs · slide 26 · 4 minutes
+# Step 1 · Read the governed bucket before anything runs
 #
 # Copies lake.tf.staged to lake.tf, displays the 4 governance controls,
 # and executes `terraform plan` to show the review artifact before creating.
@@ -11,7 +11,7 @@ WORK="${WORK:-$HOME/dsba6190-live-demo-05}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 1 · Read the governed bucket before anything runs\033[0m"
-echo -e "\033[1;32m    Slide 26 · 4 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -27,7 +27,7 @@ cp lake.tf.staged lake.tf
 echo -e "\n\033[1;34m$ cat lake.tf\033[0m"
 cat lake.tf
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Read resource line by line against the governance list:"
+echo -e "\n\033[1;33m[Note]\033[0m Read resource line by line against the governance list:"
 echo "  1. uniform_bucket_level_access = true"
 echo "  2. public_access_prevention    = \"enforced\""
 echo "  3. versioning { enabled = true }"

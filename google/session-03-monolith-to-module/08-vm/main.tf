@@ -68,7 +68,7 @@ output "buckets" {
   value = { for env, lake in module.lake : env => lake.bucket_url }
 }
 
-# Step 11. The Lab 3 VM, behind a five-input module interface.
+# Step 11. The trips VM, behind a five-input module interface.
 module "trips_vm" {
   source = "./modules/vm"
 

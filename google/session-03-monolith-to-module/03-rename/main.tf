@@ -24,7 +24,7 @@ variable "bucket_suffix" {
 }
 
 # Step 5. The bucket NAME changed. Name is immutable, so Terraform must
-# destroy and recreate: -/+ . This is the slide that should stop the room.
+# destroy and recreate: -/+ . This is the plan line to stop and read.
 resource "google_storage_bucket" "raw" {
   name          = "dsba6190-raw-renamed-${var.bucket_suffix}"
   location      = "US-EAST1"

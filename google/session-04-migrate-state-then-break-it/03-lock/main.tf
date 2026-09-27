@@ -10,7 +10,7 @@ terraform {
       version = "~> 3.6"
     }
     # Declared here rather than in 03-lock so that step 5 is a file swap and
-    # not a second `terraform init` in front of the room.
+    # not a second `terraform init` partway through the demonstration.
     time = {
       source  = "hashicorp/time"
       version = "~> 0.11"

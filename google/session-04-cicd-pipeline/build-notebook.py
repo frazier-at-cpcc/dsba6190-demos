@@ -4,19 +4,18 @@ Write the two Bash notebooks that drive the Session 4 CI/CD demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 30: stage the repository and the baseline, verify
-    demo.ipynb   steps 1 to 6, teardown included
+    prep.ipynb   before you start: stage the repository and the baseline, verify
+    demo.ipynb   steps 1 to 7, with the teardown as step 7
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md.
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md.
 
-The runbook opens each pull request with `gh pr create --web`, which opens a
-compose page and waits for a click. Here the pull request is created from the
-cell, its number is kept in $PR, and `gh pr view --web` opens it. The
-approval at step 3 and the drift label edit at step 6 stay in the browser in
-the runbook; the notebook opens the run page for the first and carries the
-gcloud equivalent of the second. The retirement commands in the runbook's
-teardown are left out on purpose, because they delete the repository and the
-federation the demonstration needs next term.
+Each pull request is created from its cell, its number is kept in $PR, and
+`gh pr view --web` opens it. The approval at step 3 stays a click in the
+browser, and the notebook opens the run page for it. The drift label edit at
+step 6 can be made in the Console, and the notebook carries the gcloud
+equivalent. The retirement commands in the runbook's teardown are left out on
+purpose, because they delete the repository and the federation that a second
+run needs.
 
 Every wait on GitHub Actions is a bounded loop in find_run and wait_run,
 defined in the demo's second cell. find_run gives up after two minutes if no
@@ -114,11 +113,13 @@ LOAD = sh(f'source {WORKDIR}/env.sh && cd "$WORKDIR" && echo "$PROJECT" \\\n'
 NEWEST_APPLY = "gh run list --workflow apply --limit 1 --json databaseId --jq '.[0].databaseId'"
 
 notebook("prep", [
-    md("# Session 4 CI/CD · Before class"),
-    md("## T minus 30 · Stage"),
+    md("# Session 4 CI/CD · Before you start"),
+    md("## Stage\n\n"
+       "Replace `YOUR_PROJECT_ID` and the repository in the next cell with your own project "
+       "and your own `OWNER/REPO`."),
     sh(f"./live-setup.sh YOUR_PROJECT_ID {REPO}"),
     LOAD,
-    md("## T minus 25 · Verify"),
+    md("## Verify"),
     sh('gh run list --repo "$REPO" --limit 3'),
     sh('gh workflow list --repo "$REPO"'),
     sh('gcloud storage ls --project "$PROJECT" | grep cicd'),
@@ -126,8 +127,8 @@ notebook("prep", [
 
 notebook("demo", [
     md("# Session 4 CI/CD · The infrastructure pipeline, worked\n\n"
-       "Two Cloud Storage buckets delivered through plan, policy, approval, apply and drift "
-       "detection on GitHub Actions."),
+       "A GitHub Actions pipeline delivers two Cloud Storage buckets through plan, policy, "
+       "approval, apply and drift detection."),
     LOAD,
     HELPERS,
 
@@ -165,7 +166,7 @@ notebook("demo", [
     sh('gcloud storage buckets update "gs://$SCRATCH_BUCKET" --update-labels env=dev --project "$PROJECT"'),
     sh(drift_run()),
 
-    md("## After class"),
+    md("## Step 7 · Teardown"),
     sh('cd "${WORKDIR:?}"\ngit checkout main && git pull\n'
        "sed -i '' '/prevent_destroy = true/s/true/false/' main.tf"),
     sh('terraform init -reconfigure \\\n'

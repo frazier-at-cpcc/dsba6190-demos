@@ -8,9 +8,9 @@
 # This script generates that night (2,000,000 trips, about 135 MB), creates the
 # company's bucket in us-east1, uploads the file and the rollup script, and
 # enables the APIs the hour uses. It creates no VM, no job and no dataset:
-# the hour creates those in front of the room.
+# demo.ipynb creates those step by step.
 #
-# Applies. Never destroys. Run it at T minus 20.
+# Applies. Never destroys. Run it about 20 minutes before you start demo.ipynb.
 
 set -euo pipefail
 PROJECT="${1:?usage: ./live-setup.sh <PROJECT_ID> [WORKDIR]}"

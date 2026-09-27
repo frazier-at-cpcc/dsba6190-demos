@@ -13,7 +13,7 @@ Writes two files that differ by exactly three rows:
 The generator is seeded, so a re-capture produces byte-identical files and the
 row counts and byte counts quoted in RUNBOOK.md stay true.
 
-The three bad rows are the three failure shapes the lecture names. One carries a
+The three bad rows are three distinct failure shapes. One carries a
 date the source system invented, one carries a non-numeric amount, and one
 carries a negative quantity that is syntactically valid and semantically wrong.
 The third is the interesting one, because no type system catches it.
@@ -33,7 +33,7 @@ SKUS = [f"SKU-{n:05d}" for n in range(1000, 1120)]
 HEADER = ["txn_id", "store_id", "txn_ts", "sku", "qty", "amount"]
 
 # The three rows a well-behaved source system would never emit. Each one is a
-# different failure category from Concept Block 1: a type violation, a second
+# different failure category: a type violation, a second
 # type violation in a different column, and a business-rule violation that is
 # perfectly well typed.
 BAD_ROWS = [

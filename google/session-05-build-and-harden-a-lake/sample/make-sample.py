@@ -14,9 +14,9 @@ The numbers in the runbook depend on the row counts, so the generator is
 seeded. Re-running it produces byte-identical files, and a re-capture therefore
 produces the same measurements.
 
-The data is invented industrial telemetry, which is the shape A5's scenario
-asks students to design for: a device identifier, a site, a metric name, a
-reading, and a timestamp. Nothing here is real and nothing here is sensitive.
+The data is invented industrial telemetry from Catawba Precision Components'
+plants: a device identifier, a site, a metric name, a reading, and a
+timestamp. Nothing here is real and nothing here is sensitive.
 """
 
 import csv

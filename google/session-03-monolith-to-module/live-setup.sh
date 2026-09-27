@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Stage the Session 3 live demo. Run this BEFORE class, not during.
+# Stage the Session 3 demonstration. Run this before you start demo.ipynb.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
 # Queen City Trip Analytics, a fictional South End analytics firm, created its
 # nightly-trips bucket by hand in Session 1. Tonight it codifies that bucket,
-# turns it into a module, and then hardens the module the way A3 asks.
+# turns it into a module, and then hardens the module.
 #
 # This script builds the working directory, initializes Terraform, writes a
 # terraform.tfvars so every command is `terraform plan` or `terraform apply`
@@ -13,8 +13,7 @@
 #
 # It creates nothing in the project, because step 2 must plan against an
 # empty project. It never destroys. capture.sh is the headless recorder and
-# destroys everything on exit; this is its opposite. Do not run capture.sh in
-# front of a class.
+# destroys everything on exit; this is its opposite.
 
 set -euo pipefail
 
@@ -78,7 +77,7 @@ ENVEOF
 
 cat <<DONE
 
-  Staged for the live demo. Nothing exists in the project yet.
+  Staged for the demonstration. Nothing exists in the project yet.
 
   Working directory   $WORK
   Project             $PROJECT
@@ -94,7 +93,7 @@ cat <<DONE
     stages/05-validate      step 8, validation and enforced labels
     stages/06-protect       step 9, prevent_destroy and force_destroy
     stages/07-foreach       step 10, environments from one map
-    stages/08-vm            step 11, the Lab 3 VM as a module
+    stages/08-vm            step 11, the trips VM as a module
     trips-2026-09-02.csv    step 9, the object that makes prod worth guarding
 
   Verify now, while there is time to fix it:
@@ -103,7 +102,7 @@ cat <<DONE
 
   Expect: Plan: 1 to add, 0 to change, 0 to destroy.
 
-  Tear down after class (step 13 does this):
+  Tear down when you finish (step 13 does this):
 
       cd $WORK && gcloud storage rm "gs://dsba6190-prod-raw-$SUFFIX/**"; terraform destroy -auto-approve
 

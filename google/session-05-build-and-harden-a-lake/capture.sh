@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture the Session 5 live demo: build and harden a lake.
+# Capture the Session 5 demonstration: build and harden a lake.
 #
 #   ./capture.sh <PROJECT_ID>
 #
@@ -13,14 +13,14 @@
 # does not collide with a previous capture.
 #
 # Two things it touches that it cannot fully undo, both deliberate and both
-# stated in the runbook's teardown checklist. A Cloud KMS key ring cannot be
+# stated in the runbook's teardown section. A Cloud KMS key ring cannot be
 # deleted, so the ring and the key persist and are reused by every later run;
 # the exit trap schedules the key version for destruction, which takes effect
 # after the key's scheduled-destruction window. Enabling an API is not reversed.
 #
-# DO NOT RUN THIS IN CLASS. It uses -auto-approve, it makes a bucket briefly
-# public on purpose, it disables an encryption key on purpose, and it tears the
-# estate down when it exits. live-setup.sh is the one to run before class.
+# It uses -auto-approve, it makes a bucket briefly public on purpose, it
+# disables an encryption key on purpose, and it tears the estate down when it
+# exits. To follow the steps yourself, prefer live-setup.sh and the notebooks.
 
 set -euo pipefail
 
@@ -54,7 +54,7 @@ run  () {  # run <label> <outfile> <command...>
 }
 
 # A BigQuery job with a name we chose, so the byte count can be read back by a
-# command an instructor can type rather than by parsing a job list.
+# command you can type rather than by parsing a job list.
 bqrun () {  # bqrun <job_suffix> <query_outfile> <bytes_outfile> <label> <sql>
   local jid="dsba6190-$SUFFIX-$1"; local qout="$2"; local bout="$3"
   local label="$4"; local sql="$5"
@@ -285,7 +285,7 @@ run "gcloud kms keys versions disable $VERSION" 41-disable-key-version.txt \
 # The write path has to call Cloud KMS to wrap a new data encryption key, so it
 # refuses the moment the key version is disabled. The read path can be served
 # from a cached unwrapped key for a short while, so it is polled rather than
-# assumed. The 10 September rehearsal saw the read refuse within seconds; an
+# assumed. The 10 September run saw the read refuse within seconds; an
 # earlier run took longer than ten. The runbook says so, and step 9 has the
 # write refusal to fill the gap.
 {
@@ -331,7 +331,7 @@ bqrun one 51-query-one-partition.txt 52-bytes-one-partition.txt \
       "SELECT COUNT(*) AS readings, ROUND(AVG(value), 3) AS mean_reading FROM \`$FQ.events\` WHERE dt = '2026-09-17'"
 
 # ------------------------------------------------------------------ step 11
-step "Step 11. The guardrail above the project. Capture step."
+step "Step 11. The guardrail above the project."
 run "gcloud projects get-ancestors" 53-project-ancestors.txt \
     gcloud projects get-ancestors "$PROJECT"
 run "gcloud organizations list" 54-organizations-list.txt gcloud organizations list
@@ -365,7 +365,7 @@ import pathlib, re, sys
 
 out, number, account, home = pathlib.Path(sys.argv[1]), sys.argv[2], sys.argv[3], sys.argv[4]
 
-# The project id stays. It is on every slide and it is what the runbook quotes.
+# The project id stays, because the runbook quotes it.
 # The project number, the authenticated account, and the opaque troubleshooter
 # token are the three things a public repository does not need.
 subs = [

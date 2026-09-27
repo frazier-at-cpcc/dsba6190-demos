@@ -4,10 +4,10 @@ Write the two Bash notebooks that drive the Session 4 state demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 30: stage and apply the baseline, verify
-    demo.ipynb   the hour, steps 1 to 11, teardown included
+    prep.ipynb   before you start: stage and apply the baseline, verify
+    demo.ipynb   steps 1 to 11, teardown included
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md.
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md.
 
 A notebook cell cannot answer a yes prompt, so every apply and destroy
 carries -auto-approve and the migration carries -force-copy. Steps 5 and 6
@@ -55,11 +55,11 @@ WAIT_APPLY = ('while kill -0 "$(cat apply.pid)" 2>/dev/null; do sleep 5; done\n'
               'tail -4 apply.log')
 
 notebook("prep", [
-    md("# Session 4 · Before class"),
-    md("## T minus 30 · Stage and apply the baseline"),
+    md("# Session 4 · Before you start"),
+    md("## Stage and apply the baseline"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
-    md("## T minus 25 · Verify"),
+    md("## Verify"),
     sh("terraform plan"),
 ])
 
@@ -170,7 +170,7 @@ notebook("demo", [
     sh("cp main.tf.forced main.tf\nterraform apply -auto-approve"),
     sh('cd "${WORKDIR:?}" && terraform destroy -auto-approve'),
 
-    md("## After class"),
+    md("## Teardown"),
     sh('gcloud storage rm --recursive --all-versions "gs://${STATE_BUCKET:?}" \\\n'
        '  --project "${PROJECT:?}"\n\n'
        'gcloud storage rm --recursive "gs://${LEGACY_BUCKET:?}" \\\n'

@@ -6,11 +6,11 @@
 # Crown Street Markets, a fictional 40-store Charlotte grocery chain, is
 # building its first analytics project. This script creates the two datasets
 # (curated store sales, raw loyalty members with PII), the service account
-# that stands in for the analyst, and the one grant that lets the instructor
-# act as that analyst. It grants the analyst nothing: the hour does that,
-# wrongly first. No network exists yet; steps 9 to 11 build it.
+# that stands in for the analyst, and the one grant that lets you act as
+# that analyst. It grants the analyst nothing: demo.ipynb does that, wrongly
+# first. No network exists yet; steps 8 to 10 build it.
 #
-# Applies. Never destroys. Run it at T minus 15.
+# Applies. Never destroys. Run it about 15 minutes before you start demo.ipynb.
 
 set -euo pipefail
 PROJECT="${1:?usage: ./live-setup.sh <PROJECT_ID> [WORKDIR]}"

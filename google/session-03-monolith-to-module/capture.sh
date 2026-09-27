@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture the Session 3 live demo: monolith to module, then hardened for A3.
+# Capture the Session 3 demonstration: monolith to module, then hardened.
 #
 #   ./capture.sh <PROJECT_ID>
 #
@@ -9,7 +9,8 @@
 # for about two minutes, and deletes everything through an exit trap that
 # names each resource it made. Cost of one run: well under one cent.
 #
-# DO NOT RUN THIS IN CLASS. live-setup.sh is the one to run before class.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 
 set -euo pipefail
 
@@ -24,7 +25,7 @@ run  () {  # run <label> <outfile> <command...>   (never aborts; expected errors
   local label="$1"; local out="$OUT/$2"; shift 2
   { printf '$ %s\n\n' "$label"; ( cd "$WORK" && "$@" ) 2>&1 || true; } | tee "$out"
 }
-expect () {  # expect <outfile> <pattern>: stop the run if a step did not do what the deck says
+expect () {  # expect <outfile> <pattern>: stop the run if a step did not do what the walkthrough says
   grep -q -E "$2" "$OUT/$1" || { echo "!!! $1 does not contain: $2" >&2; exit 1; }
 }
 tf () { terraform "$@" -no-color; }
@@ -82,7 +83,7 @@ expect 07-plan-replace.txt "forces replacement"
 cp "$WORK/main.tf.nearline" "$WORK/main.tf"
 
 step "Step 6 · Drift, made outside Terraform"
-run "gcloud storage buckets update gs://\$BUCKET --update-labels=owner=someone-at-2am   (the Console, in class)" \
+run "gcloud storage buckets update gs://\$BUCKET --update-labels=owner=someone-at-2am   (or the Console)" \
     08-drift-edit.txt gcloud storage buckets update "gs://${BUCKET:?}" --update-labels=owner=someone-at-2am --project "$PROJECT"
 run "terraform plan" 09-plan-drift.txt tf plan
 expect 09-plan-drift.txt "someone-at-2am"
@@ -141,7 +142,7 @@ run "terraform apply" 26-apply-add-test.txt tf apply -auto-approve
 expect 26-apply-add-test.txt "1 added, 0 changed, 0 destroyed"
 
 # ------------------------------------------------------------------ step 11
-step "Step 11 · The Lab 3 VM as a module"
+step "Step 11 · The trips VM as a module"
 cp -R "$WORK/stages/08-vm/." "$WORK/"
 ( cd "$WORK" && terraform init -no-color >/dev/null )
 run "cp -R stages/08-vm/. . && terraform init && terraform plan -var machine_type=n2-standard-32" \

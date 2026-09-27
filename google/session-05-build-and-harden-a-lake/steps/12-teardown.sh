@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 12 · Teardown is a teaching step · slide 24 · 4 minutes
+# Step 12 · Teardown is a teaching step
 #
 # Demonstrates that terraform destroy fails against the retention policy,
 # clears the retention period via gcloud, re-runs destroy to completion,
@@ -16,7 +16,7 @@ REGION="us-east1"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 12 · Teardown is a teaching step\033[0m"
-echo -e "\033[1;32m    Slide 24 · 4 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then

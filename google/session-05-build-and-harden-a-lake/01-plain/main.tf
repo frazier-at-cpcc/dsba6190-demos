@@ -31,7 +31,7 @@ variable "region" {
 
 variable "kms_key" {
   type        = string
-  description = "Full resource name of the Cloud KMS key. live-setup.sh creates the key and grants the Cloud Storage service agent on it before class, because IAM propagation is slower than step 9."
+  description = "Full resource name of the Cloud KMS key. live-setup.sh creates the key and grants the Cloud Storage service agent on it before step 1, because IAM propagation is slower than step 9."
 }
 
 # The bucket somebody made in a hurry, before anyone wrote a governance list.

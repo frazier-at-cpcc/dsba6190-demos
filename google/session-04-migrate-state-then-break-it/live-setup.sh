@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage the Session 4 live demo. Run this BEFORE class, not during.
+# Stage the Session 4 demo. Run this before you start demo.ipynb, not during.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
@@ -12,8 +12,8 @@
 # It does NOT create the state bucket. Creating the state bucket is step 2.
 #
 # It does NOT destroy anything. capture.sh is the headless recorder and tears
-# everything down through an exit trap; this is its opposite. Do not run
-# capture.sh in front of a class.
+# everything down through an exit trap; this is its opposite. To follow the
+# steps yourself, use demo.ipynb.
 
 set -euo pipefail
 
@@ -37,7 +37,7 @@ project_id  = "$PROJECT"
 name_suffix = "$SUFFIX"
 VARS
 
-# Staged edits, so no step is five minutes of live authoring.
+# Staged edits, so no step requires editing a file.
 cp "$HERE/03-lock/main.tf"                    "$WORK/main.tf.sleep"
 cp "$HERE/05-state-mv/main.tf"                "$WORK/main.tf.renamed"
 cp "$HERE/06-destroy-controls/main.tf"        "$WORK/main.tf.protected"
@@ -46,7 +46,7 @@ cp "$HERE/04-import/legacy-guess.tf"          "$WORK/legacy.tf.guess"
 cp "$HERE/04-import/legacy-matched.tf"        "$WORK/legacy.tf.matched"
 
 # Two templates, because neither a backend block nor a Terraform 1.5 import
-# block may contain a variable. That restriction is the lecture's watch-for.
+# block may contain a variable. That restriction is Terraform's, not this demo's.
 sed "s|__STATE_BUCKET__|$STATE_BUCKET|" \
     "$HERE/02-remote-backend/backend.tf.tmpl" > "$WORK/backend.tf.staged"
 sed -e "s|__PROJECT_ID__|$PROJECT|" -e "s|__ANNEX_BUCKET__|$ANNEX_BUCKET|" \
@@ -81,7 +81,7 @@ ENVEOF
 
 cat <<DONE
 
-  Staged for the live demo, and the baseline is applied.
+  Staged for the demo, and the baseline is applied.
 
   Working directory   $WORK
   Project             $PROJECT
@@ -116,7 +116,7 @@ cat <<DONE
 
   Expect: No changes. Your infrastructure matches the configuration.
 
-  Tear down after class. All four lines, in this order:
+  Tear down when you finish. All four lines, in this order:
 
       cd $WORK && terraform destroy -auto-approve
       gcloud storage rm --recursive --all-versions gs://$STATE_BUCKET --project $PROJECT

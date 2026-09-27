@@ -4,15 +4,15 @@ Write the two Bash notebooks that drive the Session 13 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 60: two training jobs, register ridge, deploy, verify
-    demo.ipynb   the hour, steps 1 to 11, teardown included
+    prep.ipynb   before you start: two training jobs, register ridge, deploy, verify
+    demo.ipynb   the demonstration, steps 1 to 11, teardown included
 
 Both run on the Bash kernel. env.sh changes into ~/dsba6190-live-demo-13, so
-every file the hour reads or writes is named relative to that directory: a path
+every file the steps read or write is named relative to that directory: a path
 with spaces breaks --json-request and curl -d @file. The batch prediction job
 takes about 19 minutes, so step 7 submits it right after version 2 is
 registered and step 9 collects it with a polling loop. The notebooks carry step
-headings and commands only. What to say is in RUNBOOK.md and its PDF.
+headings and commands only. The walkthrough is in RUNBOOK.md.
 """
 
 import json
@@ -57,8 +57,8 @@ ENDPOINT_DESCRIBE = ('gcloud ai endpoints describe "$ENDPOINT_ID" --region "$REG
 RESULTS = '"gs://$BUCKET/batch/out/*/prediction.results-*"'
 
 notebook("prep", [
-    md("# Session 13 · Before class"),
-    md("## T minus 60 · Stage: two training jobs, register ridge, deploy\n\n"
+    md("# Session 13 · Before you start"),
+    md("## Stage two training jobs, register ridge, deploy\n\n"
        "About 28 minutes. The deployment alone takes about 21 of them."),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
@@ -96,7 +96,7 @@ notebook("demo", [
     sh('gcloud ai models describe "$MODEL_ID" --region "$REGION" --project "$PROJECT" \\\n'
        '  --format="yaml(displayName,versionId,versionAliases,artifactUri,containerSpec.imageUri)"'),
 
-    md("## Step 5 · The endpoint, deployed before class"),
+    md("## Step 5 · The endpoint, already deployed"),
     sh(ENDPOINT_DESCRIBE),
 
     md("## Step 6 · The request, in raw units"),
@@ -149,7 +149,7 @@ notebook("demo", [
     sh(f"gcloud storage cat {RESULTS} | head -3\n"
        f'echo "$(gcloud storage cat {RESULTS} | wc -l | tr -d \' \') predictions written"'),
 
-    md("## Step 10 · Undeploy, in front of the room"),
+    md("## Step 10 · Undeploy the endpoint"),
     sh('DM=$(gcloud ai endpoints describe "$ENDPOINT_ID" --region "$REGION" --project "$PROJECT" '
        '--format="value(deployedModels[0].id)"); echo "$DM"'),
     sh('gcloud ai endpoints undeploy-model "${ENDPOINT_ID:?}" --deployed-model-id "${DM:?}" \\\n'

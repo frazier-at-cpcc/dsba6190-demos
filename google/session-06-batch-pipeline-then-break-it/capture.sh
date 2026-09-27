@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture the Session 6 live demo: a batch pipeline, then break it.
+# Capture the Session 6 demonstration: a batch pipeline, then break it.
 #
 #   ./capture.sh <PROJECT_ID>
 #
@@ -19,9 +19,9 @@
 #
 # and confirm with `gcloud beta data-fusion instances list`.
 #
-# DO NOT RUN THIS IN CLASS. It deletes the instance when it exits, and the
-# instance takes about sixteen minutes to build. live-setup.sh is the one to run
-# before class; it provisions and never destroys.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb. The instance takes about sixteen
+# minutes to build. live-setup.sh provisions and never destroys.
 
 set -euo pipefail
 
@@ -70,7 +70,7 @@ start_run () {  # start_run <app>
 cdap () { python3 "$HERE/cdap.py" "$@" --endpoint "$ENDPOINT"; }
 
 # A BigQuery count with a job id we chose, so the runbook can quote a command
-# an instructor can retype rather than a job list they have to search.
+# a reader can retype rather than a job list they have to search.
 count () {  # count <label> <outfile> <sql>
   run "$1" "$2" bq --project_id="$PROJECT" --quiet query --use_legacy_sql=false \
       --nouse_cache --format=pretty "$3"
@@ -175,13 +175,13 @@ run "gcloud beta data-fusion instances describe" 03-instance-describe.txt \
       --location "$REGION" \
       --format="yaml(name,state,type,version,zone,apiEndpoint,dataprocServiceAccount)"
 
-step "Step 1b. The three grants a pipeline run needs, and the two the lab names."
+step "Step 1b. The three grants a pipeline run needs."
 PROJECT_NUMBER_="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')"
 COMPUTE_SA="$PROJECT_NUMBER_-compute@developer.gserviceaccount.com"
 FUSION_SA="service-$PROJECT_NUMBER_@gcp-sa-datafusion.iam.gserviceaccount.com"
 # `dataprocServiceAccount` is empty on a default instance, which means the
 # ephemeral cluster runs as the default compute service account. That is the
-# account the lab's second grant is really about.
+# account the second grant is really about.
 [ -z "$SPARK_SA" ] && SPARK_SA="$COMPUTE_SA"
 run "gcloud projects get-iam-policy  (every role the cluster's identity holds)" 04-compute-sa-roles.txt \
     gcloud projects get-iam-policy "$PROJECT" --flatten="bindings[].members" \
@@ -402,7 +402,7 @@ count "bq query  (and the table the failed run was writing into)" 42-count-after
       "SELECT COUNT(*) AS rows_loaded FROM \`$FQ\`"
 
 # ------------------------------------------------------------------ step 11
-step "Step 11. ETL against ELT, named against what the room has watched."
+step "Step 11. ETL against ELT, and every run in one list."
 run "every run this hour, in one list" 43-all-runs.txt \
     bash -c "
 for app in pos-01-baseline pos-02-quarantine pos-03-idempotent pos-04-drift; do
@@ -447,7 +447,7 @@ import pathlib, re, sys
 out, number, account, home, endpoint = (pathlib.Path(sys.argv[1]), sys.argv[2],
                                         sys.argv[3], sys.argv[4], sys.argv[5])
 
-# The project id stays. It is on every slide and it is what the runbook quotes.
+# The project id stays. It is what the runbook quotes.
 # The project number, the authenticated account, the tenant host Data Fusion
 # generates per instance, and the home directory are the four things a public
 # repository does not need.

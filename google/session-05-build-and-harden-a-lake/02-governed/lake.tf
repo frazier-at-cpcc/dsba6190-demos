@@ -1,8 +1,8 @@
-# Step 2. The governed bucket from slide 22, added beside the ungoverned one
+# Step 2. The governed bucket, added beside the ungoverned one
 # rather than replacing it, so step 4 can run the same command against both.
 #
-# Read it argument by argument against the governance list from Concept
-# Block 2. Four of the five controls are here. The fifth, a retention policy,
+# Read it argument by argument against a governance checklist. Four of the
+# five controls are here. The fifth, a retention policy,
 # arrives in step 8 on its own bucket, because a retention policy on the lake
 # would make steps 5 and 12 impossible.
 resource "google_storage_bucket" "lake" {
@@ -10,10 +10,10 @@ resource "google_storage_bucket" "lake" {
   location      = upper(var.region)
   storage_class = "STANDARD"
 
-  # One bucket policy, no per-object ACLs. Slide 21's last bullet.
+  # One bucket policy, no per-object ACLs.
   uniform_bucket_level_access = true
 
-  # A refusal rather than a warning. Step 4 reads the refusal out loud.
+  # A refusal rather than a warning. Step 4 shows the refusal.
   public_access_prevention = "enforced"
 
   # The undo for overwrite and delete. Step 5 uses it.

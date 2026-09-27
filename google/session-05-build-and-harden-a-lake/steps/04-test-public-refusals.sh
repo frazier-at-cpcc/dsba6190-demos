@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 4 · Make it public. Twice · slide 25 · 5 minutes
+# Step 4 · Make it public. Twice
 #
 # Demonstrates public exposure on the ungoverned staging bucket, anonymous curl access,
 # and contrasts that with HTTP 412 (PAP refusal) and HTTP 400 (UBLA refusal) on the lake.
@@ -11,7 +11,7 @@ WORK="${WORK:-$HOME/dsba6190-live-demo-05}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 4 · Make it public. Twice\033[0m"
-echo -e "\033[1;32m    Slide 25 · 5 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -50,7 +50,7 @@ gcloud storage buckets add-iam-policy-binding "gs://dsba6190-lake-$SUFFIX" \
   --member=allUsers --role=roles/storage.objectViewer 2>&1
 PAP_CODE=$?
 set -e
-echo -e "\033[1;33m[Teaching note]\033[0m Notice HTTP 412 Precondition Failed. Public access prevention is a hard refusal, not a warning."
+echo -e "\033[1;33m[Note]\033[0m Notice HTTP 412 Precondition Failed. Public access prevention is a hard refusal, not a warning."
 
 echo -e "\n\033[1;34m>>> 4. Attempting per-object ACL grant on the GOVERNED lake bucket...\033[0m"
 echo "$ gcloud storage objects update gs://dsba6190-lake-$SUFFIX/raw/... --add-acl-grant=entity=allUsers,role=READER"
@@ -60,7 +60,7 @@ gcloud storage objects update "gs://dsba6190-lake-$SUFFIX/raw/readings/readings.
   --add-acl-grant=entity=allUsers,role=READER 2>&1
 UBLA_CODE=$?
 set -e
-echo -e "\033[1;33m[Teaching note]\033[0m Notice HTTP 400 Bad Request. UBLA completely disables per-object ACL bypasses."
+echo -e "\033[1;33m[Note]\033[0m Notice HTTP 400 Bad Request. UBLA completely disables per-object ACL bypasses."
 
 echo -e "\n\033[1;34m>>> 5. Revoking public exposure on the staging bucket...\033[0m"
 gcloud storage buckets remove-iam-policy-binding "gs://dsba6190-staging-$SUFFIX" \

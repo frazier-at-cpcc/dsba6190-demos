@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 11 · The guardrail above the project · slide 25 · 3 minutes · Capture step
+# Step 11 · The guardrail above the project
 #
 # Inspects project ancestry and effective organization policies.
 # Explains why an unmanaged project has no organization above it and why
@@ -10,8 +10,8 @@ PROJECT="${PROJECT:-YOUR_PROJECT_ID}"
 WORK="${WORK:-$HOME/dsba6190-live-demo-05}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
-echo -e "\033[1;32m>>> Step 11 · The guardrail above the project (Capture Step)\033[0m"
-echo -e "\033[1;32m    Slide 25 / 40 · 3 minutes · Project: $PROJECT\033[0m"
+echo -e "\033[1;32m>>> Step 11 · The guardrail above the project\033[0m"
+echo -e "\033[1;32m    Project: $PROJECT\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -46,6 +46,6 @@ set +e
 gcloud org-policies set-policy _pap.yaml --project="$PROJECT" 2>&1
 set -e
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m This project has no parent organization or folder node."
+echo -e "\n\033[1;33m[Note]\033[0m This project has no parent organization or folder node."
 echo "An organization-level Public Access Prevention policy overrides bucket settings and cannot be overridden by project owners."
 echo -e "\n\033[1;32m>>> Step 11 complete.\033[0m"

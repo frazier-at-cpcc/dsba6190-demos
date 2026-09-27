@@ -1,4 +1,4 @@
-# The Lab 3 VM, turned into a module body.
+# The trips VM, turned into a module body.
 locals {
   labels = {
     environment = var.environment
@@ -28,6 +28,6 @@ resource "google_compute_instance" "vm" {
   # Google refuses the delete, whatever tool asks.
   deletion_protection = var.environment == "prod"
 
-  # Lab 3, Task 5: a machine type change stops the VM instead of failing.
+  # A machine type change stops the VM instead of failing.
   allow_stopping_for_update = true
 }

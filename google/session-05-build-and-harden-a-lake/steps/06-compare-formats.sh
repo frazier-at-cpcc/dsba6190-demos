@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 6 · CSV to Parquet. Two arguments, two numbers · slides 18 and 20 · 7 minutes
+# Step 6 · CSV to Parquet. Two arguments, two numbers
 #
 # Compares CSV vs Parquet on raw disk storage size (11.78 MB vs 2.56 MB),
 # attaches BigQuery external tables, and proves columnar scan savings (12.3 MB vs 1.6 MB).
@@ -12,7 +12,7 @@ AUTO_APPROVE="${AUTO_APPROVE:---auto-approve}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 6 · CSV to Parquet. Two arguments, two numbers\033[0m"
-echo -e "\033[1;32m    Slides 18 & 20 · 7 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -54,8 +54,8 @@ bq --project_id="$PROJECT" show -j "$JOB_CSV"
 echo -e "\n\033[1;34m$ bq show -j $JOB_PARQ\033[0m"
 bq --project_id="$PROJECT" show -j "$JOB_PARQ"
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Notice Bytes Processed:"
+echo -e "\n\033[1;33m[Note]\033[0m Notice Bytes Processed:"
 echo "  - CSV:     ~12,348,283 bytes (scanned whole file to read 1 column)"
 echo "  - Parquet:  1,600,000 bytes (exactly 200,000 rows * 8 bytes for float64 value column!)"
-echo "  Format is not just performance tuning; format is query cost control."
+echo "  Format is not only performance tuning; format is query cost control."
 echo -e "\n\033[1;32m>>> Step 6 complete.\033[0m"

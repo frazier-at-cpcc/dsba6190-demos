@@ -5,9 +5,9 @@ Write the two Bash notebooks that drive the Session 2 demonstration.
     python3 build-notebook.py
 
     prep.ipynb   create the two datasets and the analyst service account
-    demo.ipynb   the hour, steps 1 to 12, teardown included
+    demo.ipynb   the demonstration, steps 1 to 12, teardown included
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md.
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md.
 """
 import json
 import pathlib
@@ -47,7 +47,7 @@ PROBE = ("for u in https://storage.googleapis.com https://bigquery.googleapis.co
          "printf \"%-36s \" $u; curl -s -m 8 -o /dev/null -w \"%{http_code}\\n\" $u || echo \"no route (timed out)\"; done")
 
 notebook("prep", [
-    md("# Session 2 · Before class"),
+    md("# Session 2 · Before you start"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     sh('bq --project_id="$PROJECT" ls | grep crown_'),

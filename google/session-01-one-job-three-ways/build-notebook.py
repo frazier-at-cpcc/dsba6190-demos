@@ -7,7 +7,7 @@ Write the two Bash notebooks that drive the Session 1 demonstration.
     prep.ipynb   generate the night of trips and stage the bucket
     demo.ipynb   the hour, steps 1 to 12, teardown included
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md.
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md.
 """
 import json
 import pathlib
@@ -42,7 +42,7 @@ LOAD = sh(f'source {WORKDIR}/env.sh && echo "$BUCKET" \\\n'
 RAW = 'gs://$BUCKET/raw/trips-2026-08-19.csv'
 
 notebook("prep", [
-    md("# Session 1 · Before class"),
+    md("# Session 1 · Before you start"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     sh(f"gcloud storage ls -l {RAW}"),

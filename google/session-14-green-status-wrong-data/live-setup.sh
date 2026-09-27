@@ -6,8 +6,8 @@
 # Generates sixty nights of Crown Street Markets store sales from a seeded
 # script, puts the raw files in a labelled Cloud Storage bucket, and loads
 # fifty-nine of them into a labelled, date-partitioned BigQuery table. Last
-# night's file is left for step 1, where the nightly load runs in front of the
-# room. Also loads thirty nights of load outcomes for the error-budget step.
+# night's file is left for step 1, where the nightly load runs in demo.ipynb.
+# It also loads thirty nights of load outcomes for the error-budget step.
 #
 # Applies. Never destroys. The teardown it prints is step 8.
 set -euo pipefail

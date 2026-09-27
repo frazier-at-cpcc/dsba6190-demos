@@ -21,6 +21,6 @@ resource "google_storage_bucket" "raw" {
 
   labels = local.labels
 
-  # prevent_destroy is left out so the hour ends in one teardown.
+  # prevent_destroy is left out so the demonstration ends in one teardown.
   # A production module keeps it.
 }

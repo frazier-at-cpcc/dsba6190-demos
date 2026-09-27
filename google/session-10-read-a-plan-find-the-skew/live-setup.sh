@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# Stage the Session 10 live demo: read a plan, find the skew.
+# Stage the Session 10 demonstration: read a plan, find the skew.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
-# Provisions what the hour cannot wait for: a bucket holding billing.py, a
+# Provisions what the steps cannot wait for: a bucket holding billing.py, a
 # year of Queen City Trip Analytics trips written by the generate batch
 # (30,000,000 trips and 5,001 accounts, about two and a half minutes on the
-# rehearsal), and a BigQuery dataset loaded from the same Parquet for steps 4
-# and 8. It runs none of the four join variants. The hour submits each one in
-# front of the room.
+# recorded run), and a BigQuery dataset loaded from the same Parquet for steps 4
+# and 8. It runs none of the four join variants. demo.ipynb submits each one
+# at its own step.
 #
-# Run it at T minus 30.
+# Run it about five minutes before you start demo.ipynb.
 # Applies. Never destroys. The teardown it prints is step 11.
 
 set -euo pipefail
@@ -77,18 +77,18 @@ READY=$(( $(date +%s) - T0 ))
 
 cat <<DONE
 
-  Staged for the live demo in $(( READY / 60 )) min $(( READY % 60 )) s. No join variant has run.
+  Staged for the demonstration in $(( READY / 60 )) min $(( READY % 60 )) s. No join variant has run.
 
   Working directory   $WORK
   Name suffix         $SUFFIX
   Bucket              $BASE      (data/trips, data/accounts, jobs/billing.py)
   Dataset             $PROJECT:$DATASET   (trips, accounts)
 
-  Load the names and the helpers into the shell you will teach from:
+  Load the names and the helpers into the shell you will run the steps from:
 
       source $WORK/env.sh
 
-  NOT run. The hour submits each of these at its own step:
+  NOT run. demo.ipynb submits each of these at its own step:
     baseline    step 1        broadcast   step 2
     salted      step 3        aqe         step 4
 

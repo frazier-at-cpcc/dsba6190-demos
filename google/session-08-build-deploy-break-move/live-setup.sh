@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# Stage the Session 8 live demo: build, deploy, update, break, and move.
+# Stage the Session 8 demonstration: build, deploy, update, break, and move.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
-# Provisions what the hour cannot wait for: the Artifact Registry repository,
+# Provisions what the steps cannot wait for: the Artifact Registry repository,
 # the v1 and v2 images of Queen City Trip Analytics' fare-quote API, and a
 # three-node GKE Standard cluster with both images already pulled onto every
-# node. It deploys nothing the hour deploys. Steps 3 onward create the
-# Deployment, the Service, the budget and the Cloud Run service in front of
-# the room.
+# node. It deploys nothing the steps deploy. Steps 3 onward create the
+# Deployment, the Service, the budget and the Cloud Run service, one step
+# at a time in demo.ipynb.
 #
-# Run it at T minus 45. Cluster creation is the slow part.
+# Run it about ten minutes before you start demo.ipynb. Cluster creation is
+# the slow part.
 # Applies. Never destroys. The teardown it prints is step 11.
 
 set -euo pipefail
@@ -111,7 +112,7 @@ READY=$(( $(date +%s) - T0 ))
 
 cat <<DONE
 
-  Staged for the live demo in $(( READY / 60 )) min $(( READY % 60 )) s. Nothing is deployed.
+  Staged for the demonstration in $(( READY / 60 )) min $(( READY % 60 )) s. Nothing is deployed.
 
   Working directory   $WORK
   Name suffix         $SUFFIX
@@ -119,11 +120,11 @@ cat <<DONE
   Images              $IMAGE_BASE:v1
                       $IMAGE_BASE:v2
 
-  Load the names into the shell you will teach from:
+  Load the names into the shell you will run the steps from:
 
       source $WORK/env.sh
 
-  NOT created. The hour creates each of these at its own step:
+  NOT created. demo.ipynb creates each of these at its own step:
     Deployment fare-api and Service fare-api   step 3
     fare-api-oom, fare-api-throttled           step 8
     PodDisruptionBudget fare-api               step 9

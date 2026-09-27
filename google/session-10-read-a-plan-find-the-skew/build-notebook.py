@@ -4,14 +4,14 @@ Write the two Bash notebooks that drive the Session 10 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 30: bucket, the generate batch, the BigQuery load, verify
-    demo.ipynb   the hour, steps 1 to 11, teardown included
+    prep.ipynb   about five minutes ahead: bucket, the generate batch, the BigQuery load, verify
+    demo.ipynb   the demonstration, steps 1 to 11, teardown included
 
 Both run on the Bash kernel. Each Spark variant takes about three minutes
-from submission to finish, so the hour submits it with --async one step
+from submission to finish, so demo.ipynb submits it with --async one step
 before it is needed and collects it with an until-loop (`waitfor`). At most
 one batch runs at a time. The notebooks carry step headings and commands
-only. What to say is in RUNBOOK.md and its PDF.
+only. The walkthrough is in RUNBOOK.md.
 
 After writing, the script validates both notebooks: the JSON parses, every
 code cell passes `bash -n`, and every line that deletes names its target
@@ -60,8 +60,8 @@ T = "\\`$DS.trips\\`"
 A = "\\`$DS.accounts\\`"
 
 notebook("prep", [
-    md("# Session 10 · Before class"),
-    md("## T minus 30 · Provision and generate"),
+    md("# Session 10 · Before you start"),
+    md("## Provision and generate, about five minutes ahead"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     md("## Verify"),
@@ -131,7 +131,7 @@ notebook("demo", [
 
     sh("for v in baseline broadcast salted aqe; do printf '%-10s ' \"$v\"; apptime \"$v\"; done"),
 
-    md("## Step 10 · Annotate the plan together"),
+    md("## Step 10 · Save and number the plan"),
     sh("planof baseline > skewed-plan.txt\n"
        "nl -ba -w2 -s '  ' skewed-plan.txt | sed -n '6,16p'"),
 

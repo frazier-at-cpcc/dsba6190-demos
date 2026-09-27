@@ -1,6 +1,6 @@
 $ q "SELECT COUNT(*) FROM trips_2022_part WHERE pickup_location_id = '132'"
 
-Error in query string: Error processing job 'basic-
-carrier-262420:dsba6190_1790272677_29236': Cannot query over table 'basic-
-carrier-262420.dsba6190_wh_72583.trips_2022_part' without a filter over
+Error in query string: Error processing job '
+YOUR_PROJECT_ID:dsba6190_1790272677_29236': Cannot query over table '
+YOUR_PROJECT_ID.dsba6190_wh_72583.trips_2022_part' without a filter over
 column(s) 'pickup_datetime' that can be used for partition elimination

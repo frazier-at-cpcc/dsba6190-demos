@@ -4,13 +4,13 @@ Write the two Bash notebooks that drive the Session 11 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 30: create the topics, launch three streaming jobs, verify
-    demo.ipynb   the hour, steps 1 to 11, teardown included
+    prep.ipynb   before you start: create the topics, launch three streaming jobs, verify
+    demo.ipynb   the demonstration, steps 1 to 11, teardown included
 
-Both run on the Bash kernel. Every command mirrors an in-class step of
+Both run on the Bash kernel. Every command mirrors a demonstration step of
 capture.sh, and every fixed sleep in capture.sh is an until-loop here, so a
 cell returns as soon as the output exists. The notebooks carry step headings
-and commands only. What to say is in RUNBOOK.md and its PDF.
+and commands only. The walkthrough is in RUNBOOK.md.
 """
 
 import json
@@ -56,7 +56,7 @@ BASE = '\\`$PROJECT.$DATASET.sales_baseline\\`'
 LATE = '\\`$PROJECT.$DATASET.sales_lateness\\`'
 DEDUP = '\\`$PROJECT.$DATASET.sales_dedup\\`'
 # The late sale's own window. capture.sh filtered on "older than 20 minutes",
-# which in class would also catch the step 3 burst; this band holds only the
+# which in demo.ipynb would also catch the step 3 burst; this band holds only the
 # minute the late sale was rung.
 BAND = ("store_id = 'CLT-031' AND window_start BETWEEN TIMESTAMP_SUB(TIMESTAMP('$LATE_PUB'), INTERVAL 31 MINUTE)"
         " AND TIMESTAMP_SUB(TIMESTAMP('$LATE_PUB'), INTERVAL 29 MINUTE)")
@@ -66,8 +66,8 @@ N = ('n () { bq --project_id="$PROJECT" --quiet query --use_legacy_sql=false --n
      '--format=csv "$1" | tail -1 | grep -E "^[0-9]+$" || echo 0; }')
 
 notebook("prep", [
-    md("# Session 11 · Before class"),
-    md("## T minus 30 · Stage the topics and launch three jobs"),
+    md("# Session 11 · Before you start"),
+    md("## Stage the topics and launch three jobs"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     md("## Verify"),
@@ -91,7 +91,7 @@ notebook("demo", [
     sh('gcloud pubsub subscriptions pull "$SCRATCH" --project "$PROJECT" --auto-ack --limit 3 \\\n'
        '  --format="table(message.data.decode(base64),message.attributes.store_id,message.messageId)"'),
 
-    md("## Step 2 · Three jobs, started before class"),
+    md("## Step 2 · Three jobs, already running"),
     sh(JOBS + ' \\\n  --format="table(name,state,creationTime)"'),
     sh('for v in baseline lateness dedup; do\n'
        '  ID=$(gcloud dataflow jobs list --project "$PROJECT" --region "$REGION" --status=active '

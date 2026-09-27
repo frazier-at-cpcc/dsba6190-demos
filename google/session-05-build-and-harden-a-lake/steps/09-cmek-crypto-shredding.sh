@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 9 · CMEK, and crypto-shredding · slide 23 · 7 minutes
+# Step 9 · CMEK, and crypto-shredding
 #
 # Deploys a CMEK-encrypted bucket, uploads sensitive data, disables the KMS key version
 # to demonstrate crypto-shredding (instant read/write refusal), and re-enables the key.
@@ -15,7 +15,7 @@ REGION="us-east1"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 9 · CMEK, and crypto-shredding\033[0m"
-echo -e "\033[1;32m    Slide 23 · 7 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -70,7 +70,7 @@ set +e
 gcloud storage cp _regulated.csv "gs://dsba6190-secure-$SUFFIX/raw/second.csv" --project "$PROJECT" 2>&1
 set -e
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m The ciphertext remains in storage, but reading and writing are completely impossible."
+echo -e "\n\033[1;33m[Note]\033[0m The ciphertext remains in storage, but reading and writing are completely impossible."
 echo "Crypto-shredding destroys key access rather than attempting to track down and scrub every replica."
 
 echo -e "\n\033[1;34m>>> 6. Re-enabling Cloud KMS key version $VERSION...\033[0m"

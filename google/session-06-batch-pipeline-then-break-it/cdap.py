@@ -6,10 +6,10 @@ Drive a Cloud Data Fusion instance through its CDAP REST API.
 
 A Data Fusion pipeline is a JSON document and the Studio canvas is a renderer
 for it. Everything the Studio does over the wire is a call to the same v3 REST
-API this script uses, which is what lets an hour of clicking be captured as
-text. The demonstration is performed in the UI, because the canvas, the Wrangler
-grid and the lineage view are the visual teaching. The capture is performed
-here, because a screenshot cannot be diffed and a log line can.
+API this script uses, which is what lets the Studio's clicks be captured as
+text. The walkthrough uses the UI, because the canvas, the Wrangler grid and
+the lineage view are visual. The capture uses this script, because a
+screenshot cannot be diffed and a log line can.
 
 Operations:
 
@@ -104,7 +104,7 @@ def op_wait(a):
         r = call(a.endpoint, f"apps/{a.app}/{WORKFLOW}/runs/{a.run}", tok=tok)
         state = r.get("status")
         if state != last:
-            # Flushed, because this is the one command an instructor watches
+            # Flushed, because this is the one command a reader watches
             # while it works and the recorder pipes its output to a file.
             print(f"  {int(time.time() - t0):>5}s  {state}", flush=True)
             last = state

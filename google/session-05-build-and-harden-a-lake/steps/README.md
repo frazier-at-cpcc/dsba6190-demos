@@ -1,50 +1,45 @@
-# Session 5 Live Demo · Step Scripts (VS Code Runner)
+# Session 5 step scripts · Build and harden a lake
 
-This directory contains standalone, executable bash scripts for every step of the **Session 5 Live
-Demo: Build and Harden a Lake**.
+This directory holds one standalone Bash script for each step of the Session 5 demonstration. The
+scripts run the same commands as `demo.ipynb`. Each one changes into the working directory, prints a
+header for its step, and ends with a short note on what to notice.
 
-The active session suffix is **`86612`** targeting project **`YOUR_PROJECT_ID`**.
+## Running the steps
 
-## Visual Studio Code Usage
+`live-setup.sh` copies this directory into the working directory. Stage the demonstration first,
+then load the environment it writes:
 
-You can open this folder directly in Visual Studio Code:
 ```sh
-code "./session-05-build-and-harden-a-lake"
-```
-Or open the active working directory:
-```sh
-code ~/dsba6190-live-demo-05
+./live-setup.sh YOUR_PROJECT_ID          # or ./steps/00-setup.sh YOUR_PROJECT_ID
+source ~/dsba6190-live-demo-05/env.sh
 ```
 
-### Running Steps
-From the VS Code integrated terminal (`Ctrl+\`` or `Cmd+\``):
-- Run individual step scripts directly:
-  ```sh
-  ./steps/01-read-plan.sh
-  ./steps/02-apply-governed.sh
-  ```
-- Or launch the interactive menu:
-  ```sh
-  ./steps/menu.sh
-  ```
-- Or run via VS Code Tasks (`Terminal -> Run Task...` or `Cmd+Shift+P` -> `Tasks: Run Task`).
+`env.sh` exports `PROJECT`, `SUFFIX` and `WORK` and changes into the working directory. From there,
+run one step at a time or open the menu:
 
----
+```sh
+./steps/01-read-plan.sh
+./steps/menu.sh
+```
 
-## Step Inventory
+The scripts apply and destroy with `-auto-approve`. Read the plan in step 1 before you run step 2,
+and run the steps in order.
 
-| Script | Step | Description | Deck Slide | Duration |
-|---|---|---|---|---|
-| [`00-setup.sh`](./00-setup.sh) | Step 0 | Stages baseline estate (`dsba6190-staging-86612`), KMS key, sample data | — | Pre-class |
-| [`01-read-plan.sh`](./01-read-plan.sh) | Step 1 | Stages `lake.tf` and runs `terraform plan` to inspect 4 governance controls | Slide 26 | 4 min |
-| [`02-apply-governed.sh`](./02-apply-governed.sh) | Step 2 | Applies governed bucket; describes `lake-86612` and `staging-86612` side by side | Slide 26 | 5 min |
-| [`03-create-zones.sh`](./03-create-zones.sh) | Step 3 | Creates 5 zone prefixes (`raw`, `validated`, `curated`, `archive`, `quarantine`) and uploads `readings.csv` | Slide 12 | 4 min |
-| [`04-test-public-refusals.sh`](./04-test-public-refusals.sh) | Step 4 | Makes staging public, curl test, tests HTTP 412 (PAP) and HTTP 400 (UBLA) refusals on lake, revokes public grant | Slide 25 | 5 min |
-| [`05-versioning-undo.sh`](./05-versioning-undo.sh) | Step 5 | Manifest v1 upload, 0-row overwrite, rollback via `#generation`, delete, and recovery | Slide 24 | 6 min |
-| [`06-compare-formats.sh`](./06-compare-formats.sh) | Step 6 | Uploads Parquet, applies BigQuery tables, runs queries, and inspects `Bytes Processed` | Slides 18, 20 | 7 min |
-| [`07-apply-lifecycle.sh`](./07-apply-lifecycle.sh) | Step 7 | Adds lifecycle rules (Nearline at 30d, Archive at 365d), runs in-place plan/apply | Slide 11 | 4 min |
-| [`08-retention-refusal.sh`](./08-retention-refusal.sh) | Step 8 | Provisions vault bucket with retention policy, uploads `_incident.csv`, verifies HTTP 403 refusal | Slides 14, 24 | 5 min |
-| [`09-cmek-crypto-shredding.sh`](./09-cmek-crypto-shredding.sh) | Step 9 | CMEK bucket apply, upload sensitive file, disable KMS key version (crypto-shredding), re-enable | Slide 23 | 7 min |
-| [`10-partition-pruning.sh`](./10-partition-pruning.sh) | Step 10 | Uploads 10 daily partitions, applies Hive-partitioned table, demonstrates 10x byte savings | Slide 15 | 6 min |
-| [`11-check-org-policy.sh`](./11-check-org-policy.sh) | Step 11 | Ancestry check, effective org policy inspection, demonstrates why org policy cannot be overridden | Slide 25, 40 | 3 min |
-| [`12-teardown.sh`](./12-teardown.sh) | Step 12 | Teardown teaching step: retention refusal on destroy, clear retention period, clean destroy | Slide 24 | 4 min |
+## Step inventory
+
+| Script | Step | What it does |
+|---|---|---|
+| `00-setup.sh` | 0 | Stages the baseline: the ungoverned bucket, the Cloud KMS key and the sample data |
+| `01-read-plan.sh` | 1 | Stages `lake.tf` and runs `terraform plan` to show the four governance controls |
+| `02-apply-governed.sh` | 2 | Applies the governed bucket and describes it beside the ungoverned one |
+| `03-create-zones.sh` | 3 | Creates five zone prefixes and uploads `readings.csv` into Raw |
+| `04-test-public-refusals.sh` | 4 | Makes the ungoverned bucket public, fetches a file anonymously, shows the `412` and `400` refusals on the lake, and revokes the grant |
+| `05-versioning-undo.sh` | 5 | Overwrites and deletes a manifest, and restores it from a prior generation both times |
+| `06-compare-formats.sh` | 6 | Uploads Parquet, applies the external tables, and compares `Bytes Processed` |
+| `07-apply-lifecycle.sh` | 7 | Adds two lifecycle rules as an in-place update |
+| `08-retention-refusal.sh` | 8 | Creates the retention bucket, uploads an incident record, and shows the `403` refusal |
+| `09-cmek-crypto-shredding.sh` | 9 | Applies the CMEK bucket, disables the key version, shows the refusals, and re-enables it |
+| `10-partition-pruning.sh` | 10 | Uploads ten daily partitions, applies the partitioned table, and compares one day with all ten |
+| `11-check-org-policy.sh` | 11 | Checks the project's ancestry and its effective organization policy |
+| `12-teardown.sh` | 12 | Shows the retention refusal on destroy, clears the period, destroys again, and schedules the key version for destruction |
+| `menu.sh` | all | Runs any step from a numbered menu |

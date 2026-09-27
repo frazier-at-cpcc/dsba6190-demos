@@ -4,10 +4,10 @@ Write the two Bash notebooks that drive the Session 3 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 30: stage the working directory, verify the plan
-    demo.ipynb   the hour, steps 1 to 13, teardown and verification included
+    prep.ipynb   stage the working directory, verify the plan
+    demo.ipynb   steps 1 to 13, teardown and verification included
 
-Commands only, on the Bash kernel. What to say is in RUNBOOK.md. Every
+Commands only, on the Bash kernel. The walkthrough is in RUNBOOK.md. Every
 apply and destroy carries -auto-approve, because a notebook cell cannot
 answer the yes prompt. Every destructive command names its target as
 ${VAR:?}, so an empty variable refuses to run rather than widening the
@@ -51,16 +51,16 @@ LOAD = sh(f'source {WORKDIR}/env.sh && cd "${{WORKDIR:?}}" && echo "$PROJECT   s
           '  || echo "NOT STAGED. Run prep.ipynb first. Do not run any other cell."')
 
 PREP = [
-    md("# Session 3 · Before class"),
-    md("## T minus 30 · Stage"),
+    md("# Session 3 · Before you start"),
+    md("## Stage"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
-    md("## T minus 25 · Verify"),
+    md("## Verify"),
     sh("terraform plan"),
 ]
 
 DEMO = [
-    md("# Session 3 · Monolith to module, hardened for A3\n\n"
+    md("# Session 3 · Monolith to module\n\n"
        "Queen City Trip Analytics, a fictional South End, Charlotte firm, codifies the "
        "nightly-trips bucket it created by hand in Session 1."),
     LOAD,
@@ -84,7 +84,7 @@ DEMO = [
     sh("cp main.tf.nearline main.tf"),
 
     md("## Step 6 · Terraform finds the drift"),
-    sh('# In class, make this edit in the Console instead\n'
+    sh('# Or make the same edit in the Console\n'
        'gcloud storage buckets update "gs://${BUCKET:?}" --update-labels=owner=someone-at-2am'),
     sh("terraform plan"),
 
@@ -114,7 +114,7 @@ DEMO = [
     sh("cp main.tf.test main.tf\nterraform plan"),
     sh("terraform apply -auto-approve"),
 
-    md("## Step 11 · The Lab 3 VM as a module"),
+    md("## Step 11 · The trips VM as a module"),
     sh("cp -R stages/08-vm/. .\nterraform init >/dev/null\nterraform plan -var machine_type=n2-standard-32"),
     sh("date +%s > vm.start\nterraform apply -auto-approve"),
     sh('gcloud compute instances delete "${VM:?}" --zone "${ZONE:?}" --quiet'),
@@ -128,7 +128,7 @@ DEMO = [
 
     md("## Step 12 · Drift as an exit code, and what makes a run reproducible"),
     sh('terraform plan -detailed-exitcode > /dev/null; echo "exit code $?"'),
-    sh('# In class, make this edit in the Console instead\n'
+    sh('# Or make the same edit in the Console\n'
        'gcloud storage buckets update "gs://${PROD_BUCKET:?}" --update-labels=owner=someone-at-2am'),
     sh('terraform plan -detailed-exitcode | grep -E "owner|Plan:"; echo "exit code ${PIPESTATUS[0]}"'),
     sh("sed -n '1,12p' .terraform.lock.hcl"),

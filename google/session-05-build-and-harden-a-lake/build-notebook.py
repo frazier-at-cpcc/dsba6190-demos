@@ -4,11 +4,11 @@ Write the Bash notebooks for the Session 5 demonstration from steps/*.sh.
 
     python3 build-notebook.py
 
-The step scripts were verified in class on 17 September 2026. This converts
+The step scripts were verified on 17 September 2026. This converts
 each one into notebook cells: the banner echo lines are dropped, the
 set -e and exit lines are dropped because either would end the notebook's
 shell, and each numbered sub-step becomes its own cell. Commands only; what
-to say is in RUNBOOK.md.
+to notice is in RUNBOOK.md.
 """
 import json
 import pathlib
@@ -71,7 +71,7 @@ def notebook(name, parts):
 LOAD = ("code", 'source ~/dsba6190-live-demo-05/env.sh && echo "lake: dsba6190-lake-$SUFFIX" \\\n'
                 '  || echo "NOT STAGED. Run prep.ipynb first. Do not run any other cell."')
 
-notebook("prep", [("markdown", "# Session 5 · Before class"),
+notebook("prep", [("markdown", "# Session 5 · Before you start"),
                   ("code", "./live-setup.sh YOUR_PROJECT_ID"), LOAD,
                   ("code", "terraform plan")])
 

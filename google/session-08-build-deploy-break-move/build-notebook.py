@@ -4,13 +4,13 @@ Write the two Bash notebooks that drive the Session 8 demonstration.
 
     python3 build-notebook.py
 
-    prep.ipynb   T minus 45: provision the cluster and both images, verify
-    demo.ipynb   the hour, steps 1 to 11, teardown included
+    prep.ipynb   about ten minutes ahead: provision the cluster and both images, verify
+    demo.ipynb   the demonstration, steps 1 to 11, teardown included
 
 Both run on the Bash kernel. The dispatcher loop runs as a background job
-writing to loop.log, and the loop cells show its last lines, so the hour
-needs no second terminal. The notebooks carry step headings and commands
-only. What to say is in RUNBOOK.md and its PDF.
+writing to loop.log, and the loop cells show its last lines, so the
+demonstration needs no second terminal. The notebooks carry step headings
+and commands only. The walkthrough is in RUNBOOK.md.
 """
 
 import json
@@ -54,8 +54,8 @@ LOOP_STOP = 'kill "$(cat loop.pid)" 2>/dev/null; sleep 1; grep -c " 200 " loop.l
 FULL = 'import json,urllib.request;print(json.load(urllib.request.urlopen("http://localhost:8080/quote"))["ms"],"ms")'
 
 notebook("prep", [
-    md("# Session 8 · Before class"),
-    md("## T minus 45 · Provision"),
+    md("# Session 8 · Before you start"),
+    md("## Provision, about ten minutes ahead"),
     sh("./live-setup.sh YOUR_PROJECT_ID"),
     LOAD,
     md("## Verify"),

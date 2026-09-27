@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Stage the Session 5 live demo. Run this BEFORE class, not during.
+# Stage the Session 5 demonstration. Run this before step 1.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
 # Like Session 4 and unlike Session 3, this script applies. It applies exactly
 # one thing: the ungoverned bucket the demonstration starts from. Step 2 adds
 # the governed one beside it and step 4 runs the same command against both, so
-# the ungoverned bucket has to exist before the hour begins.
+# the ungoverned bucket has to exist before step 1.
 #
 # It also creates the Cloud KMS key ring, the key, and the Cloud Storage
 # service agent's binding on that key. Those are out of band on purpose. IAM
@@ -18,8 +18,8 @@
 # not belong in a Git repository.
 #
 # It does NOT destroy anything. capture.sh is the headless recorder and tears
-# everything down through an exit trap; this is its opposite. Do not run
-# capture.sh in front of a class.
+# everything down through an exit trap; this is its opposite. To follow the
+# steps yourself, run this script and then the notebooks.
 
 set -euo pipefail
 
@@ -44,7 +44,7 @@ say () { printf '\n\033[1;32m>>> %s\033[0m\n' "$1"; }
 # ------------------------------------------------------------------- services
 # Idempotent and quick when they are already on. Cloud KMS is the one that is
 # usually off, and enabling it takes a minute to propagate, which is another
-# reason this runs at T minus 30 rather than at 1:30.
+# reason to run this script a few minutes before step 1.
 say "Services"
 for api in storage.googleapis.com bigquery.googleapis.com cloudkms.googleapis.com \
            orgpolicy.googleapis.com; do
@@ -114,7 +114,7 @@ region      = "$REGION"
 kms_key     = "$KEY"
 VARS
 
-# Staged additions, so no step is five minutes of live authoring. Each file
+# Staged additions, so no step requires writing HCL by hand. Each file
 # below is added to the working directory at its own step. Terraform reads
 # every .tf file in the directory, so adding one is the whole edit.
 cp "$HERE/02-governed/lake.tf"       "$WORK/lake.tf.staged"
@@ -152,7 +152,7 @@ ENVEOF
 
 cat <<DONE
 
-  Staged for the live demo, and the baseline is applied.
+  Staged for the demonstration, and the baseline is applied.
 
   Working directory   $WORK
   Project             $PROJECT
@@ -192,16 +192,16 @@ cat <<DONE
 
   Expect: No changes. Your infrastructure matches the configuration.
 
-  Tear down after class. In this order, because the second line fails
+  Tear down when you finish. In this order, because the second line fails
   until the first one runs:
 
       gcloud storage buckets update gs://$VAULT_BUCKET --project $PROJECT --clear-retention-period
       cd $WORK && terraform destroy -auto-approve
       gcloud kms keys versions destroy $VERSION --key $KEYNAME --keyring $KEYRING --location $REGION --project $PROJECT
 
-  Step 12 performs the first two lines in front of the room. Run them again
-  after class only if the demonstration stopped before step 12. The third line
-  is never part of the demonstration and always has to be run by hand.
+  Step 12 performs the first two lines. Run them yourself only if the
+  demonstration stopped before step 12. The third line is never part of the
+  demonstration and always has to be run by hand.
 
   A 404 on a bucket means that step never ran and there is nothing to remove.
 

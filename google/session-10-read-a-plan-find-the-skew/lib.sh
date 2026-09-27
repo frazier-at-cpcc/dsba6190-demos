@@ -16,8 +16,8 @@
 # The properties match capture.sh exactly: runtime 2.2, uncompressed event logs,
 # dynamic allocation off, two executors of four cores, 200 shuffle partitions.
 # Each batch holds 12 vCPUs. submit waits for this demo's previous batch to
-# finish before it starts the next, so the hour never needs more than 12 of
-# the project's CPUS_ALL_REGIONS quota. Three overlapping batches need 36.
+# finish before it starts the next, so the demonstration never needs more than
+# 12 of the project's CPUS_ALL_REGIONS quota. Three overlapping batches need 36.
 
 COMMON="spark.eventLog.enabled=true,spark.eventLog.compress=false,spark.eventLog.dir=$BASE/eventlogs,spark.dynamicAllocation.enabled=false,spark.executor.instances=2,spark.executor.cores=4,spark.sql.shuffle.partitions=200"
 OFF="spark.sql.adaptive.enabled=false,spark.sql.autoBroadcastJoinThreshold=-1"

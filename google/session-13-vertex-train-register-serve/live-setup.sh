@@ -3,13 +3,14 @@
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
-# Queen City Trip Analytics' fleet fuel-cost model. Before class this script
+# Queen City Trip Analytics' fleet fuel-cost model. Before demo.ipynb, this script
 # runs two custom training jobs (ridge and boosted trees) on the prebuilt
 # scikit-learn 1.6 container, registers the ridge model, creates an endpoint
 # and deploys it. Deployment is the slow part. It registers the boosted model
-# nowhere: step 7 does that in front of the room.
+# nowhere: step 7 of demo.ipynb does that.
 #
-# Applies. Never destroys. Run it at T minus 60.
+# Applies. Never destroys. Allow about 30 minutes. The endpoint bills from
+# deployment until step 10 undeploys it.
 set -euo pipefail
 PROJECT="${1:?usage: ./live-setup.sh <PROJECT_ID> [WORKDIR]}"
 WORK="${2:-$HOME/dsba6190-live-demo-13}"

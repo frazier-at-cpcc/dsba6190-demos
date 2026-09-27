@@ -3,12 +3,13 @@
 #
 #   ./capture.sh <PROJECT_ID>
 #
-# Stages with live-setup.sh into .work/, runs every in-class step, writes each
+# Stages with live-setup.sh into .work/, runs every demonstration step, writes each
 # command's output to capture/, and deletes everything through an exit trap:
 # the analyst's grants, the service account, both datasets, the VM, the
 # firewall rule, the subnet and the network. Cost: under $0.05.
 #
-# DO NOT RUN THIS IN CLASS.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

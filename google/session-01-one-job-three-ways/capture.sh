@@ -3,12 +3,13 @@
 #
 #   ./capture.sh <PROJECT_ID>
 #
-# Stages with live-setup.sh into .work/, runs every in-class step against the
+# Stages with live-setup.sh into .work/, runs every demonstration step against the
 # project, writes each command's output to capture/, and deletes everything
 # through an exit trap. Cost: under $0.10. One e2-standard-2 VM for about three
 # minutes, one Cloud Run job execution, and 135 MB scanned in BigQuery.
 #
-# DO NOT RUN THIS IN CLASS.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

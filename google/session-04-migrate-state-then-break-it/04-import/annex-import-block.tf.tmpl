@@ -4,7 +4,7 @@
 # command line cannot be reviewed, because it has already run.
 #
 # Terraform 1.5 requires a literal id in an import block, so this file is a
-# template and live-setup.sh substitutes both placeholders before class. The
+# template and live-setup.sh substitutes both placeholders during staging. The
 # restriction is lifted in Terraform 1.6.
 resource "google_storage_bucket" "annex" {
   name          = "dsba6190-annex-${var.name_suffix}"

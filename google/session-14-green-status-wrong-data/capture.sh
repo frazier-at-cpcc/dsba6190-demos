@@ -13,7 +13,8 @@
 # Cost of one run: under one cent. Load jobs are free, the table is about
 # 70 MB, and log-based metrics and alerting policies at this volume are free.
 #
-# DO NOT RUN THIS IN CLASS. live-setup.sh is the one to run before class.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 set -euo pipefail
 PROJECT="${1:?usage: ./capture.sh <PROJECT_ID>}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

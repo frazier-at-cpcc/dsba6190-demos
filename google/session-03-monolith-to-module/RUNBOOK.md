@@ -1,129 +1,105 @@
-# Session 3 live demo · runbook
+# Session 3 walkthrough · Monolith to module
 
-Monolith to module, then hardened for A3. One hour, thirteen steps, 1:30 to 2:30.
+This walkthrough takes one Cloud Storage bucket from a flat Terraform file to a hardened module in
+thirteen steps. It uses Terraform v1.5.7, `hashicorp/google` v5.45.2, Cloud Storage in `US-EAST1`,
+and one Compute Engine `e2-micro` in `us-east1-b`. Every command below was run end to end on 27
+September 2026, and `capture/` holds the full output of each one. The headless recorder completed
+all thirteen steps in 231 seconds, and the notebooks completed them in 238. You can read the
+walkthrough and the captures without running anything.
 
-Rehearsed end to end on 27 September 2026 against project `YOUR_PROJECT_ID`: Terraform v1.5.7,
-`hashicorp/google` v5.45.2, Cloud Storage in `US-EAST1`, and one Compute Engine `e2-micro` in
-`us-east1-b`. Every command below was run, and `capture/` holds the full output of each one. The
-headless recorder completed all thirteen steps in 231 seconds. The notebooks completed them in 238.
+> **Cost.** Running this demonstration creates billable resources in your own project, on your own
+> billing account. The recorded run cost less than one cent. It created four empty or near-empty
+> buckets and one `e2-micro` that lived for under three minutes at a list price of $0.008376 an
+> hour. Destroy what you create, in the order step 13 shows.
 
-**Do not run `capture.sh` in class.** It stages its own working directory and deletes everything
-through an exit trap. `live-setup.sh` stages and never destroys.
-
-> **Cost.** This demonstration is performed live in class on the instructor's billing account. It
-> costs you nothing and you are not expected to run it. Reproducing it on your own account costs
-> less than one cent: four empty or near-empty buckets, and an `e2-micro` that lives for under three
-> minutes at a list price of $0.008376 an hour. **Destroy what you create, in the order step 13
-> shows.**
+`capture.sh` stages, runs and deletes everything in one pass. To follow the steps yourself, prefer
+the notebooks. `live-setup.sh` stages the working directory and never destroys.
 
 ---
 
 ## The scenario · Queen City Trip Analytics
 
-**Queen City Trip Analytics** is fictional: a twelve-person analytics firm in South End, Charlotte,
-that sells trip-demand dashboards to ground-transportation fleets. Each night a fleet drops one file
+**Queen City Trip Analytics** is a fictional twelve-person analytics firm in South End, Charlotte.
+It sells trip-demand dashboards to ground-transportation fleets. Each night a fleet drops one file
 of completed trips into a bucket. In Session 1 someone created that bucket by hand in the Console,
 and nobody wrote down its settings.
 
-Tonight the firm codifies the nightly-trips bucket. Steps 1 to 7 are the refactor: a flat
-configuration, read and applied, changed in place, nearly replaced, drifted, and turned into one
-module called for `dev` and `prod`. Steps 8 to 13 harden that module the way A3 asks: validated
+In this demonstration the firm codifies the nightly-trips bucket. Steps 1 to 7 are the refactor. A
+flat configuration is read, applied, changed in place, nearly replaced and drifted, and then it
+becomes one module called for `dev` and `prod`. Steps 8 to 13 harden that module. They add validated
 inputs, labels a caller cannot override, deletion controls that hold with data inside, environments
-from one map, the Lab 3 virtual machine behind a five-input interface, and drift reported as an exit
-code. The course project hosts the run, so every name begins with `dsba6190` and ends with a random
-suffix.
-
-Introduce the firm on the scenario slide in about two minutes, then open each step with one sentence
-of what the firm is doing. The slide notes carry that sentence.
+from one map, a trips virtual machine behind a five-input interface, and drift reported as an exit
+code. Every resource name begins with `dsba6190` and ends with a random suffix, so the names do not
+collide with anything else in your project.
 
 ---
 
-## How the hour fits the session clock
+## Before you start
 
-| Clock | Segment | Minutes |
-|---|---|---|
-| 0:00–0:10 | Retrieval warm-up | 10 |
-| 0:10–0:55 | Concept Block 1 · Declarative infrastructure | 45 |
-| 0:55–1:05 | Break | 10 |
-| 1:05–1:30 | Concept Block 2 · Making it reusable | 25 |
-| **1:30–2:30** | **This demonstration** | **60** |
-| 2:30–2:55 | A3 workshop, then Lab 3 supervised start | 25 |
-| 2:55–3:00 | Wrap | 5 |
-
----
-
-## Before class
+You need a Google Cloud project with billing enabled, Terraform 1.5 or later, and the `gcloud` CLI
+signed in with application default credentials. Step 11 creates one `e2-micro` in `us-east1-b`, so
+your project also needs the Compute Engine API enabled and quota for one instance in that zone.
 
 ```sh
-cd "lectures/demos/session-03-monolith-to-module"
-./live-setup.sh YOUR_PROJECT_ID          # or run prep.ipynb; T minus 30
+./live-setup.sh YOUR_PROJECT_ID          # or run prep.ipynb
 cd ~/dsba6190-live-demo-03 && terraform plan  # Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 
 The script builds `~/dsba6190-live-demo-03`, copies every stage into it, writes `terraform.tfvars`
 and `env.sh`, and runs `terraform init`. It creates nothing in the project, because step 2 must plan
 against an empty project. It refuses to overwrite a working directory whose state still tracks
-resources. The prep notebook ran in 11 seconds on the rehearsal.
+resources. The prep notebook ran in 11 seconds on the recorded run.
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| `could not find default credentials` | Application default credentials expired | `gcloud auth application-default login` |
-| `403 does not have storage.buckets.create` | Wrong active project or account | `gcloud config set project YOUR_PROJECT_ID` |
-| `live-setup.sh` stops with `still tracks resources` | A previous run was not torn down | Run the teardown it prints, then stage again |
-| `bucket already exists` | A name from an earlier run is taken | Stage again; the script derives a new suffix |
+Run the steps from `demo.ipynb` on the Bash kernel. In VS Code, choose **Select Kernel**, **Jupyter
+Kernel**, **Bash**. Steps 6 and 12 each make one label edit outside Terraform. You can make that
+edit in the Console, so keep a browser tab open on Cloud Storage in your project. The notebook's
+`gcloud` cells make the same edits from the command line.
 
-**Drive the hour from `demo.ipynb`** on the Bash kernel: VS Code, **Select Kernel**, **Jupyter
-Kernel**, **Bash**. Keep a browser tab on Cloud Storage in the demo project, because steps 6 and 12
-make their label edits in the Console. The notebook's `gcloud` cells make the same edits when the
-Console is not an option.
+Every command runs from `~/dsba6190-live-demo-03`. `terraform.tfvars` holds the project and the
+suffix, so no command needs a flag it does not show.
 
 ---
 
 ## The sequence
 
-| # | Step | Minutes | Slide |
-|---|---|---|---|
-| 1 | The nightly-trips bucket as a flat `main.tf` | 3 | 38 |
-| 2 | `plan`: read the diff before you cause it | 3 | 39 |
-| 3 | `apply`, then `apply` again | 4 | 40 |
-| 4 | Storage class: `~` update in place | 3 | 41 |
-| 5 | Bucket name: `-/+` destroy and recreate. Stop | 4 | 42 |
-| 6 | A Console label edit: `plan` finds the drift | 4 | 43 |
-| 7 | One module, called for `dev` and `prod` | 5 | 44 |
-| 8 | Validation refuses a typo; enforced labels overrule a caller | 6 | 45 |
-| 9 | `prevent_destroy`, then `force_destroy`, refuse the delete | 6 | 46 |
-| 10 | Environments from one map with `for_each` | 5 | 47 |
-| 11 | The Lab 3 VM as a module: validated, protected, priced | 8 | 48 |
-| 12 | Drift as an exit code, and the lock file | 5 | 49 |
-| 13 | Teardown, and proof that nothing remains | 4 | 50 |
-| | **Total** | **60** | |
+| # | Step |
+|---|---|
+| 1 | The monolith |
+| 2 | Read the diff before you cause it |
+| 3 | Apply, then apply again |
+| 4 | Update in place |
+| 5 | Destroy and recreate, then stop |
+| 6 | Terraform finds the drift |
+| 7 | One module, two environments |
+| 8 | Validation, and labels a caller cannot override |
+| 9 | Safe deletion with `prevent_destroy` and `force_destroy` |
+| 10 | Environments from one map |
+| 11 | The trips VM as a module |
+| 12 | Drift as an exit code, and the lock file |
+| 13 | Teardown, and proof that nothing remains |
 
-Slide 34 is the divider, slide 35 introduces the scenario, and slides 36 and 37 carry the run sheet.
-Slides 51 to 54 are the A3 workshop that follows. The deck runs to 60 slides.
-
-Every command runs from `~/dsba6190-live-demo-03`. `terraform.tfvars` holds the project and the
-suffix, so no command needs a flag it does not show.
-
-### Step 1 · The monolith · 3 minutes
+### Step 1 · The monolith
 
 ```sh
 cat main.tf
 ```
 
-Name what is hardcoded: the name, the location, and the storage class. `force_destroy = true` is
-there only so the first seven steps tear down in one command. **What to notice.** This is the bucket
-someone clicked into existence in Session 1, now in a file a reviewer can read.
+The file hardcodes three settings: the name, the location, and the storage class. The setting
+`force_destroy = true` is there only so the first seven steps tear down in one command. **What to
+notice.** This is the bucket someone clicked into existence in Session 1, now in a file a reviewer
+can read.
 
-### Step 2 · Read the diff before you cause it · 3 minutes
+### Step 2 · Read the diff before you cause it
 
 ```sh
 terraform plan
 ```
 
-`Plan: 1 to add, 0 to change, 0 to destroy.` Read the symbol, the address, then the attributes.
-**What to notice.** `(known after apply)` names what Terraform cannot know until Google answers.
+The plan ends with `Plan: 1 to add, 0 to change, 0 to destroy.` Read the symbol first, then the
+address, then the attributes. **What to notice.** `(known after apply)` marks each value Terraform
+cannot know until Google answers.
 
-### Step 3 · Apply, then apply again · 4 minutes
+### Step 3 · Apply, then apply again
 
 ```sh
 terraform apply -auto-approve
@@ -134,41 +110,45 @@ The bucket was created in **1 second**. The second run printed `No changes. Your
 matches the configuration.` **What to notice.** A script would fail on the second run, because
 `create` on an existing bucket is an error.
 
-### Step 4 · Update in place · 3 minutes
+### Step 4 · Update in place
 
 ```sh
 cp main.tf.nearline main.tf && terraform plan
 terraform apply -auto-approve
 ```
 
-`~ storage_class = "STANDARD" -> "NEARLINE"` with **14 unchanged attributes hidden**, then `0 added,
-1 changed, 0 destroyed` in under a second. **What to notice.** The bucket keeps its name, its
-objects, and its URL.
+The plan shows `~ storage_class = "STANDARD" -> "NEARLINE"` with **14 unchanged attributes hidden**.
+The apply reported `0 added, 1 changed, 0 destroyed` in under a second. **What to notice.** The
+bucket keeps its name, its objects, and its URL.
 
-### Step 5 · Destroy and recreate. Stop · 4 minutes
+### Step 5 · Destroy and recreate, then stop
 
 ```sh
 cp main.tf.renamed main.tf && terraform plan
 cp main.tf.nearline main.tf
 ```
 
-`-/+ destroy and then create replacement`, and on the `name` line, `# forces replacement`. `Plan: 1
-to add, 0 to change, 1 to destroy.` **Do not apply.** Ask what would have happened if this bucket
-held the fleet's raw trips, and let the silence run. Restore `main.tf.nearline` before step 6.
-**What to notice.** `forces replacement` is the string to search for in any plan you did not write.
+The plan shows `-/+ destroy and then create replacement`, and the `name` line carries `# forces
+replacement`. The summary reads `Plan: 1 to add, 0 to change, 1 to destroy.` Do not apply this plan.
+Consider what the apply would have done if this bucket held the fleet's raw trips. The second
+command restores `main.tf.nearline` before step 6. **What to notice.** `forces replacement` is the
+string to search for in any plan you did not write.
 
-### Step 6 · Terraform finds the drift · 4 minutes
+### Step 6 · Terraform finds the drift
 
-In the Console, open the bucket, edit its labels, set `owner` to `someone-at-2am`, and save. Then:
+Set the bucket's `owner` label to `someone-at-2am`. In the Console, open the bucket, edit its
+labels, change `owner`, and save. The first command below makes the same edit from the command line.
 
 ```sh
+gcloud storage buckets update "gs://${BUCKET:?}" --update-labels=owner=someone-at-2am
 terraform plan
 ```
 
-`~ "owner" = "someone-at-2am" -> "dsba6190"` in all three label maps, and `Plan: 0 to add, 1 to
-change, 0 to destroy.` **What to notice.** This is detection. Nothing prevented the edit.
+The plan shows `~ "owner" = "someone-at-2am" -> "dsba6190"` in all three label maps, and `Plan: 0 to
+add, 1 to change, 0 to destroy.` **What to notice.** Terraform detected the edit. Nothing prevented
+it.
 
-### Step 7 · One module, two environments · 5 minutes
+### Step 7 · One module, two environments
 
 ```sh
 terraform destroy -auto-approve
@@ -177,11 +157,12 @@ terraform plan
 terraform apply -auto-approve
 ```
 
-`Plan: 2 to add`, two buckets created in **1 second** each, and two outputs. **`terraform init` is
-not optional.** Skip it and `plan` fails with `Error: Module not installed`. **What to notice.** The
-four standard labels come from the module body, so a caller cannot forget them.
+The plan reads `Plan: 2 to add`. The apply created two buckets in **1 second** each and printed two
+outputs. The root now calls a module, so `terraform init` is required after the copy. Without it,
+`plan` fails with `Error: Module not installed`. **What to notice.** The four standard labels come
+from the module body, so a caller cannot forget them.
 
-### Step 8 · Validation, and labels a caller cannot override · 6 minutes
+### Step 8 · Validation, and labels a caller cannot override
 
 ```sh
 cp -R stages/05-validate/. . && terraform init
@@ -197,7 +178,7 @@ test, prod.` The corrected root passes `extra_labels` with `environment = "sandb
 alone, and `terraform output dev_labels` shows `"environment" = "dev"`. **What to notice.**
 `merge(var.extra_labels, local.enforced)` puts the enforced map last, so it wins.
 
-### Step 9 · Safe deletion: prevent_destroy, then force_destroy · 6 minutes
+### Step 9 · Safe deletion with prevent_destroy and force_destroy
 
 ```sh
 cp -R stages/06-protect/. . && terraform apply -auto-approve
@@ -209,13 +190,13 @@ gcloud storage ls "gs://${PROD_BUCKET:?}/raw/"
 ```
 
 The apply shows `~ force_destroy = true -> false` on both buckets. The first destroy fails twice
-with `Error: Instance cannot be destroyed`, once per bucket, because `lifecycle.prevent_destroy`
-accepts literal values only and so guards every environment. With the lifecycle block deleted, the
-targeted destroy fails with `Error trying to delete bucket dsba6190-prod-raw-26095 containing
-objects without force_destroy set to true`. The trip file is still listed. **What to notice.**
-Deleting the block deleted the guard. The second control held anyway.
+with `Error: Instance cannot be destroyed`, once per bucket. `lifecycle.prevent_destroy` accepts
+literal values only, so it guards every environment. With the lifecycle block deleted, the targeted
+destroy fails with `Error trying to delete bucket dsba6190-prod-raw-26095 containing objects without
+force_destroy set to true`. The trip file is still listed. **What to notice.** Deleting the block
+deleted the guard. The second control held anyway.
 
-### Step 10 · Environments from one map · 5 minutes
+### Step 10 · Environments from one map
 
 ```sh
 cp -R stages/07-foreach/. . && terraform init && terraform plan
@@ -229,7 +210,7 @@ The first plan reads `module.dev_lake... has moved to module.lake["dev"]` for bo
 **What to notice.** Without the two `moved` blocks, the new addresses would have planned the
 destruction of dev and prod. All three environments still share one state.
 
-### Step 11 · The Lab 3 VM as a module · 8 minutes
+### Step 11 · The trips VM as a module
 
 ```sh
 cp -R stages/08-vm/. . && terraform init
@@ -240,7 +221,7 @@ terraform apply -auto-approve -var vm_environment=dev
 cp stages/07-foreach/main.tf.test main.tf && terraform apply -auto-approve
 ```
 
-| What happened | Real figure |
+| What happened | Measured result |
 |---|---|
 | `n2-standard-32` at plan time | `machine_type must be e2-micro, e2-small, or e2-medium.` |
 | `e2-micro`, environment `prod`, created | 13 seconds, `deletion_protection = true` |
@@ -250,27 +231,28 @@ cp stages/07-foreach/main.tf.test main.tf && terraform apply -auto-approve
 | Apply to destroyed, wall clock | **159 seconds, 0.0442 machine-hours, $0.000370** |
 | `n2-standard-32` list price | **$1.5539 an hour, $1,134.34 for a 730-hour month** |
 
-The prices come from the Cloud Billing Catalog for `us-east1` on 27 September 2026: E2 cores at
-$0.02181159 an hour and E2 memory at $0.00292353 a GiB-hour, with an `e2-micro` billed as a quarter
-of a core and 1 GiB. **What to notice.** The cost model is machine type multiplied by hours running,
-and the validation block refuses the expensive value before anything bills.
+The prices come from the Cloud Billing Catalog for `us-east1` on 27 September 2026. E2 cores list at
+$0.02181159 an hour and E2 memory at $0.00292353 a GiB-hour. An `e2-micro` bills as a quarter of a
+core and 1 GiB. **What to notice.** The cost model is machine type multiplied by hours running, and
+the validation block refuses the expensive value before anything bills.
 
-### Step 12 · Drift as an exit code, and reproducibility · 5 minutes
+### Step 12 · Drift as an exit code, and the lock file
 
 ```sh
 terraform plan -detailed-exitcode > /dev/null; echo "exit code $?"
+gcloud storage buckets update "gs://${PROD_BUCKET:?}" --update-labels=owner=someone-at-2am
 terraform plan -detailed-exitcode | grep -E "owner|Plan:"; echo "exit code ${PIPESTATUS[0]}"
 sed -n '1,12p' .terraform.lock.hcl
 terraform providers
 ```
 
-Make the `owner` label edit on the prod bucket in the Console between the first two commands. The
-first plan returned **exit code 0**; after the edit, **exit code 2**. The lock file records `version
-= "5.45.2"` under `constraints = "~> 5.0"`, with hashes. **What to notice.** Exit code 2 is the hook
-a scheduled pipeline uses next week, and the committed lock file is what makes the next checkout
-resolve the same provider.
+The second command sets the prod bucket's `owner` label to `someone-at-2am`. You can make the same
+edit in the Console instead. The first plan returned **exit code 0**. After the edit, the plan
+returned **exit code 2**. The lock file records `version = "5.45.2"` under `constraints = "~> 5.0"`,
+with hashes. **What to notice.** Exit code 2 is the hook a scheduled pipeline uses to report drift.
+The committed lock file makes the next checkout resolve the same provider.
 
-### Step 13 · Teardown, and proof that nothing remains · 4 minutes
+### Step 13 · Teardown, and proof that nothing remains
 
 ```sh
 gcloud storage rm "gs://${PROD_BUCKET:?}/**"
@@ -287,19 +269,18 @@ an empty variable refuses to run rather than widening the delete.
 
 ---
 
-## If it fails live
+## Known issues and fixes
 
-| What happened | Do this |
+| Symptom | Fix |
 |---|---|
-| `apply` hangs longer than about twenty seconds | Ctrl-C once, then present the capture slide for that step. Every slide from 38 to 50 is real output |
+| `could not find default credentials` | Application default credentials are missing or expired. Run `gcloud auth application-default login` |
+| `403 does not have storage.buckets.create` | The wrong project or account is active. Run `gcloud config set project YOUR_PROJECT_ID` |
+| `live-setup.sh` stops with `still tracks resources` | A previous run was not torn down. Run the teardown it prints, then stage again |
+| `bucket already exists` | A name from an earlier run is taken. Stage again, and the script derives a new suffix |
 | `Error: Module not installed` at step 7, 10, or 11 | Run `terraform init`. The step's first cell includes it |
-| Step 9's first destroy succeeds | The stage copy was skipped, so the module has no lifecycle block. Recreate with `terraform apply` and copy the stage |
-| The VM apply fails on quota or zone capacity | Present slide 48. Do not debug a VM in front of the room |
-| Credentials expire mid-session | Move to the capture slides and say plainly that the run is recorded |
-| The hour runs short | Shorten step 12 to the two exit codes. Never skip step 9 or step 13 |
-
-The capture slides are the same run, recorded on 27 September 2026. Switching to them costs the room
-nothing except the sight of the command being typed.
+| Step 9's first destroy succeeds | The stage copy was skipped, so the module has no lifecycle block. Recreate the buckets with `terraform apply`, then copy the stage |
+| The VM apply fails on quota or zone capacity | Check the Compute Engine quotas for `us-east1` in your project, or try again later. The captures for step 11 show the full run |
+| `apply` runs longer than about twenty seconds on a bucket | Press Ctrl-C once and let Terraform stop, then run the step again. The capture for that step shows the expected output |
 
 ---
 
@@ -311,6 +292,6 @@ nothing except the sight of the command being typed.
 | `05-validate/` | Step 8: validated inputs, `extra_labels`, `merge()` with the enforced map last, and `main.tf.typo` |
 | `06-protect/` | Step 9: `force_destroy` as an input defaulting to false, `prevent_destroy`, and `main.tf.unguarded` |
 | `07-foreach/` | Step 10: one module block over a map, two `moved` blocks, and `main.tf.test` |
-| `08-vm/` | Step 11: the Lab 3 VM as a five-input module with a validated machine type |
+| `08-vm/` | Step 11: the trips VM as a five-input module with a validated machine type |
 | `live-setup.sh`, `capture.sh`, `capture/` | Staging, the recorder, and 44 files of real output |
-| `prep.ipynb`, `demo.ipynb`, `build-notebook.py` | Bash notebooks, commands only |
+| `prep.ipynb`, `demo.ipynb`, `build-notebook.py` | The Bash notebooks, commands only, and the script that writes them |

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 7 · The lifecycle rule that nothing runs tonight · slide 11 · 4 minutes
+# Step 7 · The lifecycle rule that nothing runs tonight
 #
 # Replaces lake.tf with lifecycle rules (Nearline at 30 days, Archive at 365 days),
 # runs plan and apply (in-place update), and inspects lifecycle configuration.
@@ -12,7 +12,7 @@ AUTO_APPROVE="${AUTO_APPROVE:---auto-approve}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 7 · The lifecycle rule that nothing runs tonight\033[0m"
-echo -e "\033[1;32m    Slide 11 · 4 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -36,6 +36,6 @@ gcloud storage buckets describe "gs://dsba6190-lake-$SUFFIX" \
   --project "$PROJECT" \
   --format="yaml(name,lifecycle_config)"
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Nothing moves tonight. Cloud Storage evaluates lifecycle asynchronously once daily."
+echo -e "\n\033[1;33m[Note]\033[0m Nothing moves tonight. Cloud Storage evaluates lifecycle asynchronously once daily."
 echo "Rule encodes access pattern: Nearline at 30 days, Archive at 365 days."
 echo -e "\n\033[1;32m>>> Step 7 complete.\033[0m"

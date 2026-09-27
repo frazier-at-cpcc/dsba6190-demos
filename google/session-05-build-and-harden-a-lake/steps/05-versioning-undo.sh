@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Step 5 · Versioning is the undo · slide 24 · 6 minutes
+# Step 5 · Versioning is the undo
 #
 # Demonstrates object versioning: overwriting an object does not destroy history,
 # deleting an object adds a delete marker, and any prior generation can be restored.
@@ -11,7 +11,7 @@ WORK="${WORK:-$HOME/dsba6190-live-demo-05}"
 
 echo -e "\033[1;32m=================================================================\033[0m"
 echo -e "\033[1;32m>>> Step 5 · Versioning is the undo\033[0m"
-echo -e "\033[1;32m    Slide 24 · 6 minutes · Suffix: $SUFFIX\033[0m"
+echo -e "\033[1;32m    Suffix: $SUFFIX\033[0m"
 echo -e "\033[1;32m=================================================================\033[0m"
 
 if [ ! -d "$WORK" ]; then
@@ -60,6 +60,6 @@ gcloud storage cp "gs://dsba6190-lake-$SUFFIX/raw/readings/_manifest.json#$GEN_G
   "gs://dsba6190-lake-$SUFFIX/raw/readings/_manifest.json" --project "$PROJECT"
 gcloud storage cat "gs://dsba6190-lake-$SUFFIX/raw/readings/_manifest.json" --project "$PROJECT"
 
-echo -e "\n\033[1;33m[Teaching note]\033[0m Overwrite moved pointer; delete added tombstone. Neither destroyed bytes."
+echo -e "\n\033[1;33m[Note]\033[0m Overwrite moved pointer; delete added tombstone. Neither destroyed bytes."
 echo "Cost consequence: Noncurrent versions bill until expired by lifecycle rules."
 echo -e "\n\033[1;32m>>> Step 5 complete.\033[0m"

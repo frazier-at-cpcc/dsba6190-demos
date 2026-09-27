@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
-# Stage the Session 6 live demo. Run this BEFORE class, not during.
+# Stage the Session 6 demonstration. Run this before the walkthrough starts.
 #
 #   ./live-setup.sh <PROJECT_ID> [WORKDIR]
 #
 # This script provisions. Unlike every other session's staging script, most of
-# what it does is wait: a Cloud Data Fusion instance is the one resource in this
-# course that cannot be created inside the hour it is needed. It creates the
+# what it does is wait: a Cloud Data Fusion instance takes about sixteen minutes
+# to create. It creates the
 # instance, blocks until the instance reports RUNNING, then builds the bucket,
 # the dataset, the sample data and the four pipeline definitions around it.
 #
 # It does NOT destroy anything, and it does NOT deploy or run a pipeline. The
-# hour deploys and runs them, because watching a pipeline being built is the
-# demonstration. capture.sh is the headless recorder and tears the estate down
+# walkthrough deploys and runs them, because watching a pipeline being built is
+# the demonstration. capture.sh is the headless recorder and tears the estate down
 # through an exit trap; this is its opposite.
 #
-# RUN IT AT T MINUS 60. The rehearsal on 10 September 2026 took 11 minutes and
-# 6 seconds from `create` to RUNNING, and the first create attempt aborted in
-# three seconds and had to be re-issued. Sixty minutes is the margin for that
-# re-issue plus a second one.
+# Allow at least thirty minutes. Two builds on 10 September 2026 took about
+# sixteen minutes each from `create` to RUNNING, and a create attempt can abort
+# in three seconds and need re-issuing. The loop below re-issues it.
 
 set -euo pipefail
 
@@ -50,9 +49,8 @@ for api in datafusion.googleapis.com dataproc.googleapis.com \
 done
 
 # ------------------------------------------------------------------------ iam
-# Both of these are the grants Lab 6 tells students to make by hand, and both
-# fail late rather than early when they are missing. Making them here means the
-# hour does not discover them at pipeline run.
+# These grants fail late rather than early when they are missing. Making them
+# here means the walkthrough does not discover them at pipeline run.
 say "The two grants that fail late when they are missing"
 PROJECT_NUMBER="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')"
 COMPUTE_SA="$PROJECT_NUMBER-compute@developer.gserviceaccount.com"
@@ -113,11 +111,11 @@ SPARK_SA="$(gcloud beta data-fusion instances describe "$INSTANCE" --project "$P
               --location "$REGION" --format='value(dataprocServiceAccount)')"
 # `dataprocServiceAccount` is empty on a default instance, which means the
 # ephemeral Dataproc cluster runs as the default compute service account. That
-# is the account the lab's second grant is about, whatever the Instance details
+# is the account the second grant is about, whatever the Instance details
 # page calls it.
 [ -z "$SPARK_SA" ] && SPARK_SA="$COMPUTE_SA"
 
-# Grant two, which the lab names: the cluster's identity needs the Cloud Data
+# Grant two: the cluster's identity needs the Cloud Data
 # Fusion API Service Agent role. Without it the run fails at PROVISION with a
 # list of missing storage permissions, roughly five seconds in, and Editor on
 # the same account does not substitute for it.
@@ -126,8 +124,8 @@ gcloud projects add-iam-policy-binding "$PROJECT" \
   --role roles/datafusion.serviceAgent --condition=None >/dev/null
 echo "  granted          $SPARK_SA  roles/datafusion.serviceAgent"
 
-# Grant three, which the lab does not name and which the rehearsal on
-# 10 September found the hard way: the Data Fusion service agent has to be
+# Grant three, which the recorded run on 10 September found the hard way:
+# the Data Fusion service agent has to be
 # allowed to act as the cluster's identity. Without it the run fails at
 # PROVISION with "User not authorized to act as service account", about five
 # seconds in, after the first two grants are already correct.
@@ -174,7 +172,7 @@ ENVEOF
 
 cat <<DONE
 
-  Staged for the live demo. The instance is running and nothing is deployed.
+  Staged for the demonstration. The instance is running and nothing is deployed.
 
   Working directory   $WORK
   Project             $PROJECT
@@ -182,7 +180,7 @@ cat <<DONE
   Name suffix         $SUFFIX
   Instance built in   $(( ELAPSED / 60 )) min $(( ELAPSED % 60 )) s, on attempt $ATTEMPT
 
-  Load the names into the shell you will teach from:
+  Load the names into the shell you will work from:
 
       source $WORK/env.sh
 
@@ -192,23 +190,23 @@ cat <<DONE
   Open the Studio at:
     $CONSOLE
 
-  Created, empty, and waiting for the hour:
+  Created, empty, and waiting for the walkthrough:
     gs://$BUCKET/raw/pos/pos-2026-09-24.csv
     $DATASET   (no tables; step 4 creates the first one)
 
-  NOT created. The hour deploys each of these at its own step:
-    pos-01-baseline    step 3   GCS, Wrangler, BigQuery
-    pos-02-quarantine  step 7   the same, plus the error port and an error sink
-    pos-03-idempotent  step 9   the same, with a sink that replaces
-    pos-04-drift       step 10  the same, with one directive missing
+  NOT created. The walkthrough deploys each of these at its own step:
+    pos-01-baseline    step 4   GCS, Wrangler, BigQuery
+    pos-02-quarantine  step 10  the same, plus the error port and an error sink
+    pos-03-idempotent  capture  the same, with a sink that replaces
+    pos-04-drift       capture  the same, with one directive missing
 
   Pipeline JSON, ready to import if the Studio has moved:
     $WORK/pipelines/
 
-  Held back for step 6, because the malformed day arrives mid-hour:
+  Held back for step 7, because the malformed day arrives mid-walkthrough:
     $WORK/sample/pos-2026-09-24-dirty.csv
 
-  Upload it at step 6 with:
+  Upload it at step 7 with:
 
       gcloud storage cp $WORK/sample/pos-2026-09-24-dirty.csv \\
         gs://$BUCKET/raw/pos/pos-2026-09-24.csv
@@ -221,7 +219,7 @@ cat <<DONE
   wrangler-transform. An empty answer means the instance is running but its
   API is not serving yet. Wait two minutes and try again.
 
-  TEAR DOWN THE SAME EVENING. The instance bills \$1.80 per instance-hour,
+  TEAR DOWN THE SAME DAY. The instance bills \$1.80 per instance-hour,
   which is \$25.20 for one night and \$1,296 for a month:
 
       gcloud beta data-fusion instances delete $INSTANCE \\
@@ -238,7 +236,7 @@ cat <<DONE
 
   Delete what those two commands list.
 
-  Step 12 performs the first line in front of the room. Confirm all of it with:
+  The teardown in RUNBOOK.md runs the first line. Confirm all of it with:
 
       gcloud beta data-fusion instances list --project $PROJECT --location $REGION
       gcloud dataproc clusters list --project $PROJECT --region $REGION

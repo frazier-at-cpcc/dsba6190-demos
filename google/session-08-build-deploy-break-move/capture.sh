@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
-# Capture the Session 8 live demo: build, deploy, update, break, and move.
+# Capture the Session 8 demonstration: build, deploy, update, break, and move.
 #
 #   ./capture.sh <PROJECT_ID>
 #
 # Stages with live-setup.sh into .work/, runs all eleven steps against a real
 # GKE cluster and Cloud Run, writes every command's real output to capture/,
 # and tears everything down through an exit trap in the order step 11
-# teaches: the Service first, so the load balancer is released, then the
+# shows: the Service first, so the load balancer is released, then the
 # cluster, the Cloud Run service and the repository.
 #
 # Cost of one run: roughly $1. Three e2-medium nodes for about an hour, one
 # load balancer, three image builds inside the Cloud Build free tier, and a
 # vulnerability scan on each pushed image.
 #
-# DO NOT RUN THIS IN CLASS. live-setup.sh is the one to run before class.
+# It stages, runs and deletes everything in one pass. To follow the steps
+# yourself, prefer prep.ipynb and demo.ipynb.
 
 set -euo pipefail
 
